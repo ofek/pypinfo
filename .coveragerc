@@ -1,0 +1,13 @@
+[run]
+source =
+    pypinfo
+    tests/
+branch = True
+omit =
+    pypinfo/cli.py
+    pypinfo/keygen.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
