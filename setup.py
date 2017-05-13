@@ -9,7 +9,7 @@ with open('pypinfo/__init__.py', 'r') as f:
 setup(
     name='pypinfo',
     version=version,
-    description='Bitcoin made easy.',
+    description='View PyPI download statistics with ease.',
     long_description=open('README.rst', 'r').read(),
     author='Ofek Lev',
     author_email='ofekmeister@gmail.com',
