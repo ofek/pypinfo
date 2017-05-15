@@ -39,7 +39,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy'
     ),
 
-    install_requires=('click', 'google-cloud-bigquery'),
+    install_requires=('appdirs', 'click', 'google-cloud-bigquery', 'tinydb', 'tinyrecord'),
     tests_require=['pytest'],
 
     packages=find_packages(),

@@ -35,5 +35,5 @@ This is relatively painless, I swear.
    to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
    After creation, note the download location. Move the file wherever you want.
 5. ``pip install pypinfo``
-6. ``pypinfo setup -creds path/to/your_creds.json``, or set an environment variable
+6. ``pypinfo creds path/to/your_credentials.json``, or set an environment variable
    ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
