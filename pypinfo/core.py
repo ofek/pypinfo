@@ -3,7 +3,7 @@ import os
 
 from google.cloud.bigquery import Client
 
-from pypinfo.fields import Downloads
+from pypinfo.fields import AGGREGATES, Downloads
 
 FROM = """\
 FROM
@@ -58,10 +58,15 @@ def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
             query += 'WHERE\n  file.project = "{}"\n'.format(project)
 
     if len(fields) > 1:
-        query += 'GROUP BY\n'
+        gb = 'GROUP BY\n'
+        initial_length = len(gb)
 
         for field in fields[:-1]:
-            query += '  {},\n'.format(field.name)
+            if field not in AGGREGATES:
+                gb += '  {},\n'.format(field.name)
+
+        if len(gb) > initial_length:
+            query += gb
 
     query += 'ORDER BY\n  {} DESC\n'.format(Downloads.name)
     query += 'LIMIT {}'.format(limit)
