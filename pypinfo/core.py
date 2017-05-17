@@ -52,14 +52,15 @@ def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
     query += FROM.format(start_date, end_date)
 
     if where:
-        query += '{}\n'.format(where)
+        query += 'WHERE\n  {}\n'.format(where)
     else:
         query += 'WHERE\n  file.project = "{}"\n'.format(project)
 
-    query += 'GROUP BY\n'
+    if len(fields) > 1:
+        query += 'GROUP BY\n'
 
-    for field in fields[:-1]:
-        query += '  {},\n'.format(field.name)
+        for field in fields[:-1]:
+            query += '  {},\n'.format(field.name)
 
     query += 'ORDER BY\n  {} DESC\n'.format(Downloads.name)
     query += 'LIMIT {}'.format(limit)
