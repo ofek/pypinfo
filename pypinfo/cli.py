@@ -3,16 +3,19 @@ import click
 from pypinfo.core import build_query, create_client, parse_query_result, tabulate
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
-    Date, Version, PythonVersion, Installer, InstallerVersion, System, SystemRelease
+    Project, Date, Country, Version, PythonVersion, Installer, InstallerVersion,
+    System, SystemRelease
 )
 
 CONTEXT_SETTINGS = {
     'max_content_width': 300
 }
 COMMAND_MAP = {
+    'project': Project,
     'version': Version,
     'pyversion': PythonVersion,
     'date': Date,
+    'country': Country,
     'installer': Installer,
     'installer_version': InstallerVersion,
     'system': System,
@@ -21,7 +24,7 @@ COMMAND_MAP = {
 
 
 @click.group(invoke_without_command=True, context_settings=CONTEXT_SETTINGS)
-@click.argument('package', required=False)
+@click.argument('project', required=False)
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
@@ -33,19 +36,18 @@ COMMAND_MAP = {
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
 @click.option('--where', '-w', help='Supply your own WHERE conditional.')
 @click.pass_context
-def pypinfo(ctx, package, fields, run, auth, timeout, limit, days,
+def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
             start_date, end_date, where):
     """Valid fields are:\n
-    version | pyversion | date | installer | installer_version | system |\n
-    system_release
-    
+    project | version | pyversion | date | country | installer | installer_version |\n
+    system | system_release
     """
     if auth:
         set_credentials(auth)
         click.echo('Credentials location set to "{}".'.format(get_credentials()))
         return
 
-    if package is None or not fields:
+    if project is None:
         click.echo(ctx.get_help())
         return
 
@@ -56,7 +58,7 @@ def pypinfo(ctx, package, fields, run, auth, timeout, limit, days,
             raise ValueError('"{}" is an unsupported field.'.format(field))
         parsed_fields.append(parsed)
 
-    built_query = build_query(package, parsed_fields, limit=limit, days=days,
+    built_query = build_query(project, parsed_fields, limit=limit, days=days,
                               start_date=start_date, end_date=end_date, where=where)
 
     if run:
