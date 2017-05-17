@@ -34,14 +34,14 @@ def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
     end_date = end_date or END_DATE
     limit = limit or DEFAULT_LIMIT
 
+    if days:
+        start_date = str(int(end_date) - int(days))
+
     if int(start_date) > 0 or int(end_date) > 0:
         raise ValueError('Dates must be in the past (negative).')
 
     if int(start_date) >= int(end_date):
         raise ValueError('End date must be greater than start date.')
-
-    if days:
-        start_date = str(int(end_date) - int(days))
 
     fields.append(Downloads)
     query = 'SELECT\n'
