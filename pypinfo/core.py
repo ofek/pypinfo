@@ -54,7 +54,8 @@ def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
     if where:
         query += 'WHERE\n  {}\n'.format(where)
     else:
-        query += 'WHERE\n  file.project = "{}"\n'.format(project)
+        if project:
+            query += 'WHERE\n  file.project = "{}"\n'.format(project)
 
     if len(fields) > 1:
         query += 'GROUP BY\n'

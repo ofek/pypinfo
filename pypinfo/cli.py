@@ -50,7 +50,7 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
         click.echo('Credentials location set to "{}".'.format(get_credentials()))
         return
 
-    if project is None:
+    if project is None and not fields:
         click.echo(ctx.get_help())
         return
 
