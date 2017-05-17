@@ -4,7 +4,7 @@ from pypinfo.core import build_query, create_client, parse_query_result, tabulat
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
     Project, Date, Country, Version, PythonVersion, Installer, InstallerVersion,
-    System, SystemRelease
+    System, SystemRelease, Implementation, ImplementationVersion
 )
 
 CONTEXT_SETTINGS = {
@@ -14,12 +14,14 @@ COMMAND_MAP = {
     'project': Project,
     'version': Version,
     'pyversion': PythonVersion,
+    'impl': Implementation,
+    'impl-version': ImplementationVersion,
     'date': Date,
     'country': Country,
     'installer': Installer,
-    'installer_version': InstallerVersion,
+    'installer-version': InstallerVersion,
     'system': System,
-    'system_release': SystemRelease,
+    'system-release': SystemRelease,
 }
 
 
@@ -39,8 +41,8 @@ COMMAND_MAP = {
 def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
             start_date, end_date, where):
     """Valid fields are:\n
-    project | version | pyversion | date | country | installer | installer_version |\n
-    system | system_release
+    project | version | pyversion | impl | impl-version | date | country |\n
+    installer | installer-version | system | system-release
     """
     if auth:
         set_credentials(auth)
