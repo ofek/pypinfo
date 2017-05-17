@@ -4,12 +4,6 @@ pypinfo: View PyPI download statistics with ease.
 .. image:: https://img.shields.io/pypi/v/pypinfo.svg?style=flat-square
     :target: https://pypi.org/project/pypinfo
 
-.. image:: https://img.shields.io/travis/ofek/pypinfo.svg?branch=master&style=flat-square
-    :target: https://travis-ci.org/ofek/pypinfo
-
-.. image:: https://img.shields.io/codecov/c/github/ofek/pypinfo.svg?style=flat-square
-    :target: https://codecov.io/gh/ofek/pypinfo
-
 .. image:: https://img.shields.io/pypi/pyversions/pypinfo.svg?style=flat-square
     :target: https://pypi.org/project/pypinfo
 
