@@ -15,7 +15,7 @@ FROM
 """
 START_DATE = '-31'
 END_DATE = '-1'
-DEFAULT_LIMIT = '100'
+DEFAULT_LIMIT = '20'
 
 
 def create_client(creds_file=None):
