@@ -81,35 +81,26 @@ def parse_query_result(query):
 
 
 def tabulate(rows):
-    # This function assumes that a header will always be the longest element.
-    column_index = 0
-    column_width = 0
+    column_widths = [0] * len(rows[0])
 
+    # Get max width of each column
     for row in rows:
         for i, item in enumerate(row):
             length = len(item)
-            if length > column_width:
-                column_index = i
-                column_width = length
+            if length > column_widths[i]:
+                column_widths[i] = length
 
     tabulated = ''
 
     headers = rows.pop(0)
-    last_index = len(headers) - 1
     for i, item in enumerate(headers):
-        tabulated += item
-        if i != last_index:
-            pad = 1 if i == column_index else 0
-            tabulated += ' ' * (column_width - len(item) + pad)
-    tabulated += '\n' + ''.join('-' if c != ' ' else ' ' for c in tabulated) + '\n'
+        tabulated += item + ' ' * (column_widths[i] - len(item) + 1)
+
+    tabulated += '\n' + ''.join('-' * i + ' ' for i in column_widths) + '\n'
 
     for row in rows:
-        last_index = len(row) - 1
         for i, item in enumerate(row):
-            tabulated += item
-            if i != last_index:
-                pad = 1 if i == column_index else 0
-                tabulated += ' ' * (column_width - len(item) + pad)
+            tabulated += item + ' ' * (column_widths[i] - len(item) + 1)
         tabulated += '\n'
 
     return tabulated
