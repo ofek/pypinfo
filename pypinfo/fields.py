@@ -3,6 +3,8 @@ from collections import namedtuple
 Field = namedtuple('Field', ('name', 'data'))
 Downloads = Field('download_count', 'COUNT(*)')
 Date = Field('download_date', 'STRFTIME_UTC_USEC(timestamp, "%Y-%m-%d")')
+Month = Field('download_month', 'STRFTIME_UTC_USEC(timestamp, "%Y-%m")')
+Year = Field('download_year', 'STRFTIME_UTC_USEC(timestamp, "%Y")')
 Country = Field('country', 'country_code')
 Project = Field('project', 'file.project')
 Version = Field('version', 'file.version')
