@@ -41,8 +41,8 @@ COMMAND_MAP = {
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
-@click.option('--timeout', '-t', type=int, default=60000,
-              help='Milliseconds. Default: 60000 (1 minute)')
+@click.option('--timeout', '-t', type=int, default=120000,
+              help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
