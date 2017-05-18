@@ -22,6 +22,7 @@ ImplementationVersion = Field('impl_version', 'REGEXP_EXTRACT(details.implementa
 OpenSSLVersion = Field('openssl_version', 'REGEXP_EXTRACT(details.openssl_version, r"^OpenSSL ([^ ]+) ")')
 Installer = Field('installer_name', 'details.installer.name')
 InstallerVersion = Field('installer_version', 'details.installer.version')
+SetuptoolsVersion = Field('setuptools_version', 'details.setuptools_version')
 System = Field('system_name', 'details.system.name')
 SystemRelease = Field('system_release', 'details.system.release')
 Distro = Field('distro_name', 'details.distro.name')

@@ -4,8 +4,9 @@ from pypinfo.core import build_query, create_client, parse_query_result, tabulat
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
     Project, Date, Month, Year, Country, Version, PythonVersion, Percent3,
-    Percent2, Installer, InstallerVersion, System, SystemRelease, Implementation,
-    ImplementationVersion, OpenSSLVersion, Distro, DistroVersion, CPU
+    Percent2, Installer, InstallerVersion, SetuptoolsVersion, System,
+    SystemRelease, Implementation, ImplementationVersion, OpenSSLVersion,
+    Distro, DistroVersion, CPU
 )
 
 CONTEXT_SETTINGS = {
@@ -26,6 +27,7 @@ COMMAND_MAP = {
     'country': Country,
     'installer': Installer,
     'installer-version': InstallerVersion,
+    'setuptools-version': SetuptoolsVersion,
     'system': System,
     'system-release': SystemRelease,
     'distro': Distro,
@@ -41,7 +43,7 @@ COMMAND_MAP = {
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
 @click.option('--timeout', '-t', type=int, default=60000,
               help='Milliseconds. Default: 60000 (1 minute)')
-@click.option('--limit', '-l', help='Maximum number of query results.')
+@click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
@@ -53,7 +55,7 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
-    system | system-release | distro | distro-version | cpu
+    setuptools-version | system | system-release | distro | distro-version | cpu
     """
     if auth:
         set_credentials(auth)
