@@ -24,5 +24,7 @@ Installer = Field('installer_name', 'details.installer.name')
 InstallerVersion = Field('installer_version', 'details.installer.version')
 System = Field('system_name', 'details.system.name')
 SystemRelease = Field('system_release', 'details.system.release')
+Distro = Field('distro_name', 'details.distro.name')
+DistroVersion = Field('distro_version', 'details.distro.version')
 
 AGGREGATES = {Percent3, Percent2}
