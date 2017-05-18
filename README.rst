@@ -106,6 +106,92 @@ Downloads for a project by Python version
     2.4            15
     3.1            6
 
+All downloads by country code
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ pypinfo "" country
+    country download_count
+    ------- --------------
+    US      427837633
+    None    26184466
+    IE      25595967
+    CN      19682726
+    DE      17338740
+    GB      16848703
+    AU      12201849
+    CA      9828255
+    FR      9780133
+    BR      9276365
+    JP      9247794
+    RU      8758959
+    IL      7578813
+    IN      7468363
+    KR      6809831
+    NL      6120287
+    SG      5882292
+    TW      3961899
+    CZ      2352650
+    PL      2270622
+
+Downloads for a project by system and distribution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ pypinfo cryptography system distro
+    system_name distro_name                     download_count
+    ----------- ------------------------------- --------------
+    Linux       Ubuntu                          1226983
+    Linux       None                            701829
+    Linux       CentOS Linux                    254488
+    Linux       Debian GNU/Linux                207352
+    Linux       debian                          205485
+    Linux       CentOS                          195178
+    None        None                            179178
+    Windows     None                            126962
+    Darwin      macOS                           123389
+    Darwin      OS X                            51606
+    Linux       Amazon Linux AMI                43192
+    Linux       Red Hat Enterprise Linux Server 39157
+    Linux       Alpine Linux                    37721
+    Linux       Fedora                          25036
+    Linux       Virtuozzo                       10302
+    Linux       Raspbian GNU/Linux              4261
+    Linux       Linux                           4162
+    Linux       Oracle Linux Server             3754
+    FreeBSD     None                            3513
+    Linux       Debian                          3479
+
+Most popular projects in the past year
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ pypinfo --days 365 "" project
+    project         download_count
+    --------------- --------------
+    simplejson      315759419
+    six             197395098
+    setuptools      132878072
+    python-dateutil 126256414
+    pip             118786872
+    botocore        115173253
+    pyasn1          111974599
+    requests        108922890
+    selenium        104830580
+    docutils        104397734
+    jmespath        95403328
+    awscli          94119214
+    rsa             91575245
+    colorama        85788062
+    awscli-cwlogs   57035580
+    futures         52305306
+    cffi            51895901
+    pyyaml          51475454
+    pbr             50267849
+    pyparsing       50155835
 
 
 
