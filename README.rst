@@ -12,7 +12,7 @@ pypinfo: View PyPI download statistics with ease.
 
 -----
 
-pypinfo is a simple CLI to access PyPI download statistics via Google's BigQuery.
+pypinfo is a simple CLI to access `PyPI`_ download statistics via Google's BigQuery.
 
 Installation
 ------------
@@ -51,7 +51,7 @@ Usage
     Options:
       --run / --test          --test simply prints the query.
       -a, --auth TEXT         Path to Google credentials JSON file.
-      -t, --timeout INTEGER   Milliseconds. Default: 60000 (1 minute)
+      -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
       -l, --limit TEXT        Maximum number of query results. Default: 20
       -d, --days TEXT         Number of days in the past to include. Default: 30
       -sd, --start-date TEXT  Must be negative. Default: -31
@@ -64,6 +64,8 @@ pypinfo accepts 0 or more options, followed by exactly 1 project, followed by
 0 or more fields. By default only the last 30 days are queried. Let's take a
 look at some examples!
 
+Tip: If queries are resulting in NoneType errors, increase timeout.
+
 Downloads for a project
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -73,6 +75,13 @@ Downloads for a project
     download_count
     --------------
     11033343
+
+Just see query
+^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+    $ pypinfo --test requests
 
 All downloads
 ^^^^^^^^^^^^^
@@ -193,8 +202,38 @@ Most popular projects in the past year
     pbr             50267849
     pyparsing       50155835
 
+Percentage of Python 3 downloads of the top 100 projects in the past year
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Let's use ``--test`` to only see the query instead of sending it.
 
+.. code-block:: bash
 
+    $ pypinfo --test --days 365 --limit 100 "" project percent3
+    SELECT
+      file.project as project,
+      ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "3" THEN 1 ELSE 0 END) / COUNT(*), 1) as percent_3,
+      COUNT(*) as download_count,
+    FROM
+      TABLE_DATE_RANGE(
+        [the-psf:pypi.downloads],
+        DATE_ADD(CURRENT_TIMESTAMP(), -366, "day"),
+        DATE_ADD(CURRENT_TIMESTAMP(), -1, "day")
+      )
+    GROUP BY
+      project,
+    ORDER BY
+      download_count DESC
+    LIMIT 100
 
+Credits
+-------
 
+- `Donald Stufft <https://github.com/dstufft>`_ for maintaining `PyPI`_ all
+  these years.
+- `Google <https://github.com/google>`_ for donating BigQuery capacity to
+  `PyPI`_.
+- `Paul Kehrer <https://github.com/reaperhulk>`_ for his
+  `awesome blog post <https://langui.sh/2016/12/09/data-driven-decisions>`_.
+
+.. _PyPI: https://pypi.org
