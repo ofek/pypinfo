@@ -5,7 +5,7 @@ from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
     Project, Date, Month, Year, Country, Version, PythonVersion, Percent3,
     Percent2, Installer, InstallerVersion, System, SystemRelease, Implementation,
-    ImplementationVersion, OpenSSLVersion, Distro, DistroVersion
+    ImplementationVersion, OpenSSLVersion, Distro, DistroVersion, CPU
 )
 
 CONTEXT_SETTINGS = {
@@ -30,6 +30,7 @@ COMMAND_MAP = {
     'system-release': SystemRelease,
     'distro': Distro,
     'distro-version': DistroVersion,
+    'cpu': CPU,
 }
 
 
@@ -52,7 +53,7 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
-    system | system-release | distro | distro-version
+    system | system-release | distro | distro-version | cpu
     """
     if auth:
         set_credentials(auth)

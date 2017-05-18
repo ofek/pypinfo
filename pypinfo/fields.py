@@ -26,5 +26,6 @@ System = Field('system_name', 'details.system.name')
 SystemRelease = Field('system_release', 'details.system.release')
 Distro = Field('distro_name', 'details.distro.name')
 DistroVersion = Field('distro_version', 'details.distro.version')
+CPU = Field('cpu', 'details.cpu')
 
 AGGREGATES = {Percent3, Percent2}
