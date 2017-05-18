@@ -76,13 +76,6 @@ Downloads for a project
     --------------
     11033343
 
-Just see query
-^^^^^^^^^^^^^^
-
-.. code-block:: bash
-
-    $ pypinfo --test requests
-
 All downloads
 ^^^^^^^^^^^^^
 
