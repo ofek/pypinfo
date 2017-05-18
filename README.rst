@@ -20,11 +20,12 @@ Installation
 This is relatively painless, I swear.
 
 1. Go to `<https://bigquery.cloud.google.com>`_.
-2. Sign up if you haven't already. Querying PyPI's dataset is free (for you).
+2. Sign up if you haven't already. The first TB of queried data each month
+   is free. Each additional TB is $5.
 3. Go to `<https://console.developers.google.com/cloud-resource-manager>`_ and
    create a new project. Any name is fine, but I recommend you choose something
-   to do with PyPI like pypinfo. This way you know the project is designated
-   as free.
+   to do with PyPI like pypinfo. This way you know what the project is designated
+   for.
 4. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
    to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
    After creation, note the download location. Move the file wherever you want.
