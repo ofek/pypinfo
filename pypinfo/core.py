@@ -29,7 +29,7 @@ def create_client(creds_file=None):
 
 
 def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
-                days=None, limit=DEFAULT_LIMIT, where=None):
+                days=None, limit=DEFAULT_LIMIT, where=None, order=None):
     start_date = start_date or START_DATE
     end_date = end_date or END_DATE
     limit = limit or DEFAULT_LIMIT
@@ -68,7 +68,7 @@ def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
         if len(gb) > initial_length:
             query += gb
 
-    query += 'ORDER BY\n  {} DESC\n'.format(Downloads.name)
+    query += 'ORDER BY\n  {} DESC\n'.format(order or Downloads.name)
     query += 'LIMIT {}'.format(limit)
 
     return query

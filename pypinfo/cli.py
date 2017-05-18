@@ -40,10 +40,11 @@ COMMAND_MAP = {
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
-@click.option('--where', '-w', help='Supply your own WHERE conditional.')
+@click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
+@click.option('--order', '-o', help='Field to order by. Default: download_count')
 @click.pass_context
 def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
-            start_date, end_date, where):
+            start_date, end_date, where, order):
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | country | installer | installer-version | system | system-release
@@ -64,8 +65,10 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
             raise ValueError('"{}" is an unsupported field.'.format(field))
         parsed_fields.append(parsed)
 
-    built_query = build_query(project, parsed_fields, limit=limit, days=days,
-                              start_date=start_date, end_date=end_date, where=where)
+    built_query = build_query(
+        project, parsed_fields, limit=limit, days=days, start_date=start_date,
+        end_date=end_date, where=where, order=order
+    )
 
     if run:
         client = create_client(get_credentials())
