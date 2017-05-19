@@ -28,8 +28,8 @@ def create_client(creds_file=None):
     return Client.from_service_account_json(creds_file, project=project)
 
 
-def build_query(project, fields, start_date=START_DATE, end_date=END_DATE,
-                days=None, limit=DEFAULT_LIMIT, where=None, order=None):
+def build_query(project, fields, start_date=None, end_date=None,
+                days=None, limit=None, where=None, order=None):
     start_date = start_date or START_DATE
     end_date = end_date or END_DATE
     limit = limit or DEFAULT_LIMIT
