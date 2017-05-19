@@ -12,7 +12,7 @@ from pypinfo.fields import (
 CONTEXT_SETTINGS = {
     'max_content_width': 300
 }
-COMMAND_MAP = {
+FIELD_MAP = {
     'project': Project,
     'version': Version,
     'pyversion': PythonVersion,
@@ -68,7 +68,7 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
 
     parsed_fields = []
     for field in fields:
-        parsed = COMMAND_MAP.get(field)
+        parsed = FIELD_MAP.get(field)
         if parsed is None:
             raise ValueError('"{}" is an unsupported field.'.format(field))
         parsed_fields.append(parsed)
