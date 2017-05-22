@@ -1,3 +1,5 @@
+from json import dump
+
 import click
 
 from pypinfo.core import build_query, create_client, parse_query_result, tabulate
@@ -39,8 +41,9 @@ FIELD_MAP = {
 @click.group(invoke_without_command=True, context_settings=CONTEXT_SETTINGS)
 @click.argument('project', required=False)
 @click.argument('fields', nargs=-1, required=False)
-@click.option('--run/--test', default=True, help='--test simply prints the query.')
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
+@click.option('--run/--test', default=True, help='--test simply prints the query.')
+@click.option('--json', '-j', type=click.Path(), help='Desired path to JSON file.')
 @click.option('--timeout', '-t', type=int, default=120000,
               help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
@@ -50,7 +53,7 @@ FIELD_MAP = {
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
 @click.pass_context
-def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
+def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
             start_date, end_date, where, order):
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
@@ -83,6 +86,13 @@ def pypinfo(ctx, project, fields, run, auth, timeout, limit, days,
         query = client.run_sync_query(built_query)
         query.timeout_ms = timeout
         query.run()
-        click.echo(tabulate(parse_query_result(query)))
+
+        rows = parse_query_result(query)
+
+        if not json:
+            click.echo(tabulate(rows))
+        else:
+            with open(json, 'w') as f:
+                dump(rows, f)
     else:
         click.echo(built_query)

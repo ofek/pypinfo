@@ -50,8 +50,9 @@ Usage
       setuptools-version | system | system-release | distro | distro-version | cpu
 
     Options:
-      --run / --test          --test simply prints the query.
       -a, --auth TEXT         Path to Google credentials JSON file.
+      --run / --test          --test simply prints the query.
+      -j, --json PATH         Desired path to JSON file.
       -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
       -l, --limit TEXT        Maximum number of query results. Default: 20
       -d, --days TEXT         Number of days in the past to include. Default: 30
