@@ -52,6 +52,7 @@ FIELD_MAP = {
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
+@click.version_option()
 @click.pass_context
 def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
             start_date, end_date, where, order):
