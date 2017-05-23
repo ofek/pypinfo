@@ -104,3 +104,18 @@ def tabulate(rows):
         tabulated += '\n'
 
     return tabulated
+
+
+def format_json(rows):
+    headers, *data = rows
+    j = []
+
+    for d in data:
+        item = {}
+        for i in range(len(headers)):
+            if d[i].isdigit():
+                d[i] = int(d[i])
+            item[headers[i]] = d[i]
+        j.append(item)
+
+    return json.dumps(j, indent=2, sort_keys=True)
