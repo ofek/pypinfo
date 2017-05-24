@@ -52,7 +52,7 @@ Usage
     Options:
       -a, --auth TEXT         Path to Google credentials JSON file.
       --run / --test          --test simply prints the query.
-      -j, --json PATH         Desired path to JSON file.
+      -j, --json              Print data as JSON.
       -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
       -l, --limit TEXT        Maximum number of query results. Default: 20
       -d, --days TEXT         Number of days in the past to include. Default: 30
@@ -60,6 +60,7 @@ Usage
       -ed, --end-date TEXT    Must be negative. Default: -1
       -w, --where TEXT        WHERE conditional. Default: file.project = "project"
       -o, --order TEXT        Field to order by. Default: download_count
+      --version               Show the version and exit.
       --help                  Show this message and exit.
 
 pypinfo accepts 0 or more options, followed by exactly 1 project, followed by
