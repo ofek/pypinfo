@@ -1,8 +1,6 @@
-from json import dump
-
 import click
 
-from pypinfo.core import build_query, create_client, parse_query_result, tabulate
+from pypinfo.core import build_query, create_client, format_json, parse_query_result, tabulate
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
     Project, Date, Month, Year, Country, Version, PythonVersion, Percent3,
@@ -43,7 +41,7 @@ FIELD_MAP = {
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
-@click.option('--json', '-j', type=click.Path(), help='Desired path to JSON file.')
+@click.option('--json', '-j', is_flag=True, help='Print data as JSON.')
 @click.option('--timeout', '-t', type=int, default=120000,
               help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
@@ -93,7 +91,6 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         if not json:
             click.echo(tabulate(rows))
         else:
-            with open(json, 'w') as f:
-                dump(rows, f)
+            click.echo(format_json(rows))
     else:
         click.echo(built_query)
