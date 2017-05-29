@@ -232,4 +232,24 @@ Credits
 - `Paul Kehrer <https://github.com/reaperhulk>`_ for his
   `awesome blog post <https://langui.sh/2016/12/09/data-driven-decisions>`_.
 
+Changelog
+---------
+
+Important changes are emphasized.
+
+3.0.0
+^^^^^
+
+- **Breaking:** ``--json`` option is now just a flag and prints output as prettified JSON.
+
+2.0.0
+^^^^^
+
+- Added ``--json`` path option.
+
+1.0.0
+^^^^^
+
+- Initial release
+
 .. _PyPI: https://pypi.org
