@@ -1,5 +1,6 @@
 import json
 import os
+import re
 
 from google.cloud.bigquery import Client
 
@@ -18,6 +19,11 @@ END_DATE = '-1'
 DEFAULT_LIMIT = '20'
 
 
+def normalize(name):
+    """https://www.python.org/dev/peps/pep-0503/#normalized-names"""
+    return re.sub(r'[-_.]+', '-', name).lower()
+
+
 def create_client(creds_file=None):
     creds_file = creds_file or os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
@@ -30,6 +36,8 @@ def create_client(creds_file=None):
 
 def build_query(project, fields, start_date=None, end_date=None,
                 days=None, limit=None, where=None, order=None):
+    project = normalize(project)
+
     start_date = start_date or START_DATE
     end_date = end_date or END_DATE
     limit = limit or DEFAULT_LIMIT
