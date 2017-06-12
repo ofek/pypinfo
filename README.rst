@@ -237,6 +237,12 @@ Changelog
 
 Important changes are emphasized.
 
+3.0.1
+^^^^^
+
+- Fix: project names are now normalized to adhere to
+  `PEP 503 <https://www.python.org/dev/peps/pep-0503>`_.
+
 3.0.0
 ^^^^^
 
