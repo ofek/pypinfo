@@ -34,7 +34,9 @@ This is relatively painless, I swear.
    the button on top to enable.
 5. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
    to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
-   After creation, note the download location. Move the file wherever you want.
+   (If ``BigQuery`` is not an option in the list, wait 15-20 minutes and try creating
+   the credentials again.) After creation, note the download location. Move the file
+   wherever you want.
 6. ``pip install pypinfo``
 7. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
    ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
