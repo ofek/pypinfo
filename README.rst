@@ -26,14 +26,17 @@ This is relatively painless, I swear.
 2. Sign up if you haven't already. The first TB of queried data each month
    is free. Each additional TB is $5.
 3. Go to `<https://console.developers.google.com/cloud-resource-manager>`_ and
-   create a new project. Any name is fine, but I recommend you choose something
-   to do with PyPI like pypinfo. This way you know what the project is designated
-   for.
-4. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
+   create a new project if you don't already have one. Any name is fine, but I
+   recommend you choose something to do with PyPI like pypinfo. This way you
+   know what the project is designated for.
+4. Go to `<https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview>`_
+   and make sure the correct project is chosen using to drop-down on top. Click
+   the button on top to enable.
+5. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
    to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
    After creation, note the download location. Move the file wherever you want.
-5. ``pip install pypinfo``
-6. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
+6. ``pip install pypinfo``
+7. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
    ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
 
 Usage
