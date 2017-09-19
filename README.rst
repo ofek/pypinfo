@@ -30,7 +30,7 @@ This is relatively painless, I swear.
    recommend you choose something to do with PyPI like pypinfo. This way you
    know what the project is designated for.
 4. Go to `<https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview>`_
-   and make sure the correct project is chosen using to drop-down on top. Click
+   and make sure the correct project is chosen using the drop-down on top. Click
    the button on top to enable.
 5. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
    to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
