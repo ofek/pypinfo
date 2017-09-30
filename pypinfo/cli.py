@@ -77,7 +77,8 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
 
     built_query = build_query(
         project, parsed_fields, limit=limit, days=days, start_date=start_date,
-        end_date=end_date, where=where, order=order
+        end_date=end_date, where=where, order=(FIELD_MAP[order].name if
+                                               order in FIELD_MAP else order)
     )
 
     if run:
