@@ -35,7 +35,7 @@ def create_client(creds_file=None):
 
 
 def build_query(project, fields, start_date=None, end_date=None,
-                days=None, limit=None, where=None, order=None):
+                days=None, limit=None, where=None, order=None, pip=None):
     project = normalize(project)
 
     start_date = start_date or START_DATE
@@ -62,8 +62,13 @@ def build_query(project, fields, start_date=None, end_date=None,
     if where:
         query += 'WHERE\n  {}\n'.format(where)
     else:
+        conditions = []
         if project:
-            query += 'WHERE\n  file.project = "{}"\n'.format(project)
+            conditions.append('file.project = "{}"\n'.format(project))
+        if pip:
+            conditions.append('details.installer.name = "pip"\n')
+        if conditions:
+            query += 'WHERE\n  ' + '  AND '.join(conditions)
 
     if len(fields) > 1:
         gb = 'GROUP BY\n'
