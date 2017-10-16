@@ -88,8 +88,14 @@ def parse_query_result(query):
     return rows
 
 
-def tabulate(rows):
+def tabulate(rows, thousands_seperator=False):
     column_widths = [0] * len(rows[0])
+
+    if thousands_seperator:
+        for r, row in enumerate(rows):
+            for c, col in enumerate(row):
+                if col.isdigit():
+                    rows[r][c] = "{:,}".format(int(col))
 
     # Get max width of each column
     for row in rows:
