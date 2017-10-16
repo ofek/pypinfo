@@ -68,6 +68,7 @@ Usage
       -ed, --end-date TEXT    Must be negative. Default: -1
       -w, --where TEXT        WHERE conditional. Default: file.project = "project"
       -o, --order TEXT        Field to order by. Default: download_count
+      -p, --pip               Only show installs by pip.
       --version               Show the version and exit.
       --help                  Show this message and exit.
 
@@ -245,6 +246,19 @@ Changelog
 ---------
 
 Important changes are emphasized.
+
+master
+^^^^^^
+
+- Numeric output (non-json) is now prettier (thanks `hugovk <https://github.com/hugovk>`_)
+- You can now filter results for only pip installs with the ``--pip`` flag
+  (thanks `hugovk <https://github.com/hugovk>`_)
+
+4.0.0
+^^^^^
+
+- ``--order`` now works with all fields (thanks `Brian Skinn <https://github.com/bskinn>`_)
+- Updated installation docs (thanks `Brian Skinn <https://github.com/bskinn>`_)
 
 3.0.1
 ^^^^^
