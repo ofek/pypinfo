@@ -92,8 +92,11 @@ def tabulate(rows):
     column_widths = [0] * len(rows[0])
 
     # Get max width of each column
-    for row in rows:
+    for r, row in enumerate(rows):
         for i, item in enumerate(row):
+            if item.isdigit():
+                # Separate the thousands
+                rows[r][i] = "{:,}".format(int(item))
             length = len(item)
             if length > column_widths[i]:
                 column_widths[i] = length
