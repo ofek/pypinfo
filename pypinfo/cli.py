@@ -50,10 +50,12 @@ FIELD_MAP = {
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
+@click.option('--thousands', '-th', is_flag=True,
+              help='Add a thousands separator (ignored for JSON)')
 @click.version_option()
 @click.pass_context
 def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
-            start_date, end_date, where, order):
+            start_date, end_date, where, order, thousands):
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
@@ -90,7 +92,7 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         rows = parse_query_result(query)
 
         if not json:
-            click.echo(tabulate(rows))
+            click.echo(tabulate(rows, thousands_seperator=thousands))
         else:
             click.echo(format_json(rows))
     else:
