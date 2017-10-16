@@ -85,7 +85,7 @@ Downloads for a project
     $ pypinfo requests
     download_count
     --------------
-    11033343
+        13,149,515
 
 All downloads
 ^^^^^^^^^^^^^
@@ -95,7 +95,7 @@ All downloads
     $ pypinfo ""
     download_count
     --------------
-    662834133
+       765,826,772
 
 Downloads for a project by Python version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -105,19 +105,20 @@ Downloads for a project by Python version
     $ pypinfo django pyversion
     python_version download_count
     -------------- --------------
-    2.7            788060
-    3.5            400008
-    3.6            169665
-    3.4            134378
-    None           59415
-    2.6            8276
-    3.3            4831
-    3.7            2680
-    3.2            1560
-    1.17           41
-    2.5            15
-    2.4            15
-    3.1            6
+    2.7                   611,777
+    3.6                   259,357
+    3.5                   200,749
+    3.4                   104,585
+    None                   97,813
+    2.6                     6,318
+    3.7                     2,342
+    3.3                     2,106
+    3.2                       365
+    2.4                        11
+    1.17                       10
+    2.5                         8
+    3.1                         1
+    2.1                         1
 
 All downloads by country code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -127,26 +128,26 @@ All downloads by country code
     $ pypinfo "" country
     country download_count
     ------- --------------
-    US      427837633
-    None    26184466
-    IE      25595967
-    CN      19682726
-    DE      17338740
-    GB      16848703
-    AU      12201849
-    CA      9828255
-    FR      9780133
-    BR      9276365
-    JP      9247794
-    RU      8758959
-    IL      7578813
-    IN      7468363
-    KR      6809831
-    NL      6120287
-    SG      5882292
-    TW      3961899
-    CZ      2352650
-    PL      2270622
+    US         501,337,782
+    IE          29,547,697
+    CN          22,198,589
+    DE          21,641,064
+    GB          18,946,922
+    None        18,077,976
+    FR          15,593,846
+    BR          13,500,471
+    CA          13,098,341
+    AU          12,482,455
+    JP          12,390,691
+    RU          11,381,041
+    SG          11,326,902
+    IN          10,186,952
+    KR           8,141,791
+    NL           6,695,112
+    IL           3,381,433
+    ES           2,622,822
+    PL           2,408,438
+    NO           2,292,994
 
 Downloads for a project by system and distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -156,26 +157,26 @@ Downloads for a project by system and distribution
     $ pypinfo cryptography system distro
     system_name distro_name                     download_count
     ----------- ------------------------------- --------------
-    Linux       Ubuntu                          1226983
-    Linux       None                            701829
-    Linux       CentOS Linux                    254488
-    Linux       Debian GNU/Linux                207352
-    Linux       debian                          205485
-    Linux       CentOS                          195178
-    None        None                            179178
-    Windows     None                            126962
-    Darwin      macOS                           123389
-    Darwin      OS X                            51606
-    Linux       Amazon Linux AMI                43192
-    Linux       Red Hat Enterprise Linux Server 39157
-    Linux       Alpine Linux                    37721
-    Linux       Fedora                          25036
-    Linux       Virtuozzo                       10302
-    Linux       Raspbian GNU/Linux              4261
-    Linux       Linux                           4162
-    Linux       Oracle Linux Server             3754
-    FreeBSD     None                            3513
-    Linux       Debian                          3479
+    Linux       Ubuntu                               1,949,204
+    Linux       Debian GNU/Linux                       407,626
+    Linux       None                                   375,363
+    Linux       CentOS Linux                           251,467
+    None        None                                   204,007
+    Windows     None                                   174,763
+    Linux       debian                                 116,972
+    Linux       Amazon Linux AMI                       106,790
+    Linux       CentOS                                  99,851
+    Darwin      macOS                                   81,554
+    Linux       Raspbian GNU/Linux                      68,696
+    Linux       Red Hat Enterprise Linux Server         54,737
+    Linux       Alpine Linux                            46,135
+    Linux       Fedora                                  27,746
+    Darwin      OS X                                    16,918
+    Linux       Linux                                    9,711
+    Linux       openSUSE Leap                            8,636
+    Linux       Virtuozzo                                7,978
+    Linux       RedHatEnterpriseServer                   5,789
+    FreeBSD     None                                     4,899
 
 Most popular projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -185,26 +186,26 @@ Most popular projects in the past year
     $ pypinfo --days 365 "" project
     project         download_count
     --------------- --------------
-    simplejson      315759419
-    six             197395098
-    setuptools      132878072
-    python-dateutil 126256414
-    pip             118786872
-    botocore        115173253
-    pyasn1          111974599
-    requests        108922890
-    selenium        104830580
-    docutils        104397734
-    jmespath        95403328
-    awscli          94119214
-    rsa             91575245
-    colorama        85788062
-    awscli-cwlogs   57035580
-    futures         52305306
-    cffi            51895901
-    pyyaml          51475454
-    pbr             50267849
-    pyparsing       50155835
+    simplejson         327,946,463
+    six                214,930,152
+    python-dateutil    152,089,489
+    setuptools         149,294,971
+    botocore           146,935,887
+    pip                140,216,305
+    requests           137,229,399
+    pyasn1             134,867,638
+    docutils           126,916,467
+    jmespath           117,212,884
+    awscli             112,539,772
+    rsa                106,762,453
+    colorama           101,860,595
+    pyyaml             100,055,678
+    selenium            98,418,802
+    futures             92,938,638
+    s3transfer          91,310,210
+    awscli-cwlogs       66,183,214
+    cffi                65,383,612
+    pyparsing           63,603,014
 
 Percentage of Python 3 downloads of the top 100 projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

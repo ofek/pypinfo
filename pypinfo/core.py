@@ -90,10 +90,15 @@ def parse_query_result(query):
 
 def tabulate(rows):
     column_widths = [0] * len(rows[0])
+    is_digits = [[False] * len(rows[0])] * len(rows)
 
     # Get max width of each column
-    for row in rows:
+    for r, row in enumerate(rows):
         for i, item in enumerate(row):
+            if item.isdigit():
+                # Separate the thousands
+                rows[r][i] = "{:,}".format(int(item))
+                is_digits[r][i] = True
             length = len(item)
             if length > column_widths[i]:
                 column_widths[i] = length
@@ -106,9 +111,13 @@ def tabulate(rows):
 
     tabulated += '\n' + ''.join('-' * i + ' ' for i in column_widths) + '\n'
 
-    for row in rows:
+    for r, row in enumerate(rows):
         for i, item in enumerate(row):
-            tabulated += item + ' ' * (column_widths[i] - len(item) + 1)
+            num_spaces = column_widths[i] - len(item)
+            if is_digits[r][i]:
+                tabulated += ' ' * num_spaces + item + ' '
+            else:
+                tabulated += item + ' ' * (num_spaces + 1)
         tabulated += '\n'
 
     return tabulated
