@@ -88,6 +88,21 @@ def parse_query_result(query):
     return rows
 
 
+def add_percentages(rows):
+
+    headers = rows.pop(0)
+    index = headers.index('download_count')
+    headers.insert(index, 'percent')
+    total_downloads = sum(int(row[index]) for row in rows)
+
+    for r, row in enumerate(rows):
+        percent = '{:.1%}'.format(int(row[index]) / total_downloads)
+        row.insert(index, percent)
+
+    rows.insert(0, headers)
+    return rows
+
+
 def tabulate(rows):
     column_widths = [0] * len(rows[0])
     is_digits = [[False] * len(rows[0])] * len(rows)
