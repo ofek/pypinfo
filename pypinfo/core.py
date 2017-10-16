@@ -115,7 +115,7 @@ def tabulate(rows):
         for i, item in enumerate(row):
             num_spaces = column_widths[i] - len(item)
             if is_digits[r][i]:
-                tabulated += ' ' * num_spaces + item
+                tabulated += ' ' * num_spaces + item + ' '
             else:
                 tabulated += item + ' ' * (num_spaces + 1)
         tabulated += '\n'
