@@ -247,8 +247,8 @@ Changelog
 
 Important changes are emphasized.
 
-master
-^^^^^^
+5.0.0
+^^^^^
 
 - Numeric output (non-json) is now prettier (thanks `hugovk <https://github.com/hugovk>`_)
 - You can now filter results for only pip installs with the ``--pip`` flag
