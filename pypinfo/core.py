@@ -135,7 +135,7 @@ def tabulate(rows):
     for r, row in enumerate(rows):
         for i, item in enumerate(row):
             num_spaces = column_widths[i] - len(item)
-            if is_digits[r][i]:
+            if is_digits[r][i] or item.endswith('%'):
                 tabulated += ' ' * num_spaces + item + ' '
             else:
                 tabulated += item + ' ' * (num_spaces + 1)
