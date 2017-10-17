@@ -43,16 +43,21 @@ FIELD_MAP = {
 @click.argument('project', required=False)
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
-@click.option('--run/--test', default=True, help='--test simply prints the query.')
+@click.option('--run/--test', default=True,
+              help='--test simply prints the query.')
 @click.option('--json', '-j', is_flag=True, help='Print data as JSON.')
 @click.option('--timeout', '-t', type=int, default=120000,
               help='Milliseconds. Default: 120000 (2 minutes)')
-@click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
-@click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
+@click.option('--limit', '-l',
+              help='Maximum number of query results. Default: 20')
+@click.option('--days', '-d',
+              help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
-@click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
-@click.option('--order', '-o', help='Field to order by. Default: download_count')
+@click.option('--where', '-w',
+              help='WHERE conditional. Default: file.project = "project"')
+@click.option('--order', '-o',
+              help='Field to order by. Default: download_count')
 @click.option('--pip', '-p', is_flag=True, help='Only show installs by pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
 @click.version_option()
@@ -60,13 +65,15 @@ FIELD_MAP = {
 def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
             start_date, end_date, where, order, pip, percent):
     """Valid fields are:\n
-    project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
-    openssl | date | month | year | country | installer | installer-version |\n
-    setuptools-version | system | system-release | distro | distro-version | cpu
+    project | version | pyversion | percent3 | percent2 | impl |\n
+    impl-version |openssl | date | month | year | country | installer |\n
+    installer-version | setuptools-version | system | system-release | distro |
+    distro-version | cpu
     """
     if auth:
         set_credentials(auth)
-        click.echo('Credentials location set to "{}".'.format(get_credentials()))
+        click.echo(
+            'Credentials location set to "{}".'.format(get_credentials()))
         return
 
     if project is None and not fields:
