@@ -93,6 +93,22 @@ def parse_query_result(query):
     return rows
 
 
+def add_percentages(rows, include_sign=True):
+
+    headers = rows.pop(0)
+    index = headers.index('download_count')
+    headers.insert(index, 'percent')
+    total_downloads = sum(int(row[index]) for row in rows)
+    percent_format = '{:.1%}' if include_sign else '{:.1}'
+
+    for r, row in enumerate(rows):
+        percent = percent_format.format(int(row[index]) / total_downloads)
+        row.insert(index, percent)
+
+    rows.insert(0, headers)
+    return rows
+
+
 def tabulate(rows):
     column_widths = [0] * len(rows[0])
     is_digits = [[False] * len(rows[0])] * len(rows)
@@ -119,7 +135,7 @@ def tabulate(rows):
     for r, row in enumerate(rows):
         for i, item in enumerate(row):
             num_spaces = column_widths[i] - len(item)
-            if is_digits[r][i]:
+            if is_digits[r][i] or item.endswith('%'):
                 tabulated += ' ' * num_spaces + item + ' '
             else:
                 tabulated += item + ' ' * (num_spaces + 1)
