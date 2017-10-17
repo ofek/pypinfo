@@ -93,7 +93,7 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         rows = parse_query_result(query)
 
         if percent:
-            rows = add_percentages(rows)
+            rows = add_percentages(rows, include_sign=not json)
 
         if not json:
             click.echo(tabulate(rows))

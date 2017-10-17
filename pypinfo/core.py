@@ -93,15 +93,16 @@ def parse_query_result(query):
     return rows
 
 
-def add_percentages(rows):
+def add_percentages(rows, include_sign=True):
 
     headers = rows.pop(0)
     index = headers.index('download_count')
     headers.insert(index, 'percent')
     total_downloads = sum(int(row[index]) for row in rows)
+    percent_format = '{:.1%}' if include_sign else '{:.1}'
 
     for r, row in enumerate(rows):
-        percent = '{:.1%}'.format(int(row[index]) / total_downloads)
+        percent = percent_format.format(int(row[index]) / total_downloads)
         row.insert(index, percent)
 
     rows.insert(0, headers)
