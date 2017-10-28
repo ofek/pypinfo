@@ -40,6 +40,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy'
     ),
 
+    python_requires='>=3.5',
     install_requires=('appdirs', 'click', 'google-cloud-bigquery', 'tinydb', 'tinyrecord'),
     tests_require=['pytest'],
 
