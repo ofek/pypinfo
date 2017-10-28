@@ -40,9 +40,8 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy'
     ),
 
-    install_requires=('appdirs', 'click', 'google-cloud-bigquery', 'tinydb',
-                      'tinyrecord'),
-    python_requires='>=3.5',  # Works with pip>=9.0.0
+    python_requires='>=3.5',
+    install_requires=('appdirs', 'click', 'google-cloud-bigquery', 'tinydb', 'tinyrecord'),
     tests_require=['pytest'],
 
     packages=find_packages(),
