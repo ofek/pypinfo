@@ -247,6 +247,11 @@ Changelog
 
 Important changes are emphasized.
 
+6.0.0
+^^^^^
+
+- Updated ``google-cloud-bigquery`` dependency.
+
 5.0.0
 ^^^^^
 
