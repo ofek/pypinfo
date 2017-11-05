@@ -41,7 +41,7 @@ setup(
     ),
 
     python_requires='>=3.5',
-    install_requires=('appdirs', 'click', 'google-cloud-bigquery', 'tinydb', 'tinyrecord'),
+    install_requires=('appdirs', 'click', 'google-cloud-bigquery>=0.28.0', 'tinydb', 'tinyrecord'),
     tests_require=['pytest'],
 
     packages=find_packages(),

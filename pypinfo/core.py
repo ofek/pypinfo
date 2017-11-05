@@ -3,6 +3,7 @@ import os
 import re
 
 from google.cloud.bigquery import Client
+from google.cloud.bigquery.job import QueryJobConfig
 
 from pypinfo.fields import AGGREGATES, Downloads
 
@@ -17,6 +18,12 @@ FROM
 START_DATE = '-31'
 END_DATE = '-1'
 DEFAULT_LIMIT = '20'
+
+
+def create_config():
+    config = QueryJobConfig()
+    config.use_legacy_sql = True
+    return config
 
 
 def normalize(name):
@@ -87,9 +94,9 @@ def build_query(project, fields, start_date=None, end_date=None,
     return query
 
 
-def parse_query_result(query):
-    rows = [[field.name for field in query.schema]]
-    rows.extend([str(item) for item in row] for row in query.rows)
+def parse_query_result(query_job, query_rows):
+    rows = [[field.name for field in query_job.query_results().schema]]
+    rows.extend([str(item) for item in row] for row in query_rows)
     return rows
 
 

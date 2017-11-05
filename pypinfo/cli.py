@@ -1,6 +1,9 @@
 import click
 
-from pypinfo.core import build_query, create_client, format_json, parse_query_result, tabulate, add_percentages
+from pypinfo.core import (
+    add_percentages, build_query, create_client, create_config, format_json,
+    parse_query_result, tabulate
+)
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
     Project, Date, Month, Year, Country, Version, PythonVersion, Percent3,
@@ -86,11 +89,10 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
 
     if run:
         client = create_client(get_credentials())
-        query = client.run_sync_query(built_query)
-        query.timeout_ms = timeout
-        query.run()
+        query_job = client.query(built_query, job_config=create_config())
+        query_rows = query_job.result(timeout=timeout // 1000)
 
-        rows = parse_query_result(query)
+        rows = parse_query_result(query_job, query_rows)
 
         if percent:
             rows = add_percentages(rows, include_sign=not json)
