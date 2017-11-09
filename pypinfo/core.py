@@ -131,22 +131,23 @@ def tabulate(rows):
             if length > column_widths[i]:
                 column_widths[i] = length
 
-    tabulated = ''
+    tabulated = '| '
 
     headers = rows.pop(0)
     for i, item in enumerate(headers):
-        tabulated += item + ' ' * (column_widths[i] - len(item) + 1)
+        tabulated += item + ' | ' * (column_widths[i] - len(item) + 1)
 
-    tabulated += '\n' + ''.join('-' * i + ' ' for i in column_widths) + '\n'
+    tabulated += '\n| ' + ''.join('-' * i + ' | ' for i in column_widths) + '\n'
 
     for r, row in enumerate(rows):
         for i, item in enumerate(row):
             num_spaces = column_widths[i] - len(item)
+            tabulated += '| '
             if is_digits[r][i] or item.endswith('%'):
                 tabulated += ' ' * num_spaces + item + ' '
             else:
                 tabulated += item + ' ' * (num_spaces + 1)
-        tabulated += '\n'
+        tabulated += '|\n'
 
     return tabulated
 
