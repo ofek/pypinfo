@@ -247,6 +247,11 @@ Changelog
 
 Important changes are emphasized.
 
+7.0.0
+^^^^^
+
+- Output table is now in Markdown format for easy copying to GitHub issues and PRs.
+
 6.0.0
 ^^^^^
 
