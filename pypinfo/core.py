@@ -118,7 +118,7 @@ def add_percentages(rows, include_sign=True):
 
 def tabulate(rows):
     column_widths = [0] * len(rows[0])
-    is_digits = [[False] * len(rows[0])] * len(rows)
+    right_align = [[False] * len(rows[0])] * len(rows)
 
     # Get max width of each column
     for r, row in enumerate(rows):
@@ -126,7 +126,9 @@ def tabulate(rows):
             if item.isdigit():
                 # Separate the thousands
                 rows[r][i] = "{:,}".format(int(item))
-                is_digits[r][i] = True
+                right_align[r][i] = True
+            elif item.endswith('%'):
+                right_align[r][i] = True
             length = len(item)
             if length > column_widths[i]:
                 column_widths[i] = length
@@ -144,7 +146,7 @@ def tabulate(rows):
         for i, item in enumerate(row):
             num_spaces = column_widths[i] - len(item)
             tabulated += '| '
-            if is_digits[r][i] or item.endswith('%'):
+            if right_align[r][i]:
                 tabulated += ' ' * num_spaces + item + ' '
             else:
                 tabulated += item + ' ' * (num_spaces + 1)
