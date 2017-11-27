@@ -18,6 +18,9 @@ script:
  # Test install
  - pip install -e .
 
+ # For info
+ - pip freeze
+
  # Simple offline test runs
  - pypinfo --version
  - pypinfo --help
