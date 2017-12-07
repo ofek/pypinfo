@@ -27,8 +27,8 @@ class TestCore(unittest.TestCase):
 
         # Assert
         expected = """\
-| python_version | percent | download_count | 
-| -------------- | ------- | -------------- | 
+| python_version | percent | download_count |
+| -------------- | ------: | -------------: |
 | 2.7            |   51.7% |        342,250 |
 | 3.6            |   21.1% |        139,745 |
 | 3.5            |   17.2% |        114,254 |

@@ -139,8 +139,18 @@ def tabulate(rows):
     for i, item in enumerate(headers):
         tabulated += item + ' | ' * (column_widths[i] - len(item) + 1)
 
-    tabulated += ('\n| ' + ''.join('-' * i + ' | ' for i in column_widths) +
-                  '\n')
+    tabulated = tabulated.rstrip()
+    tabulated += '\n| '
+
+    for i, item in enumerate(rows[0]):
+        tabulated += '-' * (column_widths[i]-1)
+        if right_align[0][i]:
+            tabulated += ': | '
+        else:
+            tabulated += '- | '
+
+    tabulated = tabulated.rstrip()
+    tabulated += '\n'
 
     for r, row in enumerate(rows):
         for i, item in enumerate(row):
