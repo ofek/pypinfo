@@ -25,5 +25,8 @@ script:
  - pypinfo --version
  - pypinfo --help
 
+ # Unit tests
+ - python tests/test_core.py
+
 matrix:
   fast_finish: true
