@@ -60,10 +60,11 @@ FIELD_MAP = {
               help='Field to order by. Default: download_count')
 @click.option('--pip', '-p', is_flag=True, help='Only show installs by pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
+@click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
 @click.version_option()
 @click.pass_context
 def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
-            start_date, end_date, where, order, pip, percent):
+            start_date, end_date, where, order, pip, percent, markdown):
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl |\n
     impl-version |openssl | date | month | year | country | installer |\n
@@ -105,7 +106,7 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
             rows = add_percentages(rows, include_sign=not json)
 
         if not json:
-            click.echo(tabulate(rows))
+            click.echo(tabulate(rows, markdown))
         else:
             click.echo(format_json(rows))
     else:

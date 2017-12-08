@@ -116,7 +116,7 @@ def add_percentages(rows, include_sign=True):
     return rows
 
 
-def tabulate(rows):
+def tabulate(rows, markdown=False):
     column_widths = [0] * len(rows[0])
     right_align = [[False] * len(rows[0])] * len(rows)
 
@@ -144,7 +144,7 @@ def tabulate(rows):
 
     for i, item in enumerate(rows[0]):
         tabulated += '-' * (column_widths[i]-1)
-        if right_align[0][i]:
+        if right_align[0][i] and markdown:
             tabulated += ': | '
         else:
             tabulated += '- | '
