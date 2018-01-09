@@ -95,7 +95,7 @@ def build_query(project, fields, start_date=None, end_date=None,
 
 
 def parse_query_result(query_job, query_rows):
-    rows = [[field.name for field in query_job.query_results().schema]]
+    rows = [[field.name for field in query_job.result().schema]]
     rows.extend([str(item) for item in row] for row in query_rows)
     return rows
 
