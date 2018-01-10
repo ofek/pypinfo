@@ -1,19 +1,32 @@
 language: python
 
-matrix:
-    include:
-        - python: 3.5
-          env: TOXENV=py35
-        - python: 3.6
-          env: TOXENV=py36
-        - python: pypy3
-          env: TOXENV=pypy3
+python:
+ - pypy3
+ - 3.6
+ - 3.5
+
+sudo: false
 
 install:
-  - pip install tox
-  - pip install codecov
+ - pip install pyflakes pycodestyle pytest
 
-script: "tox -- -rs"
+script:
+ # Static analysis
+ - pyflakes .
+ - pycodestyle --statistics --count .
 
-after_success:
-  - codecov
+ # Test install
+ - pip install -e .
+
+ # For info
+ - pip freeze
+
+ # Simple offline test runs
+ - pypinfo --version
+ - pypinfo --help
+
+ # Unit tests
+ - pytest
+
+matrix:
+  fast_finish: true
