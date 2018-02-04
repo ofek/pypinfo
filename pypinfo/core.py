@@ -137,7 +137,7 @@ def tabulate(rows, markdown=False):
 
     headers = rows.pop(0)
     for i, item in enumerate(headers):
-        tabulated += item + ' | ' * (column_widths[i] - len(item) + 1)
+        tabulated += item + ' ' * (column_widths[i] - len(item) + 1) + '| '
 
     tabulated = tabulated.rstrip()
     tabulated += '\n| '
