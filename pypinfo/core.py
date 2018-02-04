@@ -41,7 +41,7 @@ def create_client(creds_file=None):
     return Client.from_service_account_json(creds_file, project=project)
 
 
-def build_query(project, fields, start_date=None, end_date=None,
+def build_query(project, all_fields, start_date=None, end_date=None,
                 days=None, limit=None, where=None, order=None, pip=None):
     project = normalize(project)
 
@@ -57,6 +57,13 @@ def build_query(project, fields, start_date=None, end_date=None,
 
     if int(start_date) >= int(end_date):
         raise ValueError('End date must be greater than start date.')
+
+    fields = []
+    used_fields = set()
+    for f in all_fields:
+        if f not in used_fields:
+            fields.append(f)
+            used_fields.add(f)
 
     fields.append(Downloads)
     query = 'SELECT\n'
