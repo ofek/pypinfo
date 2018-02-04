@@ -275,6 +275,14 @@ Changelog
 
 Important changes are emphasized.
 
+9.0.0
+^^^^^
+
+- Added new BigQuery usage stats.
+- Lowered the default number of results to ``10`` from ``20``.
+- Updated examples.
+- Fixed table formatting regression.
+
 8.0.0
 ^^^^^
 
