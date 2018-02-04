@@ -17,7 +17,7 @@ FROM
 """
 START_DATE = '-31'
 END_DATE = '-1'
-DEFAULT_LIMIT = '20'
+DEFAULT_LIMIT = '10'
 
 
 def create_config():
