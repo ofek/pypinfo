@@ -84,9 +84,14 @@ Downloads for a project
 .. code-block:: bash
 
     $ pypinfo requests
-    download_count
-    --------------
-        13,149,515
+    Served from cache: False
+    Data processed: 6.87 GiB
+    Data billed: 6.87 GiB
+    Estimated cost: $0.04
+
+    | download_count |
+    | -------------- |
+    |      9,316,415 |
 
 All downloads
 ^^^^^^^^^^^^^
@@ -94,9 +99,14 @@ All downloads
 .. code-block:: bash
 
     $ pypinfo ""
-    download_count
-    --------------
-       765,826,772
+    Served from cache: False
+    Data processed: 0.00 B
+    Data billed: 0.00 B
+    Estimated cost: $0.00
+
+    | download_count |
+    | -------------- |
+    |    661,224,259 |
 
 Downloads for a project by Python version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -104,22 +114,25 @@ Downloads for a project by Python version
 .. code-block:: bash
 
     $ pypinfo django pyversion
-    python_version download_count
-    -------------- --------------
-    2.7                   611,777
-    3.6                   259,357
-    3.5                   200,749
-    3.4                   104,585
-    None                   97,813
-    2.6                     6,318
-    3.7                     2,342
-    3.3                     2,106
-    3.2                       365
-    2.4                        11
-    1.17                       10
-    2.5                         8
-    3.1                         1
-    2.1                         1
+    Served from cache: False
+    Data processed: 10.81 GiB
+    Data billed: 10.81 GiB
+    Estimated cost: $0.06
+
+    | python_version | download_count |
+    | -------------- | -------------- |
+    | 3.5            |        539,194 |
+    | 2.7            |        495,207 |
+    | 3.6            |        310,750 |
+    | None           |         84,524 |
+    | 3.4            |         64,621 |
+    | 3.7            |          3,022 |
+    | 2.6            |          2,966 |
+    | 3.3            |          1,638 |
+    | 1.17           |            285 |
+    | 3.2            |            188 |
+    | 3.1            |              4 |
+    | 2.5            |              3 |
 
 All downloads by country code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -127,28 +140,33 @@ All downloads by country code
 .. code-block:: bash
 
     $ pypinfo "" country
-    country download_count
-    ------- --------------
-    US         501,337,782
-    IE          29,547,697
-    CN          22,198,589
-    DE          21,641,064
-    GB          18,946,922
-    None        18,077,976
-    FR          15,593,846
-    BR          13,500,471
-    CA          13,098,341
-    AU          12,482,455
-    JP          12,390,691
-    RU          11,381,041
-    SG          11,326,902
-    IN          10,186,952
-    KR           8,141,791
-    NL           6,695,112
-    IL           3,381,433
-    ES           2,622,822
-    PL           2,408,438
-    NO           2,292,994
+    Served from cache: False
+    Data processed: 2.40 GiB
+    Data billed: 2.40 GiB
+    Estimated cost: $0.02
+
+    | country | download_count |
+    | ------- | -------------- |
+    | US      |    420,722,571 |
+    | CN      |     27,235,750 |
+    | IE      |     24,011,857 |
+    | DE      |     19,112,463 |
+    | GB      |     18,485,428 |
+    | FR      |     17,394,541 |
+    | None    |     15,867,055 |
+    | JP      |     12,381,087 |
+    | CA      |     11,666,733 |
+    | KR      |     10,239,761 |
+    | AU      |      9,573,248 |
+    | SG      |      8,500,881 |
+    | IN      |      8,467,755 |
+    | RU      |      6,243,255 |
+    | NL      |      6,096,337 |
+    | BR      |      5,992,892 |
+    | IL      |      4,924,533 |
+    | PL      |      2,902,368 |
+    | HK      |      2,873,318 |
+    | SE      |      2,604,146 |
 
 Downloads for a project by system and distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -156,28 +174,33 @@ Downloads for a project by system and distribution
 .. code-block:: bash
 
     $ pypinfo cryptography system distro
-    system_name distro_name                     download_count
-    ----------- ------------------------------- --------------
-    Linux       Ubuntu                               1,949,204
-    Linux       Debian GNU/Linux                       407,626
-    Linux       None                                   375,363
-    Linux       CentOS Linux                           251,467
-    None        None                                   204,007
-    Windows     None                                   174,763
-    Linux       debian                                 116,972
-    Linux       Amazon Linux AMI                       106,790
-    Linux       CentOS                                  99,851
-    Darwin      macOS                                   81,554
-    Linux       Raspbian GNU/Linux                      68,696
-    Linux       Red Hat Enterprise Linux Server         54,737
-    Linux       Alpine Linux                            46,135
-    Linux       Fedora                                  27,746
-    Darwin      OS X                                    16,918
-    Linux       Linux                                    9,711
-    Linux       openSUSE Leap                            8,636
-    Linux       Virtuozzo                                7,978
-    Linux       RedHatEnterpriseServer                   5,789
-    FreeBSD     None                                     4,899
+    Served from cache: False
+    Data processed: 14.75 GiB
+    Data billed: 14.75 GiB
+    Estimated cost: $0.08
+
+    | system_name | distro_name                     | download_count |
+    | ----------- | ------------------------------- | -------------- |
+    | Linux       | Ubuntu                          |      1,314,938 |
+    | Linux       | Debian GNU/Linux                |        381,857 |
+    | Linux       | None                            |        359,993 |
+    | Linux       | CentOS Linux                    |        210,950 |
+    | Linux       | Amazon Linux AMI                |        198,807 |
+    | None        | None                            |        179,950 |
+    | Windows     | None                            |        176,495 |
+    | Darwin      | macOS                           |         75,030 |
+    | Linux       | Alpine Linux                    |         66,296 |
+    | Linux       | CentOS                          |         62,812 |
+    | Linux       | Red Hat Enterprise Linux Server |         47,030 |
+    | Linux       | debian                          |         33,601 |
+    | Linux       | Raspbian GNU/Linux              |         29,467 |
+    | Linux       | Fedora                          |         20,112 |
+    | Linux       | openSUSE Leap                   |         11,549 |
+    | Darwin      | OS X                            |          6,970 |
+    | Linux       | Linux                           |          6,894 |
+    | Linux       | Virtuozzo                       |          6,611 |
+    | FreeBSD     | None                            |          5,898 |
+    | Linux       | RedHatEnterpriseServer          |          4,415 |
 
 Most popular projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -185,28 +208,33 @@ Most popular projects in the past year
 .. code-block:: bash
 
     $ pypinfo --days 365 "" project
-    project         download_count
-    --------------- --------------
-    simplejson         327,946,463
-    six                214,930,152
-    python-dateutil    152,089,489
-    setuptools         149,294,971
-    botocore           146,935,887
-    pip                140,216,305
-    requests           137,229,399
-    pyasn1             134,867,638
-    docutils           126,916,467
-    jmespath           117,212,884
-    awscli             112,539,772
-    rsa                106,762,453
-    colorama           101,860,595
-    pyyaml             100,055,678
-    selenium            98,418,802
-    futures             92,938,638
-    s3transfer          91,310,210
-    awscli-cwlogs       66,183,214
-    cffi                65,383,612
-    pyparsing           63,603,014
+    Served from cache: False
+    Data processed: 87.84 GiB
+    Data billed: 87.84 GiB
+    Estimated cost: $0.43
+
+    | project         | download_count |
+    | --------------- | -------------- |
+    | simplejson      |    267,459,163 |
+    | six             |    213,697,561 |
+    | setuptools      |    164,144,954 |
+    | botocore        |    162,843,025 |
+    | python-dateutil |    159,786,908 |
+    | pip             |    155,164,096 |
+    | pyasn1          |    142,647,378 |
+    | requests        |    141,811,313 |
+    | docutils        |    136,073,108 |
+    | pyyaml          |    127,183,654 |
+    | jmespath        |    126,997,657 |
+    | s3transfer      |    123,275,444 |
+    | futures         |    121,993,875 |
+    | awscli          |    119,512,669 |
+    | rsa             |    112,884,251 |
+    | colorama        |    107,995,099 |
+    | idna            |     79,363,400 |
+    | wheel           |     79,098,241 |
+    | selenium        |     72,291,821 |
+    | awscli-cwlogs   |     69,708,863 |
 
 Percentage of Python 3 downloads of the top 100 projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
