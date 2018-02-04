@@ -275,6 +275,11 @@ Changelog
 
 Important changes are emphasized.
 
+10.0.0
+^^^^^^
+
+- Fixed custom field ordering.
+
 9.0.0
 ^^^^^
 
