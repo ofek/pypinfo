@@ -53,7 +53,7 @@ TO_CENTS = Decimal('0.00')
 @click.option('--json', '-j', is_flag=True, help='Print data as JSON.')
 @click.option('--timeout', '-t', type=int, default=120000,
               help='Milliseconds. Default: 120000 (2 minutes)')
-@click.option('--limit', '-l', help='Maximum number of query results. Default: 20')
+@click.option('--limit', '-l', help='Maximum number of query results. Default: 10')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')

@@ -62,7 +62,7 @@ Usage
       --run / --test          --test simply prints the query.
       -j, --json              Print data as JSON.
       -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
-      -l, --limit TEXT        Maximum number of query results. Default: 20
+      -l, --limit TEXT        Maximum number of query results. Default: 10
       -d, --days TEXT         Number of days in the past to include. Default: 30
       -sd, --start-date TEXT  Must be negative. Default: -31
       -ed, --end-date TEXT    Must be negative. Default: -1
