@@ -114,8 +114,8 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         # Cost
         billing_tier = query_job.billing_tier or 1
         estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
-        estimated_cost = estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP).normalize()
-        click.echo('Estimated cost: {}'.format(estimated_cost))
+        estimated_cost = estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP)
+        click.echo('Estimated cost: ${}'.format(estimated_cost))
 
         click.echo()
 
