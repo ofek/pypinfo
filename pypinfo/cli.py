@@ -103,28 +103,28 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         query_job = client.query(built_query, job_config=create_config())
         query_rows = query_job.result(timeout=timeout // 1000)
 
-        # Cached
-        from_cache = not not query_job.cache_hit
-
-        # Processed
-        bytes_processed = query_job.total_bytes_processed
-        processed_amount, processed_unit = convert_units(bytes_processed or 0)
-
-        # Billed
-        bytes_billed = query_job.total_bytes_billed
-        billed_amount, billed_unit = convert_units(bytes_billed or 0)
-
-        # Cost
-        billing_tier = query_job.billing_tier or 1
-        estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
-        estimated_cost = estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP)
-
         rows = parse_query_result(query_job, query_rows)
 
         if percent:
             rows = add_percentages(rows, include_sign=not json)
 
         if not json:
+            # Cached
+            from_cache = not not query_job.cache_hit
+
+            # Processed
+            bytes_processed = query_job.total_bytes_processed
+            processed_amount, processed_unit = convert_units(bytes_processed or 0)
+
+            # Billed
+            bytes_billed = query_job.total_bytes_billed
+            billed_amount, billed_unit = convert_units(bytes_billed or 0)
+
+            # Cost
+            billing_tier = query_job.billing_tier or 1
+            estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
+            estimated_cost = estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP)
+
             click.echo('Served from cache: {}'.format(from_cache))
             click.echo('Data processed: {:.2f} {}'.format(processed_amount, processed_unit))
             click.echo('Data billed: {:.2f} {}'.format(billed_amount, billed_unit))
