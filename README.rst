@@ -275,6 +275,11 @@ Changelog
 
 Important changes are emphasized.
 
+11.0.0
+^^^^^^
+
+- Fixed JSON output.
+
 10.0.0
 ^^^^^^
 
