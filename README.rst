@@ -278,6 +278,13 @@ Changelog
 
 Important changes are emphasized.
 
+12.0.0
+^^^^^^
+
+- **Breaking:** JSON output is now a mapping with keys ``rows``, which is all the
+  data that was previously outputted, and ``query``, which is relevant metadata.
+- Increased the resolution of percentages.
+
 11.0.0
 ^^^^^^
 
