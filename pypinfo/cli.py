@@ -50,7 +50,8 @@ TO_CENTS = Decimal('0.00')
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
-@click.option('--json', '-j', is_flag=True, help='Print data as JSON.')
+@click.option('--json', '-j', is_flag=True, help='Print data as JSON, with keys `rows` and `query`.')
+@click.option('--indent', '-i', type=int, help='JSON indentation level.')
 @click.option('--timeout', '-t', type=int, default=120000,
               help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 10')
@@ -64,7 +65,7 @@ TO_CENTS = Decimal('0.00')
 @click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
 @click.version_option()
 @click.pass_context
-def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
+def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
             start_date, end_date, where, order, pip, percent, markdown):
     """Valid fields are:\n
     project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
@@ -107,17 +108,17 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
         from_cache = not not query_job.cache_hit
 
         # Processed
-        bytes_processed = query_job.total_bytes_processed
-        processed_amount, processed_unit = convert_units(bytes_processed or 0)
+        bytes_processed = query_job.total_bytes_processed or 0
+        processed_amount, processed_unit = convert_units(bytes_processed)
 
         # Billed
-        bytes_billed = query_job.total_bytes_billed
-        billed_amount, billed_unit = convert_units(bytes_billed or 0)
+        bytes_billed = query_job.total_bytes_billed or 0
+        billed_amount, billed_unit = convert_units(bytes_billed)
 
         # Cost
         billing_tier = query_job.billing_tier or 1
         estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
-        estimated_cost = estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP)
+        estimated_cost = str(estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP))
 
         rows = parse_query_result(query_job, query_rows)
 
@@ -133,6 +134,12 @@ def pypinfo(ctx, project, fields, auth, run, json, timeout, limit, days,
             click.echo()
             click.echo(tabulate(rows, markdown))
         else:
-            click.echo(format_json(rows))
+            query_info = {
+                'cached': from_cache,
+                'bytes_processed': bytes_processed,
+                'bytes_billed': bytes_billed,
+                'estimated_cost': estimated_cost
+            }
+            click.echo(format_json(rows, query_info, indent))
     else:
         click.echo(built_query)

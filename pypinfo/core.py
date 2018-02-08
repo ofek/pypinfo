@@ -172,9 +172,9 @@ def tabulate(rows, markdown=False):
     return tabulated
 
 
-def format_json(rows):
+def format_json(rows, query_info, indent):
     headers, *data = rows
-    j = []
+    rows = []
 
     for d in data:
         item = {}
@@ -182,6 +182,9 @@ def format_json(rows):
             if d[i].isdigit():
                 d[i] = int(d[i])
             item[headers[i]] = d[i]
-        j.append(item)
+        rows.append(item)
 
-    return json.dumps(j, indent=2, sort_keys=True)
+    j = {'rows': rows, 'query': query_info}
+
+    separators = (',', ':') if indent is None else None
+    return json.dumps(j, indent=indent, separators=separators, sort_keys=True)

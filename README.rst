@@ -60,7 +60,8 @@ Usage
     Options:
       -a, --auth TEXT         Path to Google credentials JSON file.
       --run / --test          --test simply prints the query.
-      -j, --json              Print data as JSON.
+      -j, --json              Print data as JSON, with keys `rows` and `query`.
+      -i, --indent INTEGER    JSON indentation level.
       -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
       -l, --limit TEXT        Maximum number of query results. Default: 10
       -d, --days TEXT         Number of days in the past to include. Default: 30
@@ -69,6 +70,8 @@ Usage
       -w, --where TEXT        WHERE conditional. Default: file.project = "project"
       -o, --order TEXT        Field to order by. Default: download_count
       -p, --pip               Only show installs by pip.
+      -pc, --percent          Print percentages.
+      -md, --markdown         Output as Markdown.
       --version               Show the version and exit.
       --help                  Show this message and exit.
 
