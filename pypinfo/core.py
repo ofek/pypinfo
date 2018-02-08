@@ -113,7 +113,7 @@ def add_percentages(rows, include_sign=True):
     index = headers.index('download_count')
     headers.insert(index, 'percent')
     total_downloads = sum(int(row[index]) for row in rows)
-    percent_format = '{:.1%}' if include_sign else '{:.1}'
+    percent_format = '{:.2%}' if include_sign else '{:.2}'
 
     for r, row in enumerate(rows):
         percent = percent_format.format(int(row[index]) / total_downloads)
