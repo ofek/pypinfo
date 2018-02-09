@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import re
@@ -184,7 +185,9 @@ def format_json(rows, query_info, indent):
             item[headers[i]] = d[i]
         rows.append(item)
 
-    j = {'rows': rows, 'query': query_info}
+    now = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+
+    j = {'last_update': now, 'rows': rows, 'query': query_info}
 
     separators = (',', ':') if indent is None else None
     return json.dumps(j, indent=indent, separators=separators, sort_keys=True)
