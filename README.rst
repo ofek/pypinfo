@@ -278,6 +278,11 @@ Changelog
 
 Important changes are emphasized.
 
+13.0.0
+^^^^^^
+
+- Added ``last_update`` JSON key, which is a UTC timestamp.
+
 12.0.0
 ^^^^^^
 
