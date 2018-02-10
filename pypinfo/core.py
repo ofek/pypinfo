@@ -1,7 +1,7 @@
-import datetime
 import json
 import os
 import re
+from datetime import datetime
 
 from google.cloud.bigquery import Client
 from google.cloud.bigquery.job import QueryJobConfig
@@ -185,7 +185,7 @@ def format_json(rows, query_info, indent):
             item[headers[i]] = d[i]
         rows.append(item)
 
-    now = datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
     j = {'last_update': now, 'rows': rows, 'query': query_info}
 
