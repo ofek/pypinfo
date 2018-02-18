@@ -278,6 +278,11 @@ Changelog
 
 Important changes are emphasized.
 
+14.0.0
+^^^^^^
+
+- Added new ``file`` field!
+
 13.0.0
 ^^^^^^
 
