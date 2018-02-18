@@ -9,7 +9,7 @@ from pypinfo.core import (
 )
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
-    Project, Date, Month, Year, Country, Version, PythonVersion, Percent3,
+    Project, Date, Month, Year, Country, Version, File, PythonVersion, Percent3,
     Percent2, Installer, InstallerVersion, SetuptoolsVersion, System,
     SystemRelease, Implementation, ImplementationVersion, OpenSSLVersion,
     Distro, DistroVersion, CPU
@@ -21,6 +21,7 @@ CONTEXT_SETTINGS = {
 FIELD_MAP = {
     'project': Project,
     'version': Version,
+    'file': File,
     'pyversion': PythonVersion,
     'percent3': Percent3,
     'percent2': Percent2,
@@ -68,7 +69,7 @@ TO_CENTS = Decimal('0.00')
 def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
             start_date, end_date, where, order, pip, percent, markdown):
     """Valid fields are:\n
-    project | version | pyversion | percent3 | percent2 | impl | impl-version |\n
+    project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
     setuptools-version | system | system-release | distro | distro-version | cpu
     """

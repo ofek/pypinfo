@@ -51,7 +51,7 @@ Usage
 
       Valid fields are:
 
-      project | version | pyversion | percent3 | percent2 | impl | impl-version |
+      project | version | file | pyversion | percent3 | percent2 | impl | impl-version |
 
       openssl | date | month | year | country | installer | installer-version |
 
