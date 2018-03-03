@@ -44,7 +44,7 @@ This is relatively painless, I swear.
 Usage
 -----
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo
     Usage: pypinfo [OPTIONS] [PROJECT] [FIELDS]... COMMAND [ARGS]...
@@ -84,7 +84,7 @@ Tip: If queries are resulting in NoneType errors, increase timeout.
 Downloads for a project
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo requests
     Served from cache: False
@@ -99,7 +99,7 @@ Downloads for a project
 All downloads
 ^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo ""
     Served from cache: False
@@ -114,7 +114,7 @@ All downloads
 Downloads for a project by Python version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo django pyversion
     Served from cache: False
@@ -140,7 +140,7 @@ Downloads for a project by Python version
 All downloads by country code
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo "" country
     Served from cache: False
@@ -174,7 +174,7 @@ All downloads by country code
 Downloads for a project by system and distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo cryptography system distro
     Served from cache: False
@@ -208,7 +208,7 @@ Downloads for a project by system and distribution
 Most popular projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo --days 365 "" project
     Served from cache: False
@@ -244,7 +244,7 @@ Percentage of Python 3 downloads of the top 100 projects in the past year
 
 Let's use ``--test`` to only see the query instead of sending it.
 
-.. code-block:: bash
+.. code-block:: console
 
     $ pypinfo --test --days 365 --limit 100 "" project percent3
     SELECT
