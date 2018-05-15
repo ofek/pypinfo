@@ -12,13 +12,17 @@ FROM = """\
 FROM
   TABLE_DATE_RANGE(
     [the-psf:pypi.downloads],
-    DATE_ADD(CURRENT_TIMESTAMP(), {}, "day"),
-    DATE_ADD(CURRENT_TIMESTAMP(), {}, "day")
+    {},
+    {}
   )
 """
+DATE_ADD = 'DATE_ADD(CURRENT_TIMESTAMP(), {}, "day")'
+START_TIMESTAMP = 'TIMESTAMP("{} 00:00:00")'
+END_TIMESTAMP = 'TIMESTAMP("{} 23:59:59")'
 START_DATE = '-31'
 END_DATE = '-1'
 DEFAULT_LIMIT = '10'
+YYYY_MM_DD = re.compile("^[0-9]{4}-[01][0-9]-[0-3][0-9]$")
 
 
 def create_config():
@@ -42,6 +46,28 @@ def create_client(creds_file=None):
     return Client.from_service_account_json(creds_file, project=project)
 
 
+def validate_date(date):
+    valid = False
+    try:
+        if int(date) < 0:
+            valid = True
+    except ValueError:
+        if YYYY_MM_DD.match(date):
+            valid = True
+
+    if not valid:
+        raise ValueError('Dates must be negative integers or YYYY-MM-DD in the past.')
+    return valid
+
+
+def format_date(date, timestamp_format):
+    try:
+        date = DATE_ADD.format(int(date))
+    except ValueError:
+        date = timestamp_format.format(date)
+    return date
+
+
 def build_query(project, all_fields, start_date=None, end_date=None,
                 days=None, limit=None, where=None, order=None, pip=None):
     project = normalize(project)
@@ -53,11 +79,18 @@ def build_query(project, all_fields, start_date=None, end_date=None,
     if days:
         start_date = str(int(end_date) - int(days))
 
-    if int(start_date) > 0 or int(end_date) > 0:
-        raise ValueError('Dates must be in the past (negative).')
+    validate_date(start_date)
+    validate_date(end_date)
 
-    if int(start_date) >= int(end_date):
-        raise ValueError('End date must be greater than start date.')
+    try:
+        if int(start_date) >= int(end_date):
+            raise ValueError('End date must be greater than start date.')
+    except ValueError:
+        # Not integers, must be yyyy-mm-dd
+        pass
+
+    start_date = format_date(start_date, START_TIMESTAMP)
+    end_date = format_date(end_date, END_TIMESTAMP)
 
     fields = []
     used_fields = set()
