@@ -79,12 +79,18 @@ def test_validate_date_positive_number():
         core.validate_date("1")
 
 
-def test_validate_date_yyyy_mm_dd():
+def test_validate_date_valid_yyyy_mm_dd():
     # Act
     valid = core.validate_date("2018-05-15")
 
     # Assert
     assert valid
+
+
+def test_validate_date_invalid_yyyy_mm_dd():
+    # Act
+    with pytest.raises(ValueError):
+        core.validate_date("2018-19-39")
 
 
 def test_validate_date_other_string():
