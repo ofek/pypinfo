@@ -22,7 +22,6 @@ END_TIMESTAMP = 'TIMESTAMP("{} 23:59:59")'
 START_DATE = '-31'
 END_DATE = '-1'
 DEFAULT_LIMIT = '10'
-YYYY_MM_DD = re.compile("^[0-9]{4}-[01][0-9]-[0-3][0-9]$")
 
 
 def create_config():
@@ -46,18 +45,21 @@ def create_client(creds_file=None):
     return Client.from_service_account_json(creds_file, project=project)
 
 
-def validate_date(date):
-    valid = False
+def validate_date(date_text):
+    """Return True if valid, raise ValueError if not"""
     try:
-        if int(date) < 0:
-            valid = True
+        if int(date_text) < 0:
+            return True
     except ValueError:
-        if YYYY_MM_DD.match(date):
-            valid = True
+        pass
 
-    if not valid:
-        raise ValueError('Dates must be negative integers or YYYY-MM-DD in the past.')
-    return valid
+    try:
+        datetime.strptime(date_text, '%Y-%m-%d')
+        return True
+    except ValueError:
+        pass
+
+    raise ValueError('Dates must be negative integers or YYYY-MM-DD in the past.')
 
 
 def format_date(date, timestamp_format):
