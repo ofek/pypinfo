@@ -1,3 +1,6 @@
+import copy
+import pytest
+
 from pypinfo import core
 
 ROWS = [
@@ -16,7 +19,7 @@ ROWS = [
 
 def test_tabulate_default():
     # Arrange
-    rows = list(ROWS)
+    rows = copy.deepcopy(ROWS)
     expected = """\
 | python_version | percent | download_count |
 | -------------- | ------- | -------------- |
@@ -40,7 +43,7 @@ def test_tabulate_default():
 
 def test_tabulate_markdown():
     # Arrange
-    rows = list(ROWS)
+    rows = copy.deepcopy(ROWS)
     expected = """\
 | python_version | percent | download_count |
 | -------------- | ------: | -------------: |
@@ -60,3 +63,50 @@ def test_tabulate_markdown():
 
     # Assert
     assert tabulated == expected
+
+
+def test_validate_date_negative_number():
+    # Act
+    valid = core.validate_date("-1")
+
+    # Assert
+    assert valid
+
+
+def test_validate_date_positive_number():
+    # Act / Assert
+    with pytest.raises(ValueError):
+        core.validate_date("1")
+
+
+def test_validate_date_yyyy_mm_dd():
+    # Act
+    valid = core.validate_date("2018-05-15")
+
+    # Assert
+    assert valid
+
+
+def test_validate_date_other_string():
+    # Act / Assert
+    with pytest.raises(ValueError):
+        core.validate_date("somthing invalid")
+
+
+def test_format_date_negative_number():
+    # Arrange
+    dummy_format = "dummy format {}"
+
+    # Act
+    date = core.format_date("-1", dummy_format)
+
+    # Assert
+    assert date == 'DATE_ADD(CURRENT_TIMESTAMP(), -1, "day")'
+
+
+def test_format_date_yyy_mm_dd():
+    # Act
+    date = core.format_date("2018-05-15", core.START_TIMESTAMP)
+
+    # Assert
+    assert date == 'TIMESTAMP("2018-05-15 00:00:00")'
