@@ -5,6 +5,7 @@ from binary import TEBIBYTE, convert_units
 
 from pypinfo.core import (
     add_percentages,
+    add_download_total,
     build_query,
     create_client,
     create_config,
@@ -168,6 +169,10 @@ def pypinfo(
 
         if percent:
             rows = add_percentages(rows, include_sign=not json)
+
+        # Only for tables, and if more than the header row + a single data row
+        if len(rows) > 2 and not json:
+            rows = add_download_total(rows)
 
         if not json:
             click.echo('Served from cache: {}'.format(from_cache))

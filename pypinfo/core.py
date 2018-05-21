@@ -160,6 +160,27 @@ def add_percentages(rows, include_sign=True):
     return rows
 
 
+def get_download_total(rows):
+    """Return the total downloads, and the downloads column"""
+    headers = rows.pop(0)
+    index = headers.index('download_count')
+    total_downloads = sum(int(row[index]) for row in rows)
+
+    rows.insert(0, headers)
+    return total_downloads, index
+
+
+def add_download_total(rows):
+    """Add a final row to rows showing the total downloads"""
+    total_row = [""] * len(rows[0])
+    total_row[0] = "Total"
+    total_downloads, downloads_column = get_download_total(rows)
+    total_row[downloads_column] = str(total_downloads)
+    rows.append(total_row)
+
+    return rows
+
+
 def tabulate(rows, markdown=False):
     column_widths = [0] * len(rows[0])
     right_align = [[False] * len(rows[0])] * len(rows)
