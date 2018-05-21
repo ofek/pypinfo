@@ -62,12 +62,15 @@ TO_CENTS = Decimal('0.00')
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
 @click.option('--pip', '-p', is_flag=True, help='Only show installs by pip.')
+@click.option('--all', 'all_installers', is_flag=True,
+              help='Show downloads by all installers, not only pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
 @click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
 @click.version_option()
 @click.pass_context
 def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
-            start_date, end_date, where, order, pip, percent, markdown):
+            start_date, end_date, where, order, pip, all_installers, percent,
+            markdown):
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
@@ -94,6 +97,9 @@ def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
     if order:
         order_name = order.name
         parsed_fields.insert(0, order)
+
+    if not pip:
+        pip = not all_installers
 
     built_query = build_query(
         project, parsed_fields, limit=limit, days=days, start_date=start_date,
