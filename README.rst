@@ -242,6 +242,21 @@ Most popular projects in the past year
     | selenium        |     72,291,821 |
     | awscli-cwlogs   |     69,708,863 |
 
+Downloads between two YYYY-MM-DD dates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+    $ pypinfo --start-date 2018-04-01 --end-date 2018-04-30 setuptools
+    Served from cache: True
+    Data processed: 0.00 B
+    Data billed: 0.00 B
+    Estimated cost: $0.00
+
+    | download_count |
+    | -------------- |
+    |      9,572,911 |
+
 Percentage of Python 3 downloads of the top 100 projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
