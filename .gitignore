@@ -3,6 +3,8 @@
 /.cache
 /.idea
 /.coverage
+/.coverage.*
+/.pytest_cache
 /pypinfo.egg-info
 /build
 /dist
