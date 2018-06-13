@@ -71,15 +71,7 @@ def format_date(date, timestamp_format):
 
 
 def build_query(
-    project,
-    all_fields,
-    start_date=None,
-    end_date=None,
-    days=None,
-    limit=None,
-    where=None,
-    order=None,
-    pip=None,
+    project, all_fields, start_date=None, end_date=None, days=None, limit=None, where=None, order=None, pip=None
 ):
     project = normalize(project)
 

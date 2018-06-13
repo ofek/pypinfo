@@ -71,34 +71,16 @@ TO_CENTS = Decimal('0.00')
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
-@click.option(
-    '--json',
-    '-j',
-    is_flag=True,
-    help='Print data as JSON, with keys `rows` and `query`.',
-)
+@click.option('--json', '-j', is_flag=True, help='Print data as JSON, with keys `rows` and `query`.')
 @click.option('--indent', '-i', type=int, help='JSON indentation level.')
-@click.option(
-    '--timeout',
-    '-t',
-    type=int,
-    default=120000,
-    help='Milliseconds. Default: 120000 (2 minutes)',
-)
+@click.option('--timeout', '-t', type=int, default=120000, help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 10')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
-@click.option(
-    '--where', '-w', help='WHERE conditional. Default: file.project = "project"'
-)
+@click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
-@click.option(
-    '--all',
-    'all_installers',
-    is_flag=True,
-    help='Show downloads by all installers, not only pip.',
-)
+@click.option('--all', 'all_installers', is_flag=True, help='Show downloads by all installers, not only pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
 @click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
 @click.version_option()
@@ -189,9 +171,7 @@ def pypinfo(
 
         if not json:
             click.echo('Served from cache: {}'.format(from_cache))
-            click.echo(
-                'Data processed: {:.2f} {}'.format(processed_amount, processed_unit)
-            )
+            click.echo('Data processed: {:.2f} {}'.format(processed_amount, processed_unit))
             click.echo('Data billed: {:.2f} {}'.format(billed_amount, billed_unit))
             click.echo('Estimated cost: ${}'.format(estimated_cost))
 
