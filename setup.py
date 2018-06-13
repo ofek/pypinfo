@@ -18,14 +18,7 @@ setup(
     url='https://github.com/ofek/pypinfo',
     download_url='https://github.com/ofek/pypinfo',
     license='MIT',
-
-    keywords=(
-        'pypi',
-        'downloads',
-        'stats',
-        'bigquery',
-    ),
-
+    keywords=('pypi', 'downloads', 'stats', 'bigquery'),
     classifiers=(
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -37,17 +30,11 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: Implementation :: CPython',
-        'Programming Language :: Python :: Implementation :: PyPy'
+        'Programming Language :: Python :: Implementation :: PyPy',
     ),
-
     python_requires='>=3.5',
     install_requires=('appdirs', 'binary', 'click', 'google-cloud-bigquery>=0.29.0', 'tinydb', 'tinyrecord'),
     tests_require=['pytest'],
-
     packages=find_packages(),
-    entry_points={
-        'console_scripts': (
-            'pypinfo = pypinfo.cli:pypinfo',
-        ),
-    },
+    entry_points={'console_scripts': ('pypinfo = pypinfo.cli:pypinfo',)},
 )

@@ -4,20 +4,40 @@ import click
 from binary import TEBIBYTE, convert_units
 
 from pypinfo.core import (
-    add_percentages, build_query, create_client, create_config, format_json,
-    parse_query_result, tabulate
+    add_percentages,
+    build_query,
+    create_client,
+    create_config,
+    format_json,
+    parse_query_result,
+    tabulate,
 )
 from pypinfo.db import get_credentials, set_credentials
 from pypinfo.fields import (
-    Project, Date, Month, Year, Country, Version, File, PythonVersion, Percent3,
-    Percent2, Installer, InstallerVersion, SetuptoolsVersion, System,
-    SystemRelease, Implementation, ImplementationVersion, OpenSSLVersion,
-    Distro, DistroVersion, CPU
+    Project,
+    Date,
+    Month,
+    Year,
+    Country,
+    Version,
+    File,
+    PythonVersion,
+    Percent3,
+    Percent2,
+    Installer,
+    InstallerVersion,
+    SetuptoolsVersion,
+    System,
+    SystemRelease,
+    Implementation,
+    ImplementationVersion,
+    OpenSSLVersion,
+    Distro,
+    DistroVersion,
+    CPU,
 )
 
-CONTEXT_SETTINGS = {
-    'max_content_width': 300
-}
+CONTEXT_SETTINGS = {'max_content_width': 300}
 FIELD_MAP = {
     'project': Project,
     'version': Version,
@@ -53,23 +73,37 @@ TO_CENTS = Decimal('0.00')
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
 @click.option('--json', '-j', is_flag=True, help='Print data as JSON, with keys `rows` and `query`.')
 @click.option('--indent', '-i', type=int, help='JSON indentation level.')
-@click.option('--timeout', '-t', type=int, default=120000,
-              help='Milliseconds. Default: 120000 (2 minutes)')
+@click.option('--timeout', '-t', type=int, default=120000, help='Milliseconds. Default: 120000 (2 minutes)')
 @click.option('--limit', '-l', help='Maximum number of query results. Default: 10')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative. Default: -1')
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
-@click.option('--all', 'all_installers', is_flag=True,
-              help='Show downloads by all installers, not only pip.')
+@click.option('--all', 'all_installers', is_flag=True, help='Show downloads by all installers, not only pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
 @click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
 @click.version_option()
 @click.pass_context
-def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
-            start_date, end_date, where, order, all_installers, percent,
-            markdown):
+def pypinfo(
+    ctx,
+    project,
+    fields,
+    auth,
+    run,
+    json,
+    indent,
+    timeout,
+    limit,
+    days,
+    start_date,
+    end_date,
+    where,
+    order,
+    all_installers,
+    percent,
+    markdown,
+):
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
@@ -98,8 +132,15 @@ def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
         parsed_fields.insert(0, order)
 
     built_query = build_query(
-        project, parsed_fields, limit=limit, days=days, start_date=start_date,
-        end_date=end_date, where=where, order=order_name, pip=not all_installers,
+        project,
+        parsed_fields,
+        limit=limit,
+        days=days,
+        start_date=start_date,
+        end_date=end_date,
+        where=where,
+        order=order_name,
+        pip=not all_installers,
     )
 
     if run:
@@ -141,7 +182,7 @@ def pypinfo(ctx, project, fields, auth, run, json, indent, timeout, limit, days,
                 'cached': from_cache,
                 'bytes_processed': bytes_processed,
                 'bytes_billed': bytes_billed,
-                'estimated_cost': estimated_cost
+                'estimated_cost': estimated_cost,
             }
             click.echo(format_json(rows, query_info, indent))
     else:

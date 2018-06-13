@@ -70,8 +70,9 @@ def format_date(date, timestamp_format):
     return date
 
 
-def build_query(project, all_fields, start_date=None, end_date=None,
-                days=None, limit=None, where=None, order=None, pip=None):
+def build_query(
+    project, all_fields, start_date=None, end_date=None, days=None, limit=None, where=None, order=None, pip=None
+):
     project = normalize(project)
 
     start_date = start_date or START_DATE
@@ -186,7 +187,7 @@ def tabulate(rows, markdown=False):
     tabulated += '\n| '
 
     for i, item in enumerate(rows[0]):
-        tabulated += '-' * (column_widths[i]-1)
+        tabulated += '-' * (column_widths[i] - 1)
         if right_align[0][i] and markdown:
             tabulated += ': | '
         else:

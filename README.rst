@@ -10,6 +10,9 @@ pypinfo: View PyPI download statistics with ease.
 .. image:: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
     :target: https://en.wikipedia.org/wiki/MIT_License
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
+    :target: https://github.com/ambv/black
+
 -----
 
 pypinfo is a simple CLI to access `PyPI`_ download statistics via Google's BigQuery.

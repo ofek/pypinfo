@@ -12,11 +12,11 @@ File = Field('file', 'file.filename')
 PythonVersion = Field('python_version', 'REGEXP_EXTRACT(details.python, r"^([^\.]+\.[^\.]+)")')
 Percent3 = Field(
     'percent_3',
-    'ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "3" THEN 1 ELSE 0 END) / COUNT(*), 1)'
+    'ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "3" THEN 1 ELSE 0 END) / COUNT(*), 1)',
 )
 Percent2 = Field(
     'percent_2',
-    'ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "2" THEN 1 ELSE 0 END) / COUNT(*), 1)'
+    'ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "2" THEN 1 ELSE 0 END) / COUNT(*), 1)',
 )
 Implementation = Field('implementation', 'details.implementation.name')
 ImplementationVersion = Field('impl_version', 'REGEXP_EXTRACT(details.implementation.version, r"^([^\.]+\.[^\.]+)")')
