@@ -5,6 +5,7 @@
 /.coverage
 /.coverage.*
 /.pytest_cache
+/.tox
 /pypinfo.egg-info
 /build
 /dist
