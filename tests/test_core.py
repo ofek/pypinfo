@@ -116,3 +116,40 @@ def test_format_date_yyy_mm_dd():
 
     # Assert
     assert date == 'TIMESTAMP("2018-05-15 00:00:00")'
+
+
+def test_add_percentages():
+    # Arrange
+    rows = [
+        ['python_version', 'download_count'],
+        ['2.7', '480056'],
+        ['3.6', '328008'],
+        ['3.5', '149663'],
+        ['3.4', '36837'],
+        ['3.7', '1883'],
+        ['2.6', '591'],
+        ['3.3', '274'],
+        ['3.2', '10'],
+        ['None', '9'],
+        ['3.8', '2'],
+    ]
+
+    expected = [
+        ['python_version', 'percent', 'download_count'],
+        ['2.7', '48.13%', '480056'],
+        ['3.6', '32.89%', '328008'],
+        ['3.5', '15.01%', '149663'],
+        ['3.4', '3.69%', '36837'],
+        ['3.7', '0.19%', '1883'],
+        ['2.6', '0.06%', '591'],
+        ['3.3', '0.03%', '274'],
+        ['3.2', '0.00%', '10'],
+        ['None', '0.00%', '9'],
+        ['3.8', '0.00%', '2'],
+    ]
+
+    # Act
+    with_percentages = core.add_percentages(rows)
+
+    # Assert
+    assert with_percentages == expected

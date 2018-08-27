@@ -152,7 +152,7 @@ def add_percentages(rows, include_sign=True):
     total_downloads = sum(int(row[index]) for row in rows)
     percent_format = '{:.2%}' if include_sign else '{:.2}'
 
-    for r, row in enumerate(rows):
+    for row in rows:
         percent = percent_format.format(int(row[index]) / total_downloads)
         row.insert(index, percent)
 
@@ -186,7 +186,7 @@ def tabulate(rows, markdown=False):
     tabulated = tabulated.rstrip()
     tabulated += '\n| '
 
-    for i, item in enumerate(rows[0]):
+    for i in range(len(rows[0])):
         tabulated += '-' * (column_widths[i] - 1)
         if right_align[0][i] and markdown:
             tabulated += ': | '
