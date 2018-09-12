@@ -166,4 +166,3 @@ def test_add_total():
 
     # Assert
     assert rows_with_total == expected
-
