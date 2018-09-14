@@ -153,3 +153,16 @@ def test_add_percentages():
 
     # Assert
     assert with_percentages == expected
+
+
+def test_add_total():
+    # Arrange
+    rows = copy.deepcopy(ROWS)
+    expected = copy.deepcopy(ROWS)
+    expected.append(["Total", "", "662617"])
+
+    # Act
+    rows_with_total = core.add_download_total(rows)
+
+    # Assert
+    assert rows_with_total == expected
