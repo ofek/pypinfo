@@ -296,6 +296,13 @@ Changelog
 
 Important changes are emphasized.
 
+15.0.0
+^^^^^^
+
+- Allow yyyy-mm-dd dates
+- Add --all option, default to only showing downloads via pip
+- Add download total row
+
 14.0.0
 ^^^^^^
 
