@@ -12,7 +12,6 @@ matrix:
         - python: 3.7
           env: TOXENV=py37
           dist: xenial
-          sudo: true
         - python: pypy3
           env: TOXENV=pypy3
 
