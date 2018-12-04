@@ -25,6 +25,8 @@ Linux/macOS and Windows and supports Python 3.5+ and PyPy.
 
 This is relatively painless, I swear.
 
+* **Note:** These instructions need updating, in the meantime please follow  `this <https://github.com/ofek/pypinfo/issues/60#issuecomment-431102204>`_.
+
 1. Go to `<https://bigquery.cloud.google.com>`_.
 2. Sign up if you haven't already. The first TB of queried data each month
    is free. Each additional TB is $5.
