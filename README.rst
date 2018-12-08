@@ -25,26 +25,39 @@ Linux/macOS and Windows and supports Python 3.5+ and PyPy.
 
 This is relatively painless, I swear.
 
-* **Note:** These instructions need updating, in the meantime please follow  `this <https://github.com/ofek/pypinfo/issues/60#issuecomment-431102204>`_.
+**Create project**
 
 1. Go to `<https://bigquery.cloud.google.com>`_.
 2. Sign up if you haven't already. The first TB of queried data each month
    is free. Each additional TB is $5.
-3. Go to `<https://console.developers.google.com/cloud-resource-manager>`_ and
-   create a new project if you don't already have one. Any name is fine, but I
-   recommend you choose something to do with PyPI like pypinfo. This way you
-   know what the project is designated for.
-4. Go to `<https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview>`_
+
+3. Go to `<https://console.developers.google.com/cloud-resource-manager>`_ and click
+   CREATE PROJECT if you don't already have one:
+
+4. This takes you to `<https://console.developers.google.com/projectcreate>`_. Fill out
+   the form and click CREATE. Any name is fine, but I recommend you choose something to
+   do with PyPI like pypinfo. This way you know what the project is designated for:
+
+**Enable BigQuery API**
+
+5. Go to `<https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview>`_
    and make sure the correct project is chosen using the drop-down on top. Click
-   the button on top to enable.
-5. Follow `<https://cloud.google.com/storage/docs/authentication#generating-a-private-key>`_
-   to create credentials in JSON format. During creation, choose ``BigQuery User`` as role.
-   (If ``BigQuery`` is not an option in the list, wait 15-20 minutes and try creating
-   the credentials again.) After creation, note the download location. Move the file
-   wherever you want.
-6. ``pip install pypinfo``
-7. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
-   ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
+   the ENABLE button:
+
+6. After enabling, click CREATE CREDENTIALS:
+
+7. Choose the "BigQuery API" and "No, I'm not using them":
+
+8. Fill in a name, and select role "BigQuery User" (if the "BigQuery" is not an option
+   in the list, wait 15-20 minutes and try creating the credentials again), and select a
+   JSON key:
+
+9. Click continue and the JSON will download to your computer. Note the download
+   location. Move the file wherever you want:
+
+10. ``pip install pypinfo``
+11. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
+    ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
 
 Usage
 -----
