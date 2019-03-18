@@ -41,12 +41,12 @@ def normalize_dates(start_date, end_date):
     Otherwise, return unchanged.
     """
     try:
-        start_date, _ = month(start_date)  # yyyy-mm
+        start_date, _ = month_ends(start_date)  # yyyy-mm
     except (AttributeError, ValueError):
         pass  # -n, yyyy-mm-dd
 
     try:
-        _, end_date = month(end_date)  # yyyy-mm
+        _, end_date = month_ends(end_date)  # yyyy-mm
     except (AttributeError, ValueError):
         pass  # -n, yyyy-mm-dd
 
@@ -88,7 +88,7 @@ def format_date(date, timestamp_format):
     return date
 
 
-def month(yyyy_mm):
+def month_ends(yyyy_mm):
     """Helper to return start_date and end_date of a month as yyyy-mm-dd"""
     year, month = map(int, yyyy_mm.split("-"))
     first = date(year, month, 1)

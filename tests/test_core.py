@@ -120,7 +120,7 @@ def test_format_date_yyy_mm_dd():
 
 def test_month_yyyy_mm():
     # Act
-    first, last = core.month("2019-03")
+    first, last = core.month_ends("2019-03")
 
     # Assert
     assert first == "2019-03-01"
@@ -130,13 +130,13 @@ def test_month_yyyy_mm():
 def test_month_yyyy_mm_dd():
     # Act / Assert
     with pytest.raises(ValueError):
-        core.month("2019-03-18")
+        core.month_ends("2019-03-18")
 
 
 def test_month_negative_integer():
     # Act / Assert
     with pytest.raises(AttributeError):
-        core.month(-30)
+        core.month_ends(-30)
 
 
 def test_normalize_dates_yyy_mm():

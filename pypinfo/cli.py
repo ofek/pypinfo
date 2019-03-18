@@ -10,6 +10,7 @@ from pypinfo.core import (
     create_client,
     create_config,
     format_json,
+    month_ends,
     parse_query_result,
     tabulate,
 )
@@ -79,6 +80,7 @@ TO_CENTS = Decimal('0.00')
 @click.option('--days', '-d', help='Number of days in the past to include. Default: 30')
 @click.option('--start-date', '-sd', help='Must be negative or YYYY-MM[-DD]. Default: -31')
 @click.option('--end-date', '-ed', help='Must be negative or YYYY-MM[-DD]. Default: -1')
+@click.option('--month', '-m', help='Shortcut for -sd & -ed for a single YYYY-MM month.')
 @click.option('--where', '-w', help='WHERE conditional. Default: file.project = "project"')
 @click.option('--order', '-o', help='Field to order by. Default: download_count')
 @click.option('--all', 'all_installers', is_flag=True, help='Show downloads by all installers, not only pip.')
@@ -99,6 +101,7 @@ def pypinfo(
     days,
     start_date,
     end_date,
+    month,
     where,
     order,
     all_installers,
@@ -131,6 +134,9 @@ def pypinfo(
     if order:
         order_name = order.name
         parsed_fields.insert(0, order)
+
+    if month:
+        start_date, end_date = month_ends(month)
 
     built_query = build_query(
         project,
