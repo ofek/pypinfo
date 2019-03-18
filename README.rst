@@ -307,6 +307,24 @@ Downloads between two YYYY-MM-DD dates
     | -------------- |
     |      9,572,911 |
 
+Downloads between two YYYY-MM dates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- A yyyy-mm ``--start-date`` defaults to the first day of the month
+- A yyyy-mm ``--end-date`` defaults to the last day of the month
+
+.. code-block:: console
+
+    $ pypinfo --start-date 2018-04 --end-date 2018-04 setuptools
+    Served from cache: True
+    Data processed: 0.00 B
+    Data billed: 0.00 B
+    Estimated cost: $0.00
+
+    | download_count |
+    | -------------- |
+    |      9,572,911 |
+
 Percentage of Python 3 downloads of the top 100 projects in the past year
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -345,6 +363,14 @@ Changelog
 ---------
 
 Important changes are emphasized.
+
+Unreleased
+^^^^^^^^^^
+
+- Allow yyyy-mm[-dd] dates:
+
+  - A yyyy-mm ``--start-date`` defaults to the first day of the month
+  - A yyyy-mm ``--end-date`` defaults to the last day of the month
 
 15.0.0
 ^^^^^^
