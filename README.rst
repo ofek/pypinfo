@@ -11,7 +11,7 @@ pypinfo: View PyPI download statistics with ease.
     :target: https://en.wikipedia.org/wiki/MIT_License
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
-    :target: https://github.com/python/black
+    :target: https://github.com/psf/black
 
 -----
 
