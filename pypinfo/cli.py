@@ -84,6 +84,7 @@ TO_CENTS = Decimal('0.00')
 @click.option('--all', 'all_installers', is_flag=True, help='Show downloads by all installers, not only pip.')
 @click.option('--percent', '-pc', is_flag=True, help='Print percentages.')
 @click.option('--markdown', '-md', is_flag=True, help='Output as Markdown.')
+@click.option('--verbose', '-v', is_flag=True, help='Print debug messages to stderr.')
 @click.version_option()
 @click.pass_context
 def pypinfo(
@@ -104,6 +105,7 @@ def pypinfo(
     all_installers,
     percent,
     markdown,
+    verbose,
 ):
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
@@ -114,6 +116,9 @@ def pypinfo(
         set_credentials(auth)
         click.echo('Credentials location set to "{}".'.format(get_credentials()))
         return
+
+    if verbose:
+        click.echo('Credentials location set to "{}".'.format(get_credentials()), err=True)
 
     if project is None and not fields:
         click.echo(ctx.get_help())
