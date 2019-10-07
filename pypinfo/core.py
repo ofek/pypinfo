@@ -1,7 +1,8 @@
+import calendar
 import json
 import os
 import re
-from datetime import datetime
+from datetime import date, datetime
 
 from google.cloud.bigquery import Client
 from google.cloud.bigquery.job import QueryJobConfig
@@ -35,6 +36,23 @@ def normalize(name):
     return re.sub(r'[-_.]+', '-', name).lower()
 
 
+def normalize_dates(start_date, end_date):
+    """If a date is yyyy-mm, normalize as first or last yyyy-mm-dd of the month.
+    Otherwise, return unchanged.
+    """
+    try:
+        start_date, _ = month_ends(start_date)  # yyyy-mm
+    except (AttributeError, ValueError):
+        pass  # -n, yyyy-mm-dd
+
+    try:
+        _, end_date = month_ends(end_date)  # yyyy-mm
+    except (AttributeError, ValueError):
+        pass  # -n, yyyy-mm-dd
+
+    return start_date, end_date
+
+
 def create_client(creds_file=None):
     creds_file = creds_file or os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
@@ -59,7 +77,7 @@ def validate_date(date_text):
     except ValueError:
         pass
 
-    raise ValueError('Dates must be negative integers or YYYY-MM-DD in the past.')
+    raise ValueError('Dates must be negative integers or YYYY-MM[-DD] in the past.')
 
 
 def format_date(date, timestamp_format):
@@ -68,6 +86,15 @@ def format_date(date, timestamp_format):
     except ValueError:
         date = timestamp_format.format(date)
     return date
+
+
+def month_ends(yyyy_mm):
+    """Helper to return start_date and end_date of a month as yyyy-mm-dd"""
+    year, month = map(int, yyyy_mm.split("-"))
+    first = date(year, month, 1)
+    number_of_days = calendar.monthrange(year, month)[1]
+    last = date(year, month, number_of_days)
+    return str(first), str(last)
 
 
 def build_query(
@@ -82,6 +109,7 @@ def build_query(
     if days:
         start_date = str(int(end_date) - int(days))
 
+    start_date, end_date = normalize_dates(start_date, end_date)
     validate_date(start_date)
     validate_date(end_date)
 

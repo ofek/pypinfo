@@ -118,6 +118,53 @@ def test_format_date_yyy_mm_dd():
     assert date == 'TIMESTAMP("2018-05-15 00:00:00")'
 
 
+def test_month_yyyy_mm():
+    # Act
+    first, last = core.month_ends("2019-03")
+
+    # Assert
+    assert first == "2019-03-01"
+    assert last == "2019-03-31"
+
+
+def test_month_yyyy_mm_dd():
+    # Act / Assert
+    with pytest.raises(ValueError):
+        core.month_ends("2019-03-18")
+
+
+def test_month_negative_integer():
+    # Act / Assert
+    with pytest.raises(AttributeError):
+        core.month_ends(-30)
+
+
+def test_normalize_dates_yyy_mm():
+    # Arrange
+    start_date = "2019-03"
+    end_date = "2019-03"
+
+    # Act
+    start_date, end_date = core.normalize_dates(start_date, end_date)
+
+    # Assert
+    assert start_date == "2019-03-01"
+    assert end_date == "2019-03-31"
+
+
+def test_normalize_dates_yyy_mm_dd_and_negative_integer():
+    # Arrange
+    start_date = "2019-03-18"
+    end_date = -1
+
+    # Act
+    start_date, end_date = core.normalize_dates(start_date, end_date)
+
+    # Assert
+    assert start_date == "2019-03-18"
+    assert end_date == -1
+
+
 def test_add_percentages():
     # Arrange
     rows = [
