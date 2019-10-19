@@ -390,6 +390,8 @@ Unreleased
 - Add ``--month`` as a shortcut to ``--start-date`` and ``--end-date``
   for a single yyyy-mm month
 
+- Add ``--verbose`` option to print credentials location
+
 15.0.0
 ^^^^^^
 
