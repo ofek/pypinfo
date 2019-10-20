@@ -35,7 +35,7 @@ This is relatively painless, I swear.
    CREATE PROJECT if you don't already have one:
 
 .. image:: https://user-images.githubusercontent.com/1324225/47172949-6f4ea880-d315-11e8-8587-8b8117efeae9.png
-   :scale: 50
+    :scale: 20
 
 4. This takes you to `<https://console.developers.google.com/projectcreate>`_. Fill out
    the form and click CREATE. Any name is fine, but I recommend you choose something to
