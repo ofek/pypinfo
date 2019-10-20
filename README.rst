@@ -118,13 +118,15 @@ Usage
       -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
       -l, --limit TEXT        Maximum number of query results. Default: 10
       -d, --days TEXT         Number of days in the past to include. Default: 30
-      -sd, --start-date TEXT  Must be negative. Default: -31
-      -ed, --end-date TEXT    Must be negative. Default: -1
+      -sd, --start-date TEXT  Must be negative or YYYY-MM[-DD]. Default: -31
+      -ed, --end-date TEXT    Must be negative or YYYY-MM[-DD]. Default: -1
+      -m, --month TEXT        Shortcut for -sd & -ed for a single YYYY-MM month.
       -w, --where TEXT        WHERE conditional. Default: file.project = "project"
       -o, --order TEXT        Field to order by. Default: download_count
-      -p, --pip               Only show installs by pip.
+      --all                   Show downloads by all installers, not only pip.
       -pc, --percent          Print percentages.
       -md, --markdown         Output as Markdown.
+      -v, --verbose           Print debug messages to stderr.
       --version               Show the version and exit.
       --help                  Show this message and exit.
 
