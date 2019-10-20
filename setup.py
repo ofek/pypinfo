@@ -11,6 +11,7 @@ setup(
     version=version,
     description='View PyPI download statistics with ease.',
     long_description=open('README.rst', 'r').read(),
+    long_description_content_type='text/x-rst',
     author='Ofek Lev',
     author_email='ofekmeister@gmail.com',
     maintainer='Ofek Lev',
