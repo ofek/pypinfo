@@ -384,6 +384,9 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+16.0.0
+^^^^^^
+
 - Allow yyyy-mm[-dd] ``--start-date`` and ``--end-date``:
 
   - A yyyy-mm ``--start-date`` defaults to the first day of the month
@@ -393,6 +396,10 @@ Unreleased
   for a single yyyy-mm month
 
 - Add ``--verbose`` option to print credentials location
+
+- Update installation instructions
+
+- Enforce `black` code style
 
 15.0.0
 ^^^^^^
