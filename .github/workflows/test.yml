@@ -9,7 +9,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.5, 3.6, 3.7]
+        python-version: [3.5, 3.6, 3.7, 3.8]
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
@@ -27,6 +27,5 @@ jobs:
 
     - name: Tox tests
       shell: bash
-      # Drop the dot: py3.7 -> py37
       run: |
-        tox -e py`echo ${{ matrix.python-version }} | tr -d .`
+        tox -e py
