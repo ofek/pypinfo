@@ -4,7 +4,7 @@ from appdirs import user_data_dir
 from tinydb import TinyDB, Query, where
 from tinyrecord import transaction
 
-DB_FILE = os.path.join(user_data_dir('pypinfo', ''), 'db.json')
+DB_FILE = os.path.join(user_data_dir('pypinfo', appauthor=False), 'db.json')
 
 
 def get_credentials():
