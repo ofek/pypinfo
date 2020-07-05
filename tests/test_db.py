@@ -42,8 +42,8 @@ def test_round_trip(tmp_path):
 def test_get_credentials_table(tmp_path):
     db.DB_FILE = str(tmp_path / 'db.json')
     with db.get_credentials_table() as table:
-        assert not table._storage._storage._handle.closed
+        assert not table._storage._handle.closed
         with db.get_credentials_table(table) as table2:
             assert table2 is table
-        assert not table._storage._storage._handle.closed
-    assert table._storage._storage._handle.closed
+        assert not table._storage._handle.closed
+    assert table._storage._handle.closed
