@@ -368,6 +368,16 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+16.0.2
+^^^^^^
+
+- Update TinyDB and Tinyrecord dependencies for compatibility
+
+16.0.1
+^^^^^^
+
+- Pin TinyDB<4, Tinyrecord does not yet support TinyDB v4
+
 16.0.0
 ^^^^^^
 
