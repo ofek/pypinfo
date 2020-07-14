@@ -17,6 +17,25 @@ ROWS = [
 ]
 
 
+def test_create_config():
+    # Act
+    config = core.create_config()
+
+    # Assert
+    assert config.use_legacy_sql
+
+
+@pytest.mark.parametrize(
+    "test_input, expected", [("pypinfo", "pypinfo"), ("setuptools_scm", "setuptools-scm"), ("Pillow", "pillow")]
+)
+def test_normalize(test_input, expected):
+    # Act
+    output = core.normalize(test_input)
+
+    # Assert
+    assert output == expected
+
+
 def test_tabulate_default():
     # Arrange
     rows = copy.deepcopy(ROWS)
