@@ -3,6 +3,7 @@ import copy
 import pytest
 
 from pypinfo import core
+from pypinfo.fields import PythonVersion
 
 ROWS = [
     ['python_version', 'percent', 'download_count'],
@@ -137,6 +138,46 @@ def test_month_negative_integer():
         core.month_ends(-30)
 
 
+def test_build_query():
+    # Arrange
+    # Data from pycodestyle in 2017-10
+    # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
+    project = "pycodestyle"
+    all_fields = [PythonVersion]
+    start_date = "2017-10-01"
+    end_date = "2017-10-31"
+    days = None
+    limit = 100
+    where = None
+    order = None
+    pip = True
+    expected = r"""
+SELECT
+  REGEXP_EXTRACT(details.python, r"^([^\.]+\.[^\.]+)") as python_version,
+  COUNT(*) as download_count,
+FROM
+  TABLE_DATE_RANGE(
+    [the-psf:pypi.downloads],
+    TIMESTAMP("2017-10-01 00:00:00"),
+    TIMESTAMP("2017-10-31 23:59:59")
+  )
+WHERE
+  file.project = "pycodestyle"
+  AND details.installer.name = "pip"
+GROUP BY
+  python_version,
+ORDER BY
+  download_count DESC
+LIMIT 100
+    """.strip()
+
+    # Act
+    output = core.build_query(project, all_fields, start_date, end_date, days, limit, where, order, pip)
+
+    # Assert
+    assert output == expected
+
+
 def test_add_percentages():
     # Arrange
     rows = [
@@ -239,6 +280,7 @@ def test_tabulate_markdown():
 def test_format_json():
     # Arrange
     # Data from pycodestyle in 2017-10
+    # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
     rows = [
         ['python_version', 'percent', 'download_count'],
         ['2.7', '0.54', '587705'],
