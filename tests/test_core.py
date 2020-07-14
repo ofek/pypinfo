@@ -1,3 +1,4 @@
+from freezegun import freeze_time
 import copy
 import pytest
 
@@ -232,3 +233,54 @@ def test_tabulate_markdown():
 
     # Assert
     assert tabulated == expected
+
+
+@freeze_time("2020-07-14 07:11:49")
+def test_format_json():
+    # Arrange
+    # Data from pycodestyle in 2017-10
+    rows = [
+        ['python_version', 'percent', 'download_count'],
+        ['2.7', '0.54', '587705'],
+        ['3.6', '0.21', '227800'],
+        ['3.5', '0.16', '169851'],
+        ['3.4', '0.078', '84599'],
+        ['3.3', '0.0091', '9953'],
+        ['3.7', '0.0044', '4770'],
+        ['2.6', '0.0041', '4476'],
+        ['3.2', '0.0003', '326'],
+        ['2.8', '3.7e-06', '4'],
+        ['None', '2.8e-06', '3'],
+    ]
+    query_info = {
+        'cached': False,
+        'bytes_processed': 18087095002,
+        'bytes_billed': 18087936000,
+        'estimated_cost': '0.09',
+    }
+    indent = None
+    expected = (
+        '{"last_update":"2020-07-14 07:11:49",'
+        '"query":'
+        '{"bytes_billed":18087936000,'
+        '"bytes_processed":18087095002,'
+        '"cached":false,'
+        '"estimated_cost":"0.09"},'
+        '"rows":['
+        '{"download_count":587705,"percent":"0.54","python_version":"2.7"},'
+        '{"download_count":227800,"percent":"0.21","python_version":"3.6"},'
+        '{"download_count":169851,"percent":"0.16","python_version":"3.5"},'
+        '{"download_count":84599,"percent":"0.078","python_version":"3.4"},'
+        '{"download_count":9953,"percent":"0.0091","python_version":"3.3"},'
+        '{"download_count":4770,"percent":"0.0044","python_version":"3.7"},'
+        '{"download_count":4476,"percent":"0.0041","python_version":"2.6"},'
+        '{"download_count":326,"percent":"0.0003","python_version":"3.2"},'
+        '{"download_count":4,"percent":"3.7e-06","python_version":"2.8"},'
+        '{"download_count":3,"percent":"2.8e-06","python_version":"None"}]}'
+    )
+
+    # Act
+    output = core.format_json(rows, query_info, indent)
+
+    # Assert
+    assert output == expected
