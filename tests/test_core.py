@@ -64,38 +64,20 @@ def test_normalize_dates_yyy_mm_dd_and_negative_integer():
     assert end_date == -1
 
 
-def test_validate_date_negative_number():
+@pytest.mark.parametrize("test_input", ["-1", "2018-05-15"])
+def test_validate_date_valid(test_input):
     # Act
-    valid = core.validate_date("-1")
+    valid = core.validate_date(test_input)
 
     # Assert
     assert valid
 
 
-def test_validate_date_positive_number():
+@pytest.mark.parametrize("test_input", ["1", "2018-19-39", "something invalid"])
+def test_validate_date_invalid(test_input):
     # Act / Assert
     with pytest.raises(ValueError):
-        core.validate_date("1")
-
-
-def test_validate_date_valid_yyyy_mm_dd():
-    # Act
-    valid = core.validate_date("2018-05-15")
-
-    # Assert
-    assert valid
-
-
-def test_validate_date_invalid_yyyy_mm_dd():
-    # Act
-    with pytest.raises(ValueError):
-        core.validate_date("2018-19-39")
-
-
-def test_validate_date_other_string():
-    # Act / Assert
-    with pytest.raises(ValueError):
-        core.validate_date("something invalid")
+        core.validate_date(test_input)
 
 
 def test_format_date_negative_number():
