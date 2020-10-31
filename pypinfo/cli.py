@@ -37,6 +37,8 @@ from pypinfo.fields import (
     Distro,
     DistroVersion,
     CPU,
+    Libc,
+    LibcVersion,
 )
 
 CONTEXT_SETTINGS = {'max_content_width': 300}
@@ -62,6 +64,8 @@ FIELD_MAP = {
     'distro': Distro,
     'distro-version': DistroVersion,
     'cpu': CPU,
+    'libc': Libc,
+    'libc-version': LibcVersion,
 }
 TIER_COST = 5
 TB = Decimal(TEBIBYTE)
@@ -113,7 +117,8 @@ def pypinfo(
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
-    setuptools-version | system | system-release | distro | distro-version | cpu
+    setuptools-version | system | system-release | distro | distro-version | cpu |\n
+    libc | libc-version
     """
     if auth:
         set_credentials(auth)
