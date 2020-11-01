@@ -134,16 +134,16 @@ def build_query(
     query = 'SELECT\n'
 
     for field in fields:
-        query += '  {} as {},\n'.format(field.data, field.name)
+        query += f'  {field.data} as {field.name},\n'
 
     query += FROM.format(start_date, end_date)
 
     if where:
-        query += 'WHERE\n  {}\n'.format(where)
+        query += f'WHERE\n  {where}\n'
     else:
         conditions = []
         if project:
-            conditions.append('file.project = "{}"\n'.format(project))
+            conditions.append(f'file.project = "{project}"\n')
         if pip:
             conditions.append('details.installer.name = "pip"\n')
         if conditions:
@@ -155,13 +155,13 @@ def build_query(
 
         for field in fields[:-1]:
             if field not in AGGREGATES:
-                gb += '  {},\n'.format(field.name)
+                gb += f'  {field.name},\n'
 
         if len(gb) > initial_length:
             query += gb
 
     query += 'ORDER BY\n  {} DESC\n'.format(order or Downloads.name)
-    query += 'LIMIT {}'.format(limit)
+    query += f'LIMIT {limit}'
 
     return query
 

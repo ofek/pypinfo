@@ -7,8 +7,6 @@ matrix:
           env: TOXENV=lint
         - python: pypy3
           env: TOXENV=pypy3
-        - python: 3.5
-          env: TOXENV=py35
         - python: 3.6
           env: TOXENV=py36
         - python: 3.7

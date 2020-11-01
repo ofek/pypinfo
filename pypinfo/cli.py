@@ -122,11 +122,11 @@ def pypinfo(
     """
     if auth:
         set_credentials(auth)
-        click.echo('Credentials location set to "{}".'.format(get_credentials()))
+        click.echo(f'Credentials location set to "{get_credentials()}".')
         return
 
     if verbose:
-        click.echo('Credentials location set to "{}".'.format(get_credentials()), err=True)
+        click.echo(f'Credentials location set to "{get_credentials()}".', err=True)
 
     if project is None and not fields:
         click.echo(ctx.get_help())
@@ -136,7 +136,7 @@ def pypinfo(
     for field in fields:
         parsed = FIELD_MAP.get(field)
         if parsed is None:
-            raise ValueError('"{}" is an unsupported field.'.format(field))
+            raise ValueError(f'"{field}" is an unsupported field.')
         parsed_fields.append(parsed)
 
     order_name = order
@@ -195,10 +195,10 @@ def pypinfo(
             rows = add_download_total(rows)
 
         if not json:
-            click.echo('Served from cache: {}'.format(from_cache))
-            click.echo('Data processed: {:.2f} {}'.format(processed_amount, processed_unit))
-            click.echo('Data billed: {:.2f} {}'.format(billed_amount, billed_unit))
-            click.echo('Estimated cost: ${}'.format(estimated_cost))
+            click.echo(f'Served from cache: {from_cache}')
+            click.echo(f'Data processed: {processed_amount:.2f} {processed_unit}')
+            click.echo(f'Data billed: {billed_amount:.2f} {billed_unit}')
+            click.echo(f'Estimated cost: ${estimated_cost}')
 
             click.echo()
             click.echo(tabulate(rows, markdown))
