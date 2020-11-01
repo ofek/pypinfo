@@ -368,6 +368,11 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+17.0.0
+^^^^^^
+
+- Add support for libc & libc-version fields
+
 16.0.2
 ^^^^^^
 
