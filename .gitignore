@@ -11,3 +11,4 @@
 /dist
 /docs/build
 /wheelhouse
+coverage.xml
