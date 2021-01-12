@@ -133,7 +133,7 @@ def build_query(
 
     query += f'\nWHERE timestamp BETWEEN {start_date} AND {end_date}\n'
     if where:
-        query += f' AND {where}\n'
+        query += f'  AND {where}\n'
     else:
         conditions = []
         if project:
@@ -141,8 +141,8 @@ def build_query(
         if pip:
             conditions.append('details.installer.name = "pip"\n')
         if conditions:
-            query += ' AND '
-            query += ' AND '.join(conditions)
+            query += '  AND '
+            query += '  AND '.join(conditions)
 
     if len(fields) > 1:
         gb = 'GROUP BY\n'
@@ -152,8 +152,9 @@ def build_query(
         for field in fields[:-1]:
             if field not in AGGREGATES:
                 non_aggregate_fields.append(field.name)
+        gb += '  '
         gb += ', '.join(non_aggregate_fields)
-        gb += ' '
+        gb += '\n'
 
         if len(gb) > initial_length:
             query += gb
