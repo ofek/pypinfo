@@ -9,15 +9,8 @@ from google.cloud.bigquery.job import QueryJobConfig
 
 from pypinfo.fields import AGGREGATES, Downloads
 
-FROM = """\
-FROM
-  TABLE_DATE_RANGE(
-    [the-psf:pypi.downloads],
-    {},
-    {}
-  )
-"""
-DATE_ADD = 'DATE_ADD(CURRENT_TIMESTAMP(), {}, "day")'
+FROM = 'FROM `the-psf.pypi.file_downloads`'
+DATE_ADD = 'DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL {} DAY)'
 START_TIMESTAMP = 'TIMESTAMP("{} 00:00:00")'
 END_TIMESTAMP = 'TIMESTAMP("{} 23:59:59")'
 START_DATE = '-31'
@@ -27,7 +20,7 @@ DEFAULT_LIMIT = '10'
 
 def create_config():
     config = QueryJobConfig()
-    config.use_legacy_sql = True
+    config.use_legacy_sql = False
     return config
 
 
@@ -136,10 +129,11 @@ def build_query(
     for field in fields:
         query += f'  {field.data} as {field.name},\n'
 
-    query += FROM.format(start_date, end_date)
+    query += FROM
 
+    query += f'\nWHERE timestamp BETWEEN {start_date} AND {end_date}\n'
     if where:
-        query += f'WHERE\n  {where}\n'
+        query += f'  AND {where}\n'
     else:
         conditions = []
         if project:
@@ -147,15 +141,20 @@ def build_query(
         if pip:
             conditions.append('details.installer.name = "pip"\n')
         if conditions:
-            query += 'WHERE\n  ' + '  AND '.join(conditions)
+            query += '  AND '
+            query += '  AND '.join(conditions)
 
     if len(fields) > 1:
         gb = 'GROUP BY\n'
         initial_length = len(gb)
 
+        non_aggregate_fields = []
         for field in fields[:-1]:
             if field not in AGGREGATES:
-                gb += f'  {field.name},\n'
+                non_aggregate_fields.append(field.name)
+        gb += '  '
+        gb += ', '.join(non_aggregate_fields)
+        gb += '\n'
 
         if len(gb) > initial_length:
             query += gb

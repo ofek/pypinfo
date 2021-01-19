@@ -24,7 +24,7 @@ def test_create_config():
     config = core.create_config()
 
     # Assert
-    assert config.use_legacy_sql
+    assert not config.use_legacy_sql
 
 
 @pytest.mark.parametrize(
@@ -88,7 +88,7 @@ def test_format_date_negative_number():
     date = core.format_date("-1", dummy_format)
 
     # Assert
-    assert date == 'DATE_ADD(CURRENT_TIMESTAMP(), -1, "day")'
+    assert date == 'DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)'
 
 
 def test_format_date_yyy_mm_dd():
@@ -137,17 +137,12 @@ def test_build_query():
 SELECT
   REGEXP_EXTRACT(details.python, r"^([^\.]+\.[^\.]+)") as python_version,
   COUNT(*) as download_count,
-FROM
-  TABLE_DATE_RANGE(
-    [the-psf:pypi.downloads],
-    TIMESTAMP("2017-10-01 00:00:00"),
-    TIMESTAMP("2017-10-31 23:59:59")
-  )
-WHERE
-  file.project = "pycodestyle"
+FROM `the-psf.pypi.file_downloads`
+WHERE timestamp BETWEEN TIMESTAMP("2017-10-01 00:00:00") AND TIMESTAMP("2017-10-31 23:59:59")
+  AND file.project = "pycodestyle"
   AND details.installer.name = "pip"
 GROUP BY
-  python_version,
+  python_version
 ORDER BY
   download_count DESC
 LIMIT 100
