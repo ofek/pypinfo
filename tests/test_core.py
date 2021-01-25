@@ -88,7 +88,7 @@ def test_format_date_negative_number():
     date = core.format_date("-1", dummy_format)
 
     # Assert
-    assert date == 'DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)'
+    assert date == 'TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)'
 
 
 def test_format_date_yyy_mm_dd():
