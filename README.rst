@@ -368,6 +368,11 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+18.0.1
+^^^^^^
+
+- Fix usage of date ranges
+
 18.0.0
 ^^^^^^
 
