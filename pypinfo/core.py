@@ -10,7 +10,7 @@ from google.cloud.bigquery.job import QueryJobConfig
 from pypinfo.fields import AGGREGATES, Downloads
 
 FROM = 'FROM `the-psf.pypi.file_downloads`'
-DATE_ADD = 'DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL {} DAY)'
+DATE_ADD = 'TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL {} DAY)'
 START_TIMESTAMP = 'TIMESTAMP("{} 00:00:00")'
 END_TIMESTAMP = 'TIMESTAMP("{} 23:59:59")'
 START_DATE = '-31'
