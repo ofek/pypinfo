@@ -368,6 +368,11 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+18.0.0
+^^^^^^
+
+- Use the clustered data table and standard SQL for lower query costs
+
 17.0.0
 ^^^^^^
 
