@@ -338,14 +338,11 @@ Let's use ``--test`` to only see the query instead of sending it.
       file.project as project,
       ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "3" THEN 1 ELSE 0 END) / COUNT(*), 1) as percent_3,
       COUNT(*) as download_count,
-    FROM
-      TABLE_DATE_RANGE(
-        [the-psf:pypi.downloads],
-        DATE_ADD(CURRENT_TIMESTAMP(), -366, "day"),
-        DATE_ADD(CURRENT_TIMESTAMP(), -1, "day")
-      )
+    FROM `bigquery-public-data.pypi.file_downloads`
+    WHERE timestamp BETWEEN TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -366 DAY) AND TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)
+      AND details.installer.name = "pip"
     GROUP BY
-      project,
+      project
     ORDER BY
       download_count DESC
     LIMIT 100

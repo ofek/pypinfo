@@ -137,7 +137,7 @@ def test_build_query():
 SELECT
   REGEXP_EXTRACT(details.python, r"^([^\.]+\.[^\.]+)") as python_version,
   COUNT(*) as download_count,
-FROM `the-psf.pypi.file_downloads`
+FROM `bigquery-public-data.pypi.file_downloads`
 WHERE timestamp BETWEEN TIMESTAMP("2017-10-01 00:00:00") AND TIMESTAMP("2017-10-31 23:59:59")
   AND file.project = "pycodestyle"
   AND details.installer.name = "pip"
