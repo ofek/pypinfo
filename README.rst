@@ -92,7 +92,9 @@ Usage
 
       openssl | date | month | year | country | installer | installer-version |
 
-      setuptools-version | system | system-release | distro | distro-version | cpu
+      setuptools-version | system | system-release | distro | distro-version | cpu |
+
+      libc | libc-version
 
     Options:
       -a, --auth TEXT         Path to Google credentials JSON file.
@@ -112,7 +114,7 @@ Usage
       -md, --markdown         Output as Markdown.
       -v, --verbose           Print debug messages to stderr.
       --version               Show the version and exit.
-      --help                  Show this message and exit.
+      -h, --help              Show this message and exit.
 
 pypinfo accepts 0 or more options, followed by exactly 1 project, followed by
 0 or more fields. By default only the last 30 days are queried. Let's take a

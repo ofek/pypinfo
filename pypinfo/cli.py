@@ -41,7 +41,10 @@ from pypinfo.fields import (
     LibcVersion,
 )
 
-CONTEXT_SETTINGS = {'max_content_width': 300}
+CONTEXT_SETTINGS = {
+    'help_option_names': ('-h', '--help'),
+    'max_content_width': 300,
+}
 FIELD_MAP = {
     'project': Project,
     'version': Version,
