@@ -1,7 +1,7 @@
 import contextlib
 import os
 
-from appdirs import user_data_dir
+from platformdirs import user_data_dir
 from tinydb import TinyDB, Query, where
 from tinyrecord import transaction
 
