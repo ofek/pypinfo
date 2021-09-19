@@ -1,4 +1,5 @@
 from decimal import ROUND_UP, Decimal
+from typing import List
 
 import click
 from binary import TEBIBYTE, convert_units
@@ -97,26 +98,26 @@ TO_CENTS = Decimal('0.00')
 @click.version_option()
 @click.pass_context
 def pypinfo(
-    ctx,
-    project,
-    fields,
-    auth,
-    run,
-    json,
-    indent,
-    timeout,
-    limit,
-    days,
-    start_date,
-    end_date,
-    month,
-    where,
-    order,
-    all_installers,
-    percent,
-    markdown,
-    verbose,
-):
+    ctx: click.Context,
+    project: str,
+    fields: List[str],
+    auth: str,
+    run: bool,
+    json: bool,
+    indent: int,
+    timeout: int,
+    limit: int,
+    days: int,
+    start_date: str,
+    end_date: str,
+    month: str,
+    where: str,
+    order: str,
+    all_installers: bool,
+    percent: bool,
+    markdown: bool,
+    verbose: bool,
+) -> None:
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
@@ -143,10 +144,10 @@ def pypinfo(
         parsed_fields.append(parsed)
 
     order_name = order
-    order = FIELD_MAP.get(order)
-    if order:
-        order_name = order.name
-        parsed_fields.insert(0, order)
+    parsed_order = FIELD_MAP.get(order)
+    if parsed_order:
+        order_name = parsed_order.name
+        parsed_fields.insert(0, parsed_order)
 
     if month:
         start_date, end_date = month_ends(month)
@@ -182,7 +183,7 @@ def pypinfo(
         # Cost
         billing_tier = query_job.billing_tier or 1
         estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
-        estimated_cost = str(estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP))
+        estimated_cost_str = str(estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP))
 
         rows = parse_query_result(query_job, query_rows)
         if len(rows) == 1 and not json:
@@ -201,7 +202,7 @@ def pypinfo(
             click.echo(f'Served from cache: {from_cache}')
             click.echo(f'Data processed: {processed_amount:.2f} {processed_unit}')
             click.echo(f'Data billed: {billed_amount:.2f} {billed_unit}')
-            click.echo(f'Estimated cost: ${estimated_cost}')
+            click.echo(f'Estimated cost: ${estimated_cost_str}')
 
             click.echo()
             click.echo(tabulate(rows, markdown))
@@ -210,7 +211,7 @@ def pypinfo(
                 'cached': from_cache,
                 'bytes_processed': bytes_processed,
                 'bytes_billed': bytes_billed,
-                'estimated_cost': estimated_cost,
+                'estimated_cost': estimated_cost_str,
             }
             click.echo(format_json(rows, query_info, indent))
     else:
