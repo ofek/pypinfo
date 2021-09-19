@@ -27,17 +27,6 @@ def test_create_config():
     assert not config.use_legacy_sql
 
 
-@pytest.mark.parametrize(
-    "test_input, expected", [("pypinfo", "pypinfo"), ("setuptools_scm", "setuptools-scm"), ("Pillow", "pillow")]
-)
-def test_normalize(test_input, expected):
-    # Act
-    output = core.normalize(test_input)
-
-    # Assert
-    assert output == expected
-
-
 def test_normalize_dates_yyy_mm():
     # Arrange
     start_date = "2019-03"
