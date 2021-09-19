@@ -15,7 +15,7 @@ START_TIMESTAMP = 'TIMESTAMP("{} 00:00:00")'
 END_TIMESTAMP = 'TIMESTAMP("{} 23:59:59")'
 START_DATE = '-31'
 END_DATE = '-1'
-DEFAULT_LIMIT = '10'
+DEFAULT_LIMIT = 10
 
 
 def create_config():
@@ -100,7 +100,7 @@ def build_query(
     limit = limit or DEFAULT_LIMIT
 
     if days:
-        start_date = str(int(end_date) - int(days))
+        start_date = str(int(end_date) - days)
 
     start_date, end_date = normalize_dates(start_date, end_date)
     validate_date(start_date)
