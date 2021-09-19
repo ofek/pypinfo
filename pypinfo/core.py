@@ -1,11 +1,11 @@
 import calendar
 import json
 import os
-import re
 from datetime import date, datetime
 
 from google.cloud.bigquery import Client
 from google.cloud.bigquery.job import QueryJobConfig
+from packaging.utils import canonicalize_name
 
 from pypinfo.fields import AGGREGATES, Downloads
 
@@ -22,11 +22,6 @@ def create_config():
     config = QueryJobConfig()
     config.use_legacy_sql = False
     return config
-
-
-def normalize(name):
-    """https://www.python.org/dev/peps/pep-0503/#normalized-names"""
-    return re.sub(r'[-_.]+', '-', name).lower()
 
 
 def normalize_dates(start_date, end_date):
@@ -93,7 +88,7 @@ def month_ends(yyyy_mm):
 def build_query(
     project, all_fields, start_date=None, end_date=None, days=None, limit=None, where=None, order=None, pip=None
 ):
-    project = normalize(project)
+    project = canonicalize_name(project)
 
     start_date = start_date or START_DATE
     end_date = end_date or END_DATE
