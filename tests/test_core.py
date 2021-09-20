@@ -144,6 +144,41 @@ LIMIT 100
     assert output == expected
 
 
+def test_build_query_days():
+    # Arrange
+    # Data from pycodestyle in 2017-10
+    # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
+    project = "pycodestyle"
+    all_fields = [PythonVersion]
+    start_date = None
+    end_date = None
+    days = 10
+    limit = 100
+    where = None
+    order = None
+    pip = True
+    expected = r"""
+SELECT
+  REGEXP_EXTRACT(details.python, r"^([^\.]+\.[^\.]+)") as python_version,
+  COUNT(*) as download_count,
+FROM `bigquery-public-data.pypi.file_downloads`
+WHERE timestamp BETWEEN TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -11 DAY) AND TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)
+  AND file.project = "pycodestyle"
+  AND details.installer.name = "pip"
+GROUP BY
+  python_version
+ORDER BY
+  download_count DESC
+LIMIT 100
+    """.strip()  # noqa: E501
+
+    # Act
+    output = core.build_query(project, all_fields, start_date, end_date, days, limit, where, order, pip)
+
+    # Assert
+    assert output == expected
+
+
 def test_add_percentages():
     # Arrange
     rows = [
