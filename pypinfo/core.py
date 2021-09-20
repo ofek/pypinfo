@@ -2,12 +2,14 @@ import calendar
 import json
 import os
 from datetime import date, datetime
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from google.cloud.bigquery import Client
-from google.cloud.bigquery.job import QueryJobConfig
+from google.cloud.bigquery.job import QueryJob, QueryJobConfig
+from google.cloud.bigquery.table import RowIterator
 from packaging.utils import canonicalize_name
 
-from pypinfo.fields import AGGREGATES, Downloads
+from pypinfo.fields import AGGREGATES, Downloads, Field
 
 FROM = 'FROM `bigquery-public-data.pypi.file_downloads`'
 DATE_ADD = 'TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL {} DAY)'
@@ -17,14 +19,16 @@ START_DATE = '-31'
 END_DATE = '-1'
 DEFAULT_LIMIT = 10
 
+Rows = List[List[str]]
 
-def create_config():
+
+def create_config() -> QueryJobConfig:
     config = QueryJobConfig()
     config.use_legacy_sql = False
     return config
 
 
-def normalize_dates(start_date, end_date):
+def normalize_dates(start_date: str, end_date: str) -> Tuple[str, str]:
     """If a date is yyyy-mm, normalize as first or last yyyy-mm-dd of the month.
     Otherwise, return unchanged.
     """
@@ -41,7 +45,7 @@ def normalize_dates(start_date, end_date):
     return start_date, end_date
 
 
-def create_client(creds_file=None):
+def create_client(creds_file: Optional[str] = None) -> Client:
     creds_file = creds_file or os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
 
     if creds_file is None:
@@ -51,7 +55,7 @@ def create_client(creds_file=None):
     return Client.from_service_account_json(creds_file, project=project)
 
 
-def validate_date(date_text):
+def validate_date(date_text: str) -> bool:
     """Return True if valid, raise ValueError if not"""
     try:
         if int(date_text) < 0:
@@ -68,7 +72,7 @@ def validate_date(date_text):
     raise ValueError('Dates must be negative integers or YYYY-MM[-DD] in the past.')
 
 
-def format_date(date, timestamp_format):
+def format_date(date: str, timestamp_format: str) -> str:
     try:
         date = DATE_ADD.format(int(date))
     except ValueError:
@@ -76,7 +80,7 @@ def format_date(date, timestamp_format):
     return date
 
 
-def month_ends(yyyy_mm):
+def month_ends(yyyy_mm: str) -> Tuple[str, str]:
     """Helper to return start_date and end_date of a month as yyyy-mm-dd"""
     year, month = map(int, yyyy_mm.split("-"))
     first = date(year, month, 1)
@@ -86,8 +90,16 @@ def month_ends(yyyy_mm):
 
 
 def build_query(
-    project, all_fields, start_date=None, end_date=None, days=None, limit=None, where=None, order=None, pip=None
-):
+    project: str,
+    all_fields: Iterable[Field],
+    start_date: Optional[str] = None,
+    end_date: Optional[str] = None,
+    days: Optional[int] = None,
+    limit: Optional[int] = None,
+    where: Optional[str] = None,
+    order: Optional[str] = None,
+    pip: bool = False,
+) -> str:
     project = canonicalize_name(project)
 
     start_date = start_date or START_DATE
@@ -111,7 +123,7 @@ def build_query(
     start_date = format_date(start_date, START_TIMESTAMP)
     end_date = format_date(end_date, END_TIMESTAMP)
 
-    fields = []
+    fields: List[Field] = []
     used_fields = set()
     for f in all_fields:
         if f not in used_fields:
@@ -160,13 +172,13 @@ def build_query(
     return query
 
 
-def parse_query_result(query_job, query_rows):
+def parse_query_result(query_job: QueryJob, query_rows: RowIterator) -> Rows:
     rows = [[field.name for field in query_job.result().schema]]
     rows.extend([str(item) for item in row] for row in query_rows)
     return rows
 
 
-def add_percentages(rows, include_sign=True):
+def add_percentages(rows: Rows, include_sign: bool = True) -> Rows:
 
     headers = rows.pop(0)
     index = headers.index('download_count')
@@ -182,7 +194,7 @@ def add_percentages(rows, include_sign=True):
     return rows
 
 
-def get_download_total(rows):
+def get_download_total(rows: Rows) -> Tuple[int, int]:
     """Return the total downloads, and the downloads column"""
     headers = rows.pop(0)
     index = headers.index('download_count')
@@ -192,7 +204,7 @@ def get_download_total(rows):
     return total_downloads, index
 
 
-def add_download_total(rows):
+def add_download_total(rows: Rows) -> Rows:
     """Add a final row to rows showing the total downloads"""
     total_row = [""] * len(rows[0])
     total_row[0] = "Total"
@@ -203,7 +215,7 @@ def add_download_total(rows):
     return rows
 
 
-def tabulate(rows, markdown=False):
+def tabulate(rows: Rows, markdown: bool = False) -> str:
     column_widths = [0] * len(rows[0])
     right_align = [[False] * len(rows[0])] * len(rows)
 
@@ -252,21 +264,22 @@ def tabulate(rows, markdown=False):
     return tabulated
 
 
-def format_json(rows, query_info, indent):
-    headers, *data = rows
-    rows = []
+def format_json(rows: Rows, query_info: Dict[str, Any], indent: Optional[int]) -> str:
+    headers, *_data = rows
+    data: List[Any] = _data
+    items: List[Dict[str, Any]] = []
 
     for d in data:
-        item = {}
+        item: Dict[str, Any] = {}
         for i in range(len(headers)):
             if d[i].isdigit():
                 d[i] = int(d[i])
             item[headers[i]] = d[i]
-        rows.append(item)
+        items.append(item)
 
     now = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
 
-    j = {'last_update': now, 'rows': rows, 'query': query_info}
+    j = {'last_update': now, 'rows': items, 'query': query_info}
 
     separators = (',', ':') if indent is None else None
     return json.dumps(j, indent=indent, separators=separators, sort_keys=True)

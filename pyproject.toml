@@ -1,3 +1,8 @@
 [tool.black]
 line-length = 120
 skip-string-normalization = true
+
+[tool.mypy]
+pretty = true
+show_error_codes = true
+strict = true
