@@ -51,9 +51,7 @@ def create_client(creds_file: Optional[str] = None) -> Client:
     if creds_file is None:
         raise SystemError('Credentials could not be found.')
 
-    with open(creds_file, encoding="UTF-8") as file:
-        creds = json.load(file)
-    project = creds['project_id']
+    project = json.load(open(creds_file))['project_id']
     return Client.from_service_account_json(creds_file, project=project)
 
 
