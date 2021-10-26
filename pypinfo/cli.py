@@ -165,9 +165,10 @@ def pypinfo(
     )
 
     if run:
-        client = create_client(get_credentials())
-        query_job = client.query(built_query, job_config=create_config())
-        query_rows = query_job.result(timeout=timeout // 1000)
+        with create_client(get_credentials()) as client:
+            query_job = client.query(built_query, job_config=create_config())
+            query_rows = query_job.result(timeout=timeout // 1000)
+            rows = parse_query_result(query_job, query_rows)
 
         # Cached
         from_cache = not not query_job.cache_hit
@@ -185,7 +186,6 @@ def pypinfo(
         estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
         estimated_cost_str = str(estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP))
 
-        rows = parse_query_result(query_job, query_rows)
         if len(rows) == 1 and not json:
             # Only headers returned
             click.echo("No data returned, check project name")
