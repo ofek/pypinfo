@@ -196,6 +196,19 @@ LIMIT 100
     assert output == expected
 
 
+def test_build_query_bad_end_date():
+    # Arrange
+    project = "pycodestyle"
+    all_fields = [PythonVersion]
+    # End date is before start date
+    start_date = "-1"
+    end_date = "-100"
+
+    # Act / Assert
+    with pytest.raises(ValueError):
+        core.build_query(project, all_fields, start_date, end_date)
+
+
 def test_add_percentages():
     # Arrange
     rows = [

@@ -114,11 +114,14 @@ def build_query(
     validate_date(end_date)
 
     try:
-        if int(start_date) >= int(end_date):
-            raise ValueError('End date must be greater than start date.')
+        int(start_date)
+        int(end_date)
     except ValueError:
         # Not integers, must be yyyy-mm-dd
         pass
+    else:
+        if int(start_date) >= int(end_date):
+            raise ValueError('End date must be greater than start date.')
 
     start_date = format_date(start_date, START_TIMESTAMP)
     end_date = format_date(end_date, END_TIMESTAMP)
