@@ -53,6 +53,23 @@ def test_normalize_dates_yyy_mm_dd_and_negative_integer():
     assert end_date == -1
 
 
+def test_create_client_file_is_none():
+    # Act / Assert
+    with pytest.raises(SystemError):
+        core.create_client(None)
+
+
+def test_create_client_with_filename():
+    # Arrange
+    filename = "tests/data/sample-credentials.json"
+
+    # Act
+    output = core.create_client(filename)
+
+    # Assert
+    assert output.project == "pypinfo-test"
+
+
 @pytest.mark.parametrize("test_input", ["-1", "2018-05-15"])
 def test_validate_date_valid(test_input):
     # Act
