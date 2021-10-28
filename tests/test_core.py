@@ -43,14 +43,14 @@ def test_normalize_dates_yyy_mm():
 def test_normalize_dates_yyy_mm_dd_and_negative_integer():
     # Arrange
     start_date = "2019-03-18"
-    end_date = -1
+    end_date = "-1"
 
     # Act
     start_date, end_date = core.normalize_dates(start_date, end_date)
 
     # Assert
     assert start_date == "2019-03-18"
-    assert end_date == -1
+    assert end_date == "-1"
 
 
 def test_create_client_file_is_none():
@@ -122,8 +122,8 @@ def test_month_yyyy_mm_dd():
 
 def test_month_negative_integer():
     # Act / Assert
-    with pytest.raises(AttributeError):
-        core.month_ends(-30)
+    with pytest.raises(ValueError):
+        core.month_ends("-30")
 
 
 def test_build_query():
