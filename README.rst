@@ -339,6 +339,15 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+20.0.0
+^^^^^^
+
+- Add support for Python 3.10
+- Add ``-h`` as help option
+- Treat and validate numeric CLI arguments as numbers
+- Replace appdirs with platformdirs
+- Fix ``ResourceWarning``s
+
 19.0.0
 ^^^^^^
 
