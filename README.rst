@@ -346,7 +346,7 @@ Unreleased
 - Add ``-h`` as help option
 - Treat and validate numeric CLI arguments as numbers
 - Replace appdirs with platformdirs
-- Fix ``ResourceWarning``s
+- Fix ResourceWarnings
 
 19.0.0
 ^^^^^^
