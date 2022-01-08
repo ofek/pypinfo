@@ -21,7 +21,7 @@ Installation
 ------------
 
 pypinfo is distributed on `PyPI`_ as a universal wheel and is available on
-Linux/macOS and Windows and supports Python 3.6+.
+Linux/macOS and Windows and supports Python 3.7+.
 
 This is relatively painless, I swear.
 
