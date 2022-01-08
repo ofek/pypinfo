@@ -171,7 +171,7 @@ def build_query(
         if len(gb) > initial_length:
             query += gb
 
-    query += 'ORDER BY\n  {} DESC\n'.format(order or Downloads.name)
+    query += f'ORDER BY\n  {order or Downloads.name} DESC\n'
     query += f'LIMIT {limit}'
 
     return query
@@ -229,7 +229,7 @@ def tabulate(rows: Rows, markdown: bool = False) -> str:
         for i, item in enumerate(row):
             if item.isdigit():
                 # Separate the thousands
-                rows[r][i] = "{:,}".format(int(item))
+                rows[r][i] = f"{int(item):,}"
                 right_align[r][i] = True
             elif item.endswith('%'):
                 right_align[r][i] = True
