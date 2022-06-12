@@ -128,12 +128,9 @@ def build_query(
     start_date = format_date(start_date, START_TIMESTAMP)
     end_date = format_date(end_date, END_TIMESTAMP)
 
-    fields: List[Field] = []
-    used_fields = set()
-    for f in all_fields:
-        if f not in used_fields:
-            fields.append(f)
-            used_fields.add(f)
+    # deduplicate fields keeping first occurrence
+    # python 3.7+ dict are ordered, keys can be used as an ordered set
+    fields = list(dict.fromkeys(all_fields))
 
     fields.append(Downloads)
     query = 'SELECT\n'
