@@ -330,3 +330,5 @@ Credits
   `PyPI`_.
 - `Paul Kehrer <https://github.com/reaperhulk>`_ for his
   `awesome blog post <https://langui.sh/2016/12/09/data-driven-decisions>`_.
+
+.. _PyPI: https://pypi.org
