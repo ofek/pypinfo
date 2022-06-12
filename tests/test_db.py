@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from pypinfo import db
 
 CREDS_FILE = '/path/to/creds_file.json'
 
 
-def test_get_credentials(tmp_path):
+def test_get_credentials(tmp_path: Path) -> None:
     # Arrange
     db.DB_FILE = str(tmp_path / 'db.json')  # Mock
 
@@ -11,7 +13,7 @@ def test_get_credentials(tmp_path):
     assert db.get_credentials() is None
 
 
-def test_set_credentials(tmp_path):
+def test_set_credentials(tmp_path: Path) -> None:
     # Arrange
     db.DB_FILE = str(tmp_path / 'db.json')  # Mock
 
@@ -19,7 +21,7 @@ def test_set_credentials(tmp_path):
     db.set_credentials(CREDS_FILE)
 
 
-def test_set_credentials_twice(tmp_path):
+def test_set_credentials_twice(tmp_path: Path) -> None:
     # Arrange
     db.DB_FILE = str(tmp_path / 'db.json')  # Mock
 
@@ -28,7 +30,7 @@ def test_set_credentials_twice(tmp_path):
     db.set_credentials(CREDS_FILE)
 
 
-def test_round_trip(tmp_path):
+def test_round_trip(tmp_path: Path) -> None:
     # Arrange
     db.DB_FILE = str(tmp_path / 'db.json')  # Mock
 
@@ -39,7 +41,7 @@ def test_round_trip(tmp_path):
     assert db.get_credentials() == CREDS_FILE
 
 
-def test_get_credentials_table(tmp_path):
+def test_get_credentials_table(tmp_path: Path) -> None:
     db.DB_FILE = str(tmp_path / 'db.json')
     with db.get_credentials_table() as table:
         assert not table._storage._handle.closed

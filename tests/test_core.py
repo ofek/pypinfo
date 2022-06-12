@@ -1,4 +1,5 @@
 from freezegun import freeze_time
+from typing import Any, Iterator, List, Tuple
 import copy
 import pytest
 import re
@@ -10,7 +11,7 @@ from google.cloud.bigquery.schema import SchemaField
 from google.cloud.bigquery.table import RowIterator
 
 from pypinfo import core
-from pypinfo.fields import File, Percent3, PythonVersion
+from pypinfo.fields import Field, File, Percent3, PythonVersion
 
 ROWS = [
     ['python_version', 'percent', 'download_count'],
@@ -26,7 +27,7 @@ ROWS = [
 ]
 
 
-def test_create_config():
+def test_create_config() -> None:
     # Act
     config = core.create_config()
 
@@ -34,7 +35,7 @@ def test_create_config():
     assert not config.use_legacy_sql
 
 
-def test_normalize_dates_yyy_mm():
+def test_normalize_dates_yyy_mm() -> None:
     # Arrange
     start_date = "2019-03"
     end_date = "2019-03"
@@ -47,7 +48,7 @@ def test_normalize_dates_yyy_mm():
     assert end_date == "2019-03-31"
 
 
-def test_normalize_dates_yyy_mm_dd_and_negative_integer():
+def test_normalize_dates_yyy_mm_dd_and_negative_integer() -> None:
     # Arrange
     start_date = "2019-03-18"
     end_date = "-1"
@@ -60,13 +61,13 @@ def test_normalize_dates_yyy_mm_dd_and_negative_integer():
     assert end_date == "-1"
 
 
-def test_create_client_file_is_none():
+def test_create_client_file_is_none() -> None:
     # Act / Assert
     with pytest.raises(SystemError):
         core.create_client(None)
 
 
-def test_create_client_with_filename():
+def test_create_client_with_filename() -> None:
     # Arrange
     filename = "tests/data/sample-credentials.json"
 
@@ -78,7 +79,7 @@ def test_create_client_with_filename():
 
 
 @pytest.mark.parametrize("test_input", ["-1", "2018-05-15"])
-def test_validate_date_valid(test_input):
+def test_validate_date_valid(test_input: str) -> None:
     # Act
     valid = core.validate_date(test_input)
 
@@ -87,13 +88,13 @@ def test_validate_date_valid(test_input):
 
 
 @pytest.mark.parametrize("test_input", ["1", "2018-19-39", "something invalid"])
-def test_validate_date_invalid(test_input):
+def test_validate_date_invalid(test_input: str) -> None:
     # Act / Assert
     with pytest.raises(ValueError):
         core.validate_date(test_input)
 
 
-def test_format_date_negative_number():
+def test_format_date_negative_number() -> None:
     # Arrange
     dummy_format = "dummy format {}"
 
@@ -104,7 +105,7 @@ def test_format_date_negative_number():
     assert date == 'TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)'
 
 
-def test_format_date_yyy_mm_dd():
+def test_format_date_yyy_mm_dd() -> None:
     # Act
     date = core.format_date("2018-05-15", core.START_TIMESTAMP)
 
@@ -112,7 +113,7 @@ def test_format_date_yyy_mm_dd():
     assert date == 'TIMESTAMP("2018-05-15 00:00:00")'
 
 
-def test_month_yyyy_mm():
+def test_month_yyyy_mm() -> None:
     # Act
     first, last = core.month_ends("2019-03")
 
@@ -121,19 +122,19 @@ def test_month_yyyy_mm():
     assert last == "2019-03-31"
 
 
-def test_month_yyyy_mm_dd():
+def test_month_yyyy_mm_dd() -> None:
     # Act / Assert
     with pytest.raises(ValueError):
         core.month_ends("2019-03-18")
 
 
-def test_month_negative_integer():
+def test_month_negative_integer() -> None:
     # Act / Assert
     with pytest.raises(ValueError):
         core.month_ends("-30")
 
 
-def test_build_query():
+def test_build_query() -> None:
     # Arrange
     # Data from pycodestyle in 2017-10
     # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
@@ -168,10 +169,10 @@ LIMIT 100
     assert output == expected
 
 
-def test_build_query_specifier():
+def test_build_query_specifier() -> None:
     # pypinfo -sd -2 -ed -1 -l 20  --test 'foo==1'
     project = "foo==1"
-    all_fields = []
+    all_fields: List[Field] = []
     start_date = "-2"
     end_date = "-1"
     days = None
@@ -199,7 +200,7 @@ LIMIT 20
     assert output == expected
 
 
-def test_build_query_days():
+def test_build_query_days() -> None:
     # Arrange
     # Data from pycodestyle in 2017-10
     # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
@@ -234,7 +235,7 @@ LIMIT 100
     assert output == expected
 
 
-def test_build_query_where():
+def test_build_query_where() -> None:
     # Arrange
     # pypinfo -sd -2 -ed -1 --test --where 'file.filename LIKE "%manylinux%"' numpy file
     project = "numpy"
@@ -269,10 +270,10 @@ LIMIT 10
     assert output == expected
 
 
-def test_build_query_no_project():
+def test_build_query_no_project() -> None:
     # pypinfo -sd -2 -ed -1 -l 20 --all --test ''
     project = ""
-    all_fields = []
+    all_fields: List[Field] = []
     start_date = "-2"
     end_date = "-1"
     days = None
@@ -297,7 +298,7 @@ LIMIT 20
     assert output == expected
 
 
-def test_build_query_only_aggregate():
+def test_build_query_only_aggregate() -> None:
     # pypinfo -sd -2 -ed -1 -l 20 numpy percent3
     project = "numpy"
     all_fields = [Percent3]
@@ -328,7 +329,7 @@ LIMIT 20
     assert output == expected
 
 
-def test_build_query_bad_end_date():
+def test_build_query_bad_end_date() -> None:
     # Arrange
     project = "pycodestyle"
     all_fields = [PythonVersion]
@@ -341,22 +342,22 @@ def test_build_query_bad_end_date():
         core.build_query(project, all_fields, start_date, end_date)
 
 
-def test_build_query_bad_project_extras():
+def test_build_query_bad_project_extras() -> None:
     with pytest.raises(ValueError, match=".*extras.*"):
         core.build_query('foo[bar]', [])
 
 
-def test_build_query_bad_project_url():
+def test_build_query_bad_project_url() -> None:
     with pytest.raises(ValueError, match=".*url.*"):
         core.build_query('foo@https://foo.bar/', [])
 
 
-def test_build_query_bad_project_marker():
+def test_build_query_bad_project_marker() -> None:
     with pytest.raises(ValueError, match=".*marker.*"):
         core.build_query('foo ; sys_platform == "win32"', [])
 
 
-def test_add_percentages():
+def test_add_percentages() -> None:
     # Arrange
     rows = [
         ['python_version', 'download_count'],
@@ -393,7 +394,7 @@ def test_add_percentages():
     assert with_percentages == expected
 
 
-def test_add_download_total():
+def test_add_download_total() -> None:
     # Arrange
     rows = copy.deepcopy(ROWS)
     expected = copy.deepcopy(ROWS)
@@ -406,7 +407,7 @@ def test_add_download_total():
     assert rows_with_total == expected
 
 
-def test_tabulate_default():
+def test_tabulate_default() -> None:
     # Arrange
     rows = copy.deepcopy(ROWS)
     expected = """\
@@ -430,7 +431,7 @@ def test_tabulate_default():
     assert tabulated == expected
 
 
-def test_tabulate_markdown():
+def test_tabulate_markdown() -> None:
     # Arrange
     rows = copy.deepcopy(ROWS)
     expected = """\
@@ -455,7 +456,7 @@ def test_tabulate_markdown():
 
 
 @freeze_time("2020-07-14 07:11:49")
-def test_format_json():
+def test_format_json() -> None:
     # Arrange
     # Data from pycodestyle in 2017-10
     # pypinfo -sd 2017-10-01 -ed 2017-10-31 -pc -l 100 --json pycodestyle pyversion
@@ -506,11 +507,11 @@ def test_format_json():
     assert output == expected
 
 
-def test_parse_query_result():
-    data = [
-        ["name", "other"],
-        ["name1", 1],
-        ["name2", 2],
+def test_parse_query_result() -> None:
+    data: List[Tuple[Any, ...]] = [
+        ("name", "other"),
+        ("name1", 1),
+        ("name2", 2),
     ]
     expected = [[str(cell) for cell in row] for row in data]
     schema = (
@@ -518,12 +519,12 @@ def test_parse_query_result():
         SchemaField(data[0][1], "INTEGER"),
     )
 
-    class MockRowIterator(RowIterator):
-        def __init__(self):
+    class MockRowIterator(RowIterator):  # type: ignore[misc]
+        def __init__(self) -> None:
             super().__init__(None, None, None, schema)
 
-        def __iter__(self):
-            return iter(tuple(data[1:]))
+        def __iter__(self) -> Iterator[Tuple[Any, ...]]:
+            return iter(data[1:])
 
     actual = core.parse_query_result(MockRowIterator())
     assert actual == expected
@@ -539,7 +540,7 @@ SPECIFIER_GOOD = {
 
 
 @pytest.mark.parametrize('specifier', SPECIFIER_GOOD.keys())
-def test_specifier_good(specifier):
+def test_specifier_good(specifier: str) -> None:
     actual = core.version_specifier_condition(Specifier(specifier)).strip()
     regex = SPECIFIER_GOOD[specifier]
     expected = f'REGEXP_CONTAINS(file.version, r"{regex}")'
@@ -571,7 +572,7 @@ def test_specifier_good(specifier):
         ('==1.1.*', '1.1.1.1.0.dev1'),
     ),
 )
-def test_specifier_regex_match(specifier, version):
+def test_specifier_regex_match(specifier: str, version: str) -> None:
     specifier_ = Specifier(specifier)
     version_ = Version(version)
     assert specifier_.contains(version_, prereleases=True)
@@ -606,7 +607,7 @@ def test_specifier_regex_match(specifier, version):
         ('==1.1.*', '2'),
     ),
 )
-def test_specifier_regex_no_match(specifier, version):
+def test_specifier_regex_no_match(specifier: str, version: str) -> None:
     specifier_ = Specifier(specifier)
     version_ = Version(version)
     assert not specifier_.contains(version_, prereleases=True)
@@ -615,6 +616,6 @@ def test_specifier_regex_no_match(specifier, version):
 
 
 @pytest.mark.parametrize('specifier', ['~=1.0', '!=1', '<=1', '>=1', '<1', '>1', '===1'])
-def test_specifier_unsupported(specifier):
+def test_specifier_unsupported(specifier: str) -> None:
     with pytest.raises(ValueError, match=r'.*operator not supported:.*'):
         core.version_specifier_condition(Specifier(specifier))

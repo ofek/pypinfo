@@ -13,7 +13,7 @@ repos:
     rev: v0.961
     hooks:
       - id: mypy
-        exclude: ^tests/
-        additional_dependencies: [
-          'click==8.0.1',
-        ]
+        additional_dependencies:
+          - click==8.0.1
+          - freezegun==1.2.1
+          - pytest==7.1.2
