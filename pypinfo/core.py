@@ -5,7 +5,7 @@ from datetime import date, datetime
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from google.cloud.bigquery import Client
-from google.cloud.bigquery.job import QueryJob, QueryJobConfig
+from google.cloud.bigquery.job import QueryJobConfig
 from google.cloud.bigquery.table import RowIterator
 from packaging.utils import canonicalize_name
 
@@ -162,8 +162,8 @@ def build_query(
     return query
 
 
-def parse_query_result(query_job: QueryJob, query_rows: RowIterator) -> Rows:
-    rows = [[field.name for field in query_job.result().schema]]
+def parse_query_result(query_rows: RowIterator) -> Rows:
+    rows = [[field.name for field in query_rows.schema]]
     rows.extend([str(item) for item in row] for row in query_rows)
     return rows
 

@@ -2,6 +2,9 @@ from freezegun import freeze_time
 import copy
 import pytest
 
+from google.cloud.bigquery.schema import SchemaField
+from google.cloud.bigquery.table import RowIterator
+
 from pypinfo import core
 from pypinfo.fields import File, Percent3, PythonVersion
 
@@ -451,3 +454,26 @@ def test_format_json():
 
     # Assert
     assert output == expected
+
+
+def test_parse_query_result():
+    data = [
+        ["name", "other"],
+        ["name1", 1],
+        ["name2", 2],
+    ]
+    expected = [[str(cell) for cell in row] for row in data]
+    schema = (
+        SchemaField(data[0][0], "STRING"),
+        SchemaField(data[0][1], "INTEGER"),
+    )
+
+    class MockRowIterator(RowIterator):
+        def __init__(self):
+            super().__init__(None, None, None, schema)
+
+        def __iter__(self):
+            return iter(tuple(data[1:]))
+
+    actual = core.parse_query_result(MockRowIterator())
+    assert actual == expected

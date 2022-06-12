@@ -168,7 +168,7 @@ def pypinfo(
         with create_client(get_credentials()) as client:
             query_job = client.query(built_query, job_config=create_config())
             query_rows = query_job.result(timeout=timeout // 1000)
-            rows = parse_query_result(query_job, query_rows)
+            rows = parse_query_result(query_rows)
 
         # Cached
         from_cache = not not query_job.cache_hit
