@@ -32,4 +32,4 @@ CPU = Field('cpu', 'details.cpu')
 Libc = Field('libc_name', 'details.distro.libc.lib')
 LibcVersion = Field('libc_version', 'details.distro.libc.version')
 
-AGGREGATES = {Percent3, Percent2}
+AGGREGATES = {Downloads, Percent3, Percent2}

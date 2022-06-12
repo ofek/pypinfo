@@ -3,7 +3,7 @@ import copy
 import pytest
 
 from pypinfo import core
-from pypinfo.fields import File, PythonVersion
+from pypinfo.fields import File, Percent3, PythonVersion
 
 ROWS = [
     ['python_version', 'percent', 'download_count'],
@@ -247,6 +247,37 @@ SELECT
   COUNT(*) as download_count,
 FROM `bigquery-public-data.pypi.file_downloads`
 WHERE timestamp BETWEEN TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -2 DAY) AND TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)
+ORDER BY
+  download_count DESC
+LIMIT 20
+        """.strip()  # noqa: E501
+
+    # Act
+    output = core.build_query(project, all_fields, start_date, end_date, days, limit, where, order, pip)
+
+    # Assert
+    assert output == expected
+
+
+def test_build_query_only_aggregate():
+    # pypinfo -sd -2 -ed -1 -l 20 numpy percent3
+    project = "numpy"
+    all_fields = [Percent3]
+    start_date = "-2"
+    end_date = "-1"
+    days = None
+    limit = 20
+    where = None
+    order = None
+    pip = True
+    expected = r"""
+SELECT
+  ROUND(100 * SUM(CASE WHEN REGEXP_EXTRACT(details.python, r"^([^\.]+)") = "3" THEN 1 ELSE 0 END) / COUNT(*), 1) as percent_3,
+  COUNT(*) as download_count,
+FROM `bigquery-public-data.pypi.file_downloads`
+WHERE timestamp BETWEEN TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -2 DAY) AND TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)
+  AND file.project = "numpy"
+  AND details.installer.name = "pip"
 ORDER BY
   download_count DESC
 LIMIT 20

@@ -149,20 +149,12 @@ def build_query(
     if where:
         query += f'  AND {where}\n'
 
-    if len(fields) > 1:
-        gb = 'GROUP BY\n'
-        initial_length = len(gb)
-
-        non_aggregate_fields = []
-        for field in fields[:-1]:
-            if field not in AGGREGATES:
-                non_aggregate_fields.append(field.name)
-        gb += '  '
-        gb += ', '.join(non_aggregate_fields)
-        gb += '\n'
-
-        if len(gb) > initial_length:
-            query += gb
+    non_aggregate_fields = [field.name for field in fields if field not in AGGREGATES]
+    if non_aggregate_fields:
+        query += 'GROUP BY\n'
+        query += '  '
+        query += ', '.join(non_aggregate_fields)
+        query += '\n'
 
     query += f'ORDER BY\n  {order or Downloads.name} DESC\n'
     query += f'LIMIT {limit}'
