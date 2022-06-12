@@ -1,6 +1,10 @@
 from freezegun import freeze_time
 import copy
 import pytest
+import re
+
+from packaging.specifiers import Specifier
+from packaging.version import Version
 
 from google.cloud.bigquery.schema import SchemaField
 from google.cloud.bigquery.table import RowIterator
@@ -164,6 +168,37 @@ LIMIT 100
     assert output == expected
 
 
+def test_build_query_specifier():
+    # pypinfo -sd -2 -ed -1 -l 20  --test 'foo==1'
+    project = "foo==1"
+    all_fields = []
+    start_date = "-2"
+    end_date = "-1"
+    days = None
+    limit = 20
+    where = None
+    order = None
+    pip = True
+    expected = r"""
+SELECT
+  COUNT(*) as download_count,
+FROM `bigquery-public-data.pypi.file_downloads`
+WHERE timestamp BETWEEN TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -2 DAY) AND TIMESTAMP_ADD(CURRENT_TIMESTAMP(), INTERVAL -1 DAY)
+  AND file.project = "foo"
+  AND REGEXP_CONTAINS(file.version, r"(?i)^(0+!)?0*1(\.0+)*$")
+  AND details.installer.name = "pip"
+ORDER BY
+  download_count DESC
+LIMIT 20
+        """.strip()  # noqa: E501
+
+    # Act
+    output = core.build_query(project, all_fields, start_date, end_date, days, limit, where, order, pip)
+
+    # Assert
+    assert output == expected
+
+
 def test_build_query_days():
     # Arrange
     # Data from pycodestyle in 2017-10
@@ -304,6 +339,21 @@ def test_build_query_bad_end_date():
     # Act / Assert
     with pytest.raises(ValueError):
         core.build_query(project, all_fields, start_date, end_date)
+
+
+def test_build_query_bad_project_extras():
+    with pytest.raises(ValueError, match=".*extras.*"):
+        core.build_query('foo[bar]', [])
+
+
+def test_build_query_bad_project_url():
+    with pytest.raises(ValueError, match=".*url.*"):
+        core.build_query('foo@https://foo.bar/', [])
+
+
+def test_build_query_bad_project_marker():
+    with pytest.raises(ValueError, match=".*marker.*"):
+        core.build_query('foo ; sys_platform == "win32"', [])
 
 
 def test_add_percentages():
@@ -477,3 +527,94 @@ def test_parse_query_result():
 
     actual = core.parse_query_result(MockRowIterator())
     assert actual == expected
+
+
+SPECIFIER_GOOD = {
+    '==1!2.3.4': r'(?i)^0*1!0*2\.0*3\.0*4(\.0+)*$',
+    '==1.0.0': r'(?i)^(0+!)?0*1(\.0+)*$',
+    '==1-pre_post.dev': r'(?i)^(0+!)?0*1(\.0+)*[-_\.]?(c|rc|pre|preview)([-_\.]?0+)?(-0*0|[-_\.]?(post|rev|r)([-_\.]?0+)?)[-_\.]?dev([-_\.]?0+)?$',  # noqa: E501
+    '==0a1-1.dev2': r'(?i)^(0+!)?0*0(\.0+)*[-_\.]?(a|alpha)[-_\.]?0*1(-0*1|[-_\.]?(post|rev|r)[-_\.]?0*1)[-_\.]?dev[-_\.]?0*2$',  # noqa: E501
+    '==1.1.*': r'(?i)^(0+!)?(0*1\.0*1(\.0+)*|0*1\.0*1(\.[0-9]+)*)([-_\.]?(a|b|c|rc|alpha|beta|pre|preview)[-_\.]?[0-9]+?)?(-[0-9]+|([-_\.]?(post|rev|r)[-_\.]?[0-9]+?))?([-_\.]?dev[-_\.]?[0-9]+?)?$',  # noqa: E501
+}
+
+
+@pytest.mark.parametrize('specifier', SPECIFIER_GOOD.keys())
+def test_specifier_good(specifier):
+    actual = core.version_specifier_condition(Specifier(specifier)).strip()
+    regex = SPECIFIER_GOOD[specifier]
+    expected = f'REGEXP_CONTAINS(file.version, r"{regex}")'
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    'specifier, version',
+    (
+        ('==1!2.3.4', '1!2.3.4'),
+        ('==1!2.3.4', '1!2.3.4.0'),
+        ('==1!2.3.4', '01!02.03.04.00'),
+        ('==1.0.0', '1.0.0'),
+        ('==1.0.0', '1'),
+        ('==1.0.0', '0!1.0'),
+        ('==1.0.0', '00!01.00'),
+        ('==1-pre_post.dev', '1-pre_post.dev'),
+        ('==1-pre_post.dev', '1.0.0Rc0.poSt.0.dEv-0'),
+        ('==1-pre_post.dev', '1.0.0_C00-Rev00_dEv.00'),
+        ('==1-pre_post.dev', '1.0.0prevIew0-0-dEv00'),
+        ('==1-pre_post.dev', '1.0.0prevIewR0dEv'),
+        ('==1-pre_post.dev', '1.0.0rcRdEv'),
+        ('==0a1-1.dev2', '0a1-1.dev2'),
+        ('==0a1-1.dev2', '0.0.alpha.1.post.1.dev.2'),
+        ('==0a1-1.dev2', '00!00.00.alpha.01.post.01.dev.02'),
+        ('==1.1.*', '1.1'),
+        ('==1.1.*', '1.1a1'),
+        ('==1.1.*', '01.01.00.01.post01'),
+        ('==1.1.*', '1.1.1.1.0.dev1'),
+    ),
+)
+def test_specifier_regex_match(specifier, version):
+    specifier_ = Specifier(specifier)
+    version_ = Version(version)
+    assert specifier_.contains(version_, prereleases=True)
+    assert re.match(SPECIFIER_GOOD[specifier], str(version_))
+    assert re.match(SPECIFIER_GOOD[specifier], version)
+
+
+@pytest.mark.parametrize(
+    'specifier, version',
+    (
+        ('==1!2.3.4', '1!2.3'),
+        ('==1!2.3.4', '2.3.4'),
+        ('==1!2.3.4', '1!2.3.4.post1'),
+        ('==1!2.3.4', '1!2.3.4rc1'),
+        ('==1!2.3.4', '1!2.3.4dev'),
+        ('==1.0.0', '1.1'),
+        ('==1.0.0', '1!1'),
+        ('==1.0.0', '2'),
+        ('==1.0.0', '1rc1'),
+        ('==1-pre_post.dev', '1-pre1_post.dev'),
+        ('==1-pre_post.dev', '1.0.0Rc0.poSt.1.dEv-0'),
+        ('==1-pre_post.dev', '1.0.0_C00-Rev00_dEv.10'),
+        ('==1-pre_post.dev', '1.0.0prevIew0-1-dEv00'),
+        ('==1-pre_post.dev', '1.0.1prevIewR0dEv'),
+        ('==1-pre_post.dev', '1!1.0.0rcRdEv'),
+        ('==0a1-1.dev2', '0a1-1.dev3'),
+        ('==0a1-1.dev2', '0.1.alpha.1.post.1.dev.2'),
+        ('==0a1-1.dev2', '0!1.00.alpha.01.post.01.dev.02'),
+        ('==1.1.*', '1.2'),
+        ('==1.1.*', '1.0'),
+        ('==1.1.*', '1!1.1'),
+        ('==1.1.*', '2'),
+    ),
+)
+def test_specifier_regex_no_match(specifier, version):
+    specifier_ = Specifier(specifier)
+    version_ = Version(version)
+    assert not specifier_.contains(version_, prereleases=True)
+    assert re.match(SPECIFIER_GOOD[specifier], str(Version(version))) is None
+    assert re.match(SPECIFIER_GOOD[specifier], version) is None
+
+
+@pytest.mark.parametrize('specifier', ['~=1.0', '!=1', '<=1', '>=1', '<1', '>1', '===1'])
+def test_specifier_unsupported(specifier):
+    with pytest.raises(ValueError, match=r'.*operator not supported:.*'):
+        core.version_specifier_condition(Specifier(specifier))

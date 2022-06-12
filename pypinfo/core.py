@@ -8,6 +8,9 @@ from google.cloud.bigquery import Client
 from google.cloud.bigquery.job import QueryJobConfig
 from google.cloud.bigquery.table import RowIterator
 from packaging.utils import canonicalize_name
+from packaging.requirements import Requirement
+from packaging.specifiers import SpecifierSet, Specifier
+from packaging.version import Version
 
 from pypinfo.fields import AGGREGATES, Downloads, Field
 
@@ -91,6 +94,76 @@ def month_ends(yyyy_mm: str) -> Tuple[str, str]:
     return str(first), str(last)
 
 
+def strip_trailing_zero(release: Tuple[int, ...]) -> Tuple[int, ...]:
+    """Helper to strip trailing 0 in a tuple of integers"""
+    new_len = len(release)
+    while new_len > 1 and release[new_len - 1] == 0:
+        new_len -= 1
+    return release[:new_len]
+
+
+def version_specifier_condition(specifier: Specifier) -> str:
+    if specifier.operator == '==':
+        if specifier.version.endswith(".*"):
+            version_ = Version(specifier.version[:-2])
+            prefix_match = True
+        else:
+            version_ = Version(specifier.version)
+            prefix_match = False
+        # ignore case
+        regex = '(?i)^'
+        if version_.epoch == 0:
+            regex += '(0+!)?'
+        else:
+            regex += f'0*{version_.epoch}!'
+        exact_release = r'\.'.join(f'0*{i}' for i in strip_trailing_zero(version_.release))
+        exact_release += r'(\.0+)*'
+        if prefix_match:
+            regex += '('
+            regex += exact_release
+            regex += '|'
+            regex += r'\.'.join(f'0*{i}' for i in version_.release)
+            regex += r'(\.[0-9]+)*'
+            regex += ')'
+            # pre
+            regex += r'([-_\.]?(a|b|c|rc|alpha|beta|pre|preview)[-_\.]?[0-9]+?)?'
+            # post
+            regex += r'(-[0-9]+|([-_\.]?(post|rev|r)[-_\.]?[0-9]+?))?'
+            # dev
+            regex += r'([-_\.]?dev[-_\.]?[0-9]+?)?'
+        else:
+            regex += exact_release
+            if version_.pre is not None:
+                regex += r'[-_\.]?'
+                regex += {
+                    'a': '(a|alpha)',
+                    'b': '(b|beta)',
+                    'rc': '(c|rc|pre|preview)',
+                }[version_.pre[0]]
+                if version_.pre[1] == 0:
+                    regex += r'([-_\.]?0+)?'
+                else:
+                    regex += rf'[-_\.]?0*{version_.pre[1]}'
+            if version_.post is not None:
+                regex += f'(-0*{version_.post}|'
+                regex += r'[-_\.]?(post|rev|r)'
+                if version_.post == 0:
+                    regex += r'([-_\.]?0+)?'
+                else:
+                    regex += rf'[-_\.]?0*{version_.post}'
+                regex += ')'
+            if version_.dev is not None:
+                regex += r'[-_\.]?dev'
+                if version_.dev == 0:
+                    regex += r'([-_\.]?0+)?'
+                else:
+                    regex += rf'[-_\.]?0*{version_.dev}'
+        regex += '$'
+        return f'REGEXP_CONTAINS(file.version, r"{regex}")\n'
+
+    raise ValueError(f'operator not supported: {specifier}')
+
+
 def build_query(
     project: str,
     all_fields: Iterable[Field],
@@ -102,6 +175,18 @@ def build_query(
     order: Optional[str] = None,
     pip: bool = False,
 ) -> str:
+    project_specifiers = SpecifierSet()
+    if project:
+        req = Requirement(project)
+        if req.extras:
+            raise ValueError("project: extras are not allowed")
+        if req.marker:
+            raise ValueError("project: marker is not allowed")
+        if req.url:
+            raise ValueError("project: url is not allowed")
+        project = req.name
+        project_specifiers = req.specifier
+
     project = canonicalize_name(project)
 
     start_date = start_date or START_DATE
@@ -143,6 +228,8 @@ def build_query(
     conditions = [f'WHERE timestamp BETWEEN {start_date} AND {end_date}\n']
     if project:
         conditions.append(f'file.project = "{project}"\n')
+    for specifier in project_specifiers:
+        conditions.append(version_specifier_condition(Specifier(str(specifier))))
     if pip:
         conditions.append('details.installer.name = "pip"\n')
     query += '  AND '.join(conditions)

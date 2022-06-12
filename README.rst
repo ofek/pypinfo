@@ -321,6 +321,52 @@ Let's use ``--test`` to only see the query instead of sending it.
       download_count DESC
     LIMIT 100
 
+Downloads for a given version
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+pypinfo supports `PEP 440 version matching <https://peps.python.org/pep-0440/#version-matching>`_.
+
+We can use it to query stats on a given major version.
+
+.. code-block:: console
+
+    $ pypinfo -pc 'pip==21.*' pyversion version
+    Served from cache: False
+    Data processed: 34.45 MiB
+    Data billed: 35.00 MiB
+    Estimated cost: $0.01
+
+    | python_version | version | percent | download_count |
+    | -------------- | ------- | ------- | -------------- |
+    | 3.6            | 21.3.1  |  78.74% |         10,430 |
+    | 3.8            | 21.3.1  |   7.81% |          1,034 |
+    | 3.7            | 21.2.1  |   3.59% |            476 |
+    | 3.7            | 21.3.1  |   2.60% |            345 |
+    | 3.7            | 21.0.1  |   2.25% |            298 |
+    | 3.8            | 21.0.1  |   1.58% |            209 |
+    | 3.8            | 21.2.1  |   1.42% |            188 |
+    | 3.7            | 21.1.2  |   0.81% |            107 |
+    | 3.9            | 21.3.1  |   0.69% |             92 |
+    | 3.8            | 21.1.1  |   0.51% |             67 |
+    | Total          |         |         |         13,246 |
+
+We can also use it to query stats on an exact version:
+
+.. code-block:: console
+
+    $ pypinfo -pc 'numpy==1.23rc3' pyversion version
+    Served from cache: False
+    Data processed: 34.01 MiB
+    Data billed: 35.00 MiB
+    Estimated cost: $0.01
+
+    | python_version | version   | percent | download_count |
+    | -------------- | --------- | ------- | -------------- |
+    | 3.9            | 1.23.0rc3 |  63.33% |             38 |
+    | 3.8            | 1.23.0rc3 |  28.33% |             17 |
+    | 3.10           | 1.23.0rc3 |   8.33% |              5 |
+    | Total          |           |         |             60 |
+
 Credits
 -------
 
