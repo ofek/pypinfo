@@ -138,20 +138,16 @@ def build_query(
     for field in fields:
         query += f'  {field.data} as {field.name},\n'
 
-    query += FROM
+    query += f'{FROM}\n'
 
-    query += f'\nWHERE timestamp BETWEEN {start_date} AND {end_date}\n'
+    conditions = [f'WHERE timestamp BETWEEN {start_date} AND {end_date}\n']
+    if project:
+        conditions.append(f'file.project = "{project}"\n')
+    if pip:
+        conditions.append('details.installer.name = "pip"\n')
+    query += '  AND '.join(conditions)
     if where:
         query += f'  AND {where}\n'
-    else:
-        conditions = []
-        if project:
-            conditions.append(f'file.project = "{project}"\n')
-        if pip:
-            conditions.append('details.installer.name = "pip"\n')
-        if conditions:
-            query += '  AND '
-            query += '  AND '.join(conditions)
 
     if len(fields) > 1:
         gb = 'GROUP BY\n'
