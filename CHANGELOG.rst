@@ -6,6 +6,17 @@ Important changes are emphasized.
 Unreleased
 ^^^^^^^^^^
 
+21.0.0
+^^^^^^
+
+- Drop support for EOL Python 3.6
+- Add support for version matching
+- Update ``--where`` not to discard ``project`` / ``installer`` filtering
+- Fix query when only aggregate fields are requested
+- Run Mypy on all files
+- Fix ``twine check`` errors and warnings
+- Switch build backend to Hatchling
+
 20.0.0
 ^^^^^^
 
