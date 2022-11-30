@@ -17,6 +17,10 @@ pypinfo: View PyPI download statistics with ease.
 
 pypinfo is a simple CLI to access `PyPI`_ download statistics via Google's BigQuery.
 
+* `Usage <#usage>`_
+* `Installation <#installation>`_
+* `Credits <#credits>`_
+
 Usage
 -----
 
