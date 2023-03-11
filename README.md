@@ -218,8 +218,7 @@ Downloads between two YYYY-MM-DD dates
     |      8,972,826 |
 ```
 
-Downloads for a single YYYY-MM month
------------------------------------------
+### Downloads for a single YYYY-MM month
 
 ```console
 
