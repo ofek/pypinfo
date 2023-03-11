@@ -312,7 +312,7 @@ This is relatively painless, I swear.
 2. Sign up if you haven't already. The first TB of queried data each month
    is free. Each additional TB is $5.
 
-3. Go to [https://console.developers.google.com/cloud-resource-manager](https://console.developers.google.com/cloud-resource-manager) and click CREATE PROJECT if you don't already have one:
+3. Go to https://console.developers.google.com/cloud-resource-manager and click CREATE PROJECT if you don't already have one:
 
 <details>
   <summary>
