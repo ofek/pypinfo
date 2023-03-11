@@ -185,8 +185,8 @@ Estimated cost: $0.02
     | Total           | 10,141,997,608 |
 ```
 
-Downloads between two YYYY-MM-DD dates
------------------------------------------
+### Downloads between two YYYY-MM-DD dates
+
 
 ```console
     $ pypinfo --start-date 2018-04-01 --end-date 2018-04-30 setuptools
