@@ -92,8 +92,7 @@ All downloads
     |  8,642,447,168 |
 ```
 
-Downloads for a project by Python version
------------------------------------------
+### Downloads for a project by Python version
 
 ```console
 
