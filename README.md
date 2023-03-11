@@ -76,8 +76,7 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
     |    116,353,535 |
 ```
 
-All downloads
-------------------------------
+### All downloads
 
 ```console
 
