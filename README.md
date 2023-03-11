@@ -61,8 +61,7 @@ look at some examples!
 
 _Tip_: If queries are resulting in NoneType errors, increase timeout.
 
-Downloads for a project
-------------------------------
+### Downloads for a project
 
 ```console
 
