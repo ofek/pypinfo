@@ -92,7 +92,6 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### Downloads for a project by Python version
 
 ```console
-
     $ pypinfo django pyversion
     Served from cache: False
     Data processed: 967.33 MiB
