@@ -399,8 +399,7 @@ This is relatively painless, I swear.
 12. `pypinfo --auth path/to/your_credentials.json`, or set an environment variable
     `GOOGLE_APPLICATION_CREDENTIALS` that points to the file.
 
-Credits
--------
+## Credits
 
 - [Donald Stufft](https://github.com/dstufft) for maintaining [PyPI](https://pypi.org) all these years;
 - [Google](https://github.com/google) for donating BigQuery capacity to [PyPI](https://pypi.org);
