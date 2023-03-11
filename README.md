@@ -220,7 +220,6 @@ Downloads between two YYYY-MM-DD dates
 ### Downloads for a single YYYY-MM month
 
 ```console
-
     $ pypinfo --month 2018-04 setuptools
     Served from cache: False
     Data processed: 571.37 MiB
