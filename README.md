@@ -258,7 +258,6 @@ pypinfo supports `PEP 440 version matching <https://peps.python.org/pep-0440/#ve
 We can use it to query stats on a given major version.
 
 ```console
-
     $ pypinfo -pc 'pip==21.*' pyversion version
     Served from cache: False
     Data processed: 34.45 MiB
