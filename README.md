@@ -237,8 +237,7 @@ Downloads for a single YYYY-MM month
     |      8,972,826 |
 ```
 
-Percentage of Python 3 downloads of the top 100 projects in the past year
---------------------------------------------------------------------------
+### Percentage of Python 3 downloads of the top 100 projects in the past year
 
 Let's use ``--test`` to only see the query instead of sending it.
 
