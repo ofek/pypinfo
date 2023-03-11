@@ -201,8 +201,7 @@ Downloads between two YYYY-MM-DD dates
     |      8,972,826 |
 ```
 
-Downloads between two YYYY-MM dates
------------------------------------------
+### Downloads between two YYYY-MM dates
 
 - A yyyy-mm ``--start-date`` defaults to the first day of the month
 - A yyyy-mm ``--end-date`` defaults to the last day of the month
