@@ -138,8 +138,7 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
     | Total   |  8,068,024,939 |
 ```
 
-Downloads for a project by system and distribution
------------------------------------------
+### Downloads for a project by system and distribution
 
 ```console
 
