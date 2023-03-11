@@ -78,7 +78,6 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### All downloads
 
 ```console
-
     $ pypinfo ""
     Served from cache: False
     Data processed: 116.15 GiB
