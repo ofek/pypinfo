@@ -344,7 +344,7 @@ This is relatively painless, I swear.
 
 ### Enable BigQuery API
 
-6. Go to [https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview](https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview) and make sure the correct project is chosen using the drop-down on top. Click the ENABLE button:
+6. Go to https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview and make sure the correct project is chosen using the drop-down on top. Click the ENABLE button:
 
 <details>
   <summary>
