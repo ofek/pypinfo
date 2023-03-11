@@ -301,10 +301,14 @@ We can also use it to query stats on an exact version:
 
 ## Installation
 
-pypinfo is distributed on **PyPI** as a universal wheel and is available on
-Linux/macOS and Windows and supports Python 3.7+.
+<details>
+  <summary>
+  Click to unfold installation
+  </summary>
 
-This is relatively painless, I swear.
+pypinfo is distributed on **PyPI** as a universal wheel and is available on Linux/macOS and Windows and supports Python 3.7+.
+
+This is relatively painless, I swear: we recommend to click on foldable image references **Click to unfold image** along the instructions.
 
 ### Create project
 
@@ -398,6 +402,8 @@ This is relatively painless, I swear.
 11. `pip install pypinfo`
 12. `pypinfo --auth path/to/your_credentials.json`, or set an environment variable
     `GOOGLE_APPLICATION_CREDENTIALS` that points to the file.
+
+</details>
 
 ## Credits
 
