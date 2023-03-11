@@ -264,8 +264,7 @@ Let's use ``--test`` to only see the query instead of sending it.
     LIMIT 100
 ```
 
-Downloads for a given version
------------------------------------------
+### Downloads for a given version
 
 pypinfo supports `PEP 440 version matching <https://peps.python.org/pep-0440/#version-matching>`_.
 
