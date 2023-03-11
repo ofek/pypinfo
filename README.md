@@ -116,7 +116,6 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### All downloads by country code
 
 ```console
-
     $ pypinfo "" country
     Served from cache: False
     Data processed: 150.40 GiB
