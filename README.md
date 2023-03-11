@@ -318,13 +318,7 @@ This is relatively painless, I swear: we recommend to click on foldable image re
 
 3. Go to https://console.developers.google.com/cloud-resource-manager and click CREATE PROJECT if you don't already have one:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![create](https://user-images.githubusercontent.com/1324225/47172949-6f4ea880-d315-11e8-8587-8b8117efeae9.png "CREATE PROJECT")
- </details>    
+![create](https://user-images.githubusercontent.com/1324225/47172949-6f4ea880-d315-11e8-8587-8b8117efeae9.png "CREATE PROJECT")
 
 4. This takes you to [https://console.developers.google.com/projectcreate](https://console.developers.google.com/projectcreate). Fill out the form and click CREATE. Any name is fine, but I recommend you choose something to do with PyPI like pypinfo. This way you know what the project is designated for:
 
@@ -338,66 +332,30 @@ This is relatively painless, I swear: we recommend to click on foldable image re
 
 5. The next page should show your new project. If not, reload the page and select from the top menu:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![show](https://user-images.githubusercontent.com/1324225/47173170-0b78af80-d316-11e8-879e-01f34e139b80.png)
-</details> 
+![show](https://user-images.githubusercontent.com/1324225/47173170-0b78af80-d316-11e8-879e-01f34e139b80.png)
 
 ### Enable BigQuery API
 
 6. Go to https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview and make sure the correct project is chosen using the drop-down on top. Click the ENABLE button:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![enable](https://user-images.githubusercontent.com/1324225/47173408-a6718980-d316-11e8-94c2-a17ff54fc389.png)
-</details> 
+![enable](https://user-images.githubusercontent.com/1324225/47173408-a6718980-d316-11e8-94c2-a17ff54fc389.png)
 
 7. After enabling, click CREATE CREDENTIALS:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![credentials](https://user-images.githubusercontent.com/1324225/47173432-bc7f4a00-d316-11e8-8152-6a0e6cfab70f.png)
-</details> 
+![credentials](https://user-images.githubusercontent.com/1324225/47173432-bc7f4a00-d316-11e8-8152-6a0e6cfab70f.png)
 
 8. Choose the "BigQuery API" and "No, I'm not using them":
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![bigquery-api](https://user-images.githubusercontent.com/1324225/47173510-ec2e5200-d316-11e8-8508-2bfbb8f6b02f.png)
-</details> 
+![bigquery-api](https://user-images.githubusercontent.com/1324225/47173510-ec2e5200-d316-11e8-8508-2bfbb8f6b02f.png)
 
 9. Fill in a name, and select role "BigQuery User" (if the "BigQuery" is not an option
    in the list, wait 15-20 minutes and try creating the credentials again), and select a JSON key:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![bigquery-user](https://user-images.githubusercontent.com/1324225/47173576-18e26980-d317-11e8-8bfe-e4775d965e32.png)
-</details>
+![bigquery-user](https://user-images.githubusercontent.com/1324225/47173576-18e26980-d317-11e8-8bfe-e4775d965e32.png)
 
 10. Click continue and the JSON will download to your computer. Note the download location. Move the file wherever you want:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![download](https://user-images.githubusercontent.com/1324225/47173614-331c4780-d317-11e8-9ed2-fc76557a2bf6.png)
-</details>   
+![download](https://user-images.githubusercontent.com/1324225/47173614-331c4780-d317-11e8-9ed2-fc76557a2bf6.png)
 
 11. `pip install pypinfo`
 12. `pypinfo --auth path/to/your_credentials.json`, or set an environment variable
