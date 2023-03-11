@@ -162,8 +162,7 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
     | Total       |                                 |     43,927,376 |
 ```
 
-Most popular projects in the past year
------------------------------------------
+### Most popular projects in the past year
 
 ```console
 
