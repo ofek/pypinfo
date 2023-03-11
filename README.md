@@ -165,7 +165,6 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### Most popular projects in the past year
 
 ```console
-
     $ pypinfo --days 365 "" project
     Served from cache: False
     Data processed: 1.69 TiB
