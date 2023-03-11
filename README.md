@@ -368,9 +368,9 @@ This is relatively painless, I swear.
 
    ![download](https://user-images.githubusercontent.com/1324225/47173614-331c4780-d317-11e8-9ed2-fc76557a2bf6.png)
 
-11. ``pip install pypinfo``
-12. ``pypinfo --auth path/to/your_credentials.json``, or set an environment variable
-    ``GOOGLE_APPLICATION_CREDENTIALS`` that points to the file.
+11. `pip install pypinfo`
+12. `pypinfo --auth path/to/your_credentials.json`, or set an environment variable
+    `GOOGLE_APPLICATION_CREDENTIALS` that points to the file.
 
 Credits
 -------
