@@ -306,7 +306,6 @@ Estimated cost: $0.01
   Click to unfold installation
   </summary>
 
-
 pypinfo is distributed on **PyPI** as a universal wheel and is available on Linux/macOS and Windows and supports Python 3.7+.
 
 This is relatively painless, I swear: we recommend to click on foldable image references **Click to unfold image** along the instructions.
