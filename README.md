@@ -342,7 +342,7 @@ This is relatively painless, I swear.
   ![show](https://user-images.githubusercontent.com/1324225/47173170-0b78af80-d316-11e8-879e-01f34e139b80.png)
 </details> 
 
-**Enable BigQuery API**
+### Enable BigQuery API
 
 6. Go to [https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview](https://console.cloud.google.com/apis/api/bigquery-json.googleapis.com/overview) and make sure the correct project is chosen using the drop-down on top. Click the ENABLE button:
 
