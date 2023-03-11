@@ -191,7 +191,6 @@ Downloads between two YYYY-MM-DD dates
 -----------------------------------------
 
 ```console
-
     $ pypinfo --start-date 2018-04-01 --end-date 2018-04-30 setuptools
     Served from cache: False
     Data processed: 571.37 MiB
