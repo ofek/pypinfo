@@ -308,7 +308,7 @@ This is relatively painless, I swear.
 
 ### Create project
 
-1. Go to [https://bigquery.cloud.google.com](https://bigquery.cloud.google.com).
+1. Go to https://bigquery.cloud.google.com.
 2. Sign up if you haven't already. The first TB of queried data each month
    is free. Each additional TB is $5.
 
