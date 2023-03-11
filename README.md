@@ -236,7 +236,6 @@ Downloads between two YYYY-MM-DD dates
 Let's use ``--test`` to only see the query instead of sending it.
 
 ```console
-
     $ pypinfo --test --days 365 --limit 100 "" project percent3
     SELECT
         file.project as project,
