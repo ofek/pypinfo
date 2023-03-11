@@ -64,15 +64,15 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### Downloads for a project
 
 ```console
-    $ pypinfo requests
-    Served from cache: False
-    Data processed: 2.83 GiB
-    Data billed: 2.83 GiB
-    Estimated cost: $0.02
+$ pypinfo requests
+Served from cache: False
+Data processed: 2.83 GiB
+Data billed: 2.83 GiB
+Estimated cost: $0.02
 
-    | download_count |
-    | -------------- |
-    |    116,353,535 |
+| download_count |
+| -------------- |
+|    116,353,535 |
 ```
 
 ### All downloads
