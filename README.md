@@ -10,7 +10,7 @@ pypinfo is a simple CLI to access [PyPI](https://pypi.org/) download statistics 
 ## Table of contents
 
 1. [Usage](#usage)
-2. [How to run](#installation)
+2. [Installation](#installation)
 3. [Credits](#credits)
 
 ## Usage
