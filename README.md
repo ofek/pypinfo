@@ -304,8 +304,7 @@ We can also use it to query stats on an exact version:
 </details>
 
 
-Installation
-------------
+## Installation
 
 pypinfo is distributed on **PyPI** as a universal wheel and is available on
 Linux/macOS and Windows and supports Python 3.7+.
