@@ -284,7 +284,6 @@ We can use it to query stats on a given major version.
 We can also use it to query stats on an exact version:
 
 ```console
-
     $ pypinfo -pc 'numpy==1.23rc3' pyversion version
     Served from cache: False
     Data processed: 34.01 MiB
