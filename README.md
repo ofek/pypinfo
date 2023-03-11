@@ -117,8 +117,7 @@ All downloads
     | Total          |      6,393,263 |
 ```
 
-All downloads by country code
------------------------------------------
+### All downloads by country code
 
 ```console
 
