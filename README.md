@@ -140,7 +140,6 @@ _Tip_: If queries are resulting in NoneType errors, increase timeout.
 ### Downloads for a project by system and distribution
 
 ```console
-
     $ pypinfo cryptography system distro
     Served from cache: False
     Data processed: 2.52 GiB
