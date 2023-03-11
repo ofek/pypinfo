@@ -1,9 +1,9 @@
 # pypinfo: View PyPI download statistics with ease.
 
-[![version](https://img.shields.io/pypi/v/pypinfo.svg?style=flat-square)](https://pypi.org/project/pypinfo)
-[![python](https://img.shields.io/pypi/pyversions/pypinfo.svg?style=flat-square)](https://pypi.org/project/pypinfo)
-[![license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
-[![license](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![PyPI version](https://img.shields.io/pypi/v/pypinfo.svg?style=flat-square)](https://pypi.org/project/pypinfo)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/pypinfo.svg?style=flat-square)](https://pypi.org/project/pypinfo)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
+[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
 pypinfo is a simple CLI to access `PyPI`_ download statistics via Google's BigQuery.
 
