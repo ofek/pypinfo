@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://en.wikipedia.org/wiki/MIT_License)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
-pypinfo is a simple CLI to access `PyPI`_ download statistics via Google's BigQuery.
+pypinfo is a simple CLI to access [PyPI](https://pypi.org/) download statistics via Google's BigQuery.
 
 ## Table of contents
 
