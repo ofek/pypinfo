@@ -253,7 +253,7 @@ LIMIT 100
 
 ### Downloads for a given version
 
-pypinfo supports `PEP 440 version matching <https://peps.python.org/pep-0440/#version-matching>`_.
+pypinfo supports [PEP 440 version matching](https://peps.python.org/pep-0440/#version-matching).
 
 We can use it to query stats on a given major version.
 
@@ -308,7 +308,7 @@ Estimated cost: $0.01
 
 pypinfo is distributed on **PyPI** as a universal wheel and is available on Linux/macOS and Windows and supports Python 3.7+.
 
-This is relatively painless, I swear: we recommend to click on foldable image references **Click to unfold image** along the instructions.
+This is relatively painless! 
 
 ### Create project
 
@@ -322,13 +322,7 @@ This is relatively painless, I swear: we recommend to click on foldable image re
 
 4. This takes you to [https://console.developers.google.com/projectcreate](https://console.developers.google.com/projectcreate). Fill out the form and click CREATE. Any name is fine, but I recommend you choose something to do with PyPI like pypinfo. This way you know what the project is designated for:
 
-<details>
-  <summary>
-  <b>Click to unfold image</b>
-  </summary>
-
-  ![click](https://user-images.githubusercontent.com/1324225/47173020-986f3900-d315-11e8-90ab-4b2ecd85b88e.png) 
-</details> 
+![click](https://user-images.githubusercontent.com/1324225/47173020-986f3900-d315-11e8-90ab-4b2ecd85b88e.png) 
 
 5. The next page should show your new project. If not, reload the page and select from the top menu:
 
