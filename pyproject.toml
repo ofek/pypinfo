@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pypinfo"
 description = "View PyPI download statistics with ease."
-readme = "README.rst"
+readme = "README.md"
 license = "MIT"
 requires-python = ">=3.7"
 keywords = [
