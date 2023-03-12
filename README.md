@@ -308,7 +308,7 @@ Estimated cost: $0.01
 
 pypinfo is distributed on **PyPI** as a universal wheel and is available on Linux/macOS and Windows and supports Python 3.7+.
 
-This is relatively painless! 
+This is relatively painless, I swear.
 
 ### Create project
 
