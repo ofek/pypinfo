@@ -362,7 +362,7 @@ This is relatively painless, I swear.
 
 ![credentials_page_3](https://user-images.githubusercontent.com/13961685/224557170-73532a10-ad64-4e74-9018-8c5f8ad205d7.png)
 
-14. On Big Query API panel (See **Remark** on item *10*), click on tab "CREDENTIALS". On section "Service accounts", click on created credentials on items 11, 12 and 13.  
+14. On Big Query API panel (See **Note** on item *10*), click on tab "CREDENTIALS". On section "Service accounts", click on created credentials on items 11, 12 and 13.
 
 ![create_service_credential_key](https://user-images.githubusercontent.com/13961685/224572983-d005fef7-9490-429a-bd6b-58616dd6cc86.png)
 
