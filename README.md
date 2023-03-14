@@ -346,7 +346,7 @@ This is relatively painless, I swear.
 
 ![credentials](https://user-images.githubusercontent.com/1324225/47173432-bc7f4a00-d316-11e8-8152-6a0e6cfab70f.png)
 
-**Remark**: You will be requested to go back to Big Query panel. In this case, click on top-left button "Navigation Menu", option "API and services > Enabled APIs and services" and on consequent page, on item "Big Query API": 
+**Note**: You will be requested to go back to Big Query panel. In this case, click on top-left button "Navigation Menu", option "API and services > Enabled APIs and services" and on consequent page, on item "Big Query API": 
 
 ![enabled_credentials](https://user-images.githubusercontent.com/13961685/224572489-402be9b3-a441-45f0-a469-df3a292b2d80.png)
 
