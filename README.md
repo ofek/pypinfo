@@ -324,7 +324,7 @@ This is relatively painless, I swear.
 
 ![click](https://user-images.githubusercontent.com/1324225/47173020-986f3900-d315-11e8-90ab-4b2ecd85b88e.png) 
 
-6. A while after creation, at the left-top corner, select the project name of your choice on dropdown component AND at the left-top corner "Navigation Meny", select option on path 'Cloud Overview > Dashboard':
+6. A while after creation, at the left-top corner, select the project name of your choice on dropdown component AND at the left-top corner "Navigation Menu", select option "Cloud Overview > Dashboard":
 
 ![show](https://user-images.githubusercontent.com/1324225/47173170-0b78af80-d316-11e8-879e-01f34e139b80.png)
 
