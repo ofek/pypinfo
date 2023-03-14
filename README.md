@@ -350,7 +350,7 @@ This is relatively painless, I swear.
 
 ![enabled_credentials](https://user-images.githubusercontent.com/13961685/224572489-402be9b3-a441-45f0-a469-df3a292b2d80.png)
 
-11. On page from "CREATE CREDENTIALS"-button click, choose the "BigQuery API", "Application Data" and "No, I'm not using them":
+11. On the page after clicking the "CREATE CREDENTIALS" button, choose "BigQuery API", "Application Data" and "No, I'm not using them":
 
 ![credentials_page_1](https://user-images.githubusercontent.com/13961685/224556508-e57d9ea0-564c-45db-b553-a53f60c307af.png)
 
