@@ -376,7 +376,7 @@ This is relatively painless, I swear.
 
 ### Installation and authentication
 
-17. Run command `pip install pypinfo` on terminal
+17. Run `python -m pip install pypinfo` in the terminal.
 18. `pypinfo --auth path/to/your_credentials.json`, or set an environment variable `GOOGLE_APPLICATION_CREDENTIALS` that points to the file.
 
 </details>
