@@ -40,8 +40,8 @@ Options:
     -j, --json              Print data as JSON, with keys `rows` and `query`.
     -i, --indent INTEGER    JSON indentation level.
     -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
-    -l, --limit TEXT        Maximum number of query results. Default: 10
-    -d, --days TEXT         Number of days in the past to include. Default: 30
+    -l, --limit INTEGER        Maximum number of query results. Default: 10
+    -d, --days INTEGER         Number of days in the past to include. Default: 30
     -sd, --start-date TEXT  Must be negative or YYYY-MM[-DD]. Default: -31
     -ed, --end-date TEXT    Must be negative or YYYY-MM[-DD]. Default: -1
     -m, --month TEXT        Shortcut for -sd & -ed for a single YYYY-MM month.
