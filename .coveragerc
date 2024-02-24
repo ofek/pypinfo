@@ -8,6 +8,9 @@ omit =
     pypinfo/keygen.py
 
 [report]
-exclude_lines =
-    pragma: no cover
+exclude_also =
     if __name__ == .__main__.:
+
+[run]
+omit =
+    **/pypinfo/__main__.py
