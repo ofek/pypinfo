@@ -296,6 +296,22 @@ Estimated cost: $0.01
 | Total          |           |         |             60 |
 ```
 
+Check how many downloads came from continuous integration servers:
+
+```console
+❯ pypinfo --percent --days 5 pillow ci
+Served from cache: False
+Data processed: 384.22 MiB
+Data billed: 385.00 MiB
+Estimated cost: $0.01
+
+| ci    | percent | download_count |
+| ----- | ------- | -------------- |
+| None  |  79.37% |     11,963,127 |
+| True  |  20.63% |      3,109,931 |
+| Total |         |     15,073,058 |
+```
+
 </details>
 
 ## Installation

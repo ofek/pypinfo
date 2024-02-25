@@ -37,6 +37,7 @@ from pypinfo.fields import (
     OpenSSLVersion,
     Distro,
     DistroVersion,
+    CI,
     CPU,
     Libc,
     LibcVersion,
@@ -67,6 +68,7 @@ FIELD_MAP = {
     'system-release': SystemRelease,
     'distro': Distro,
     'distro-version': DistroVersion,
+    'ci': CI,
     'cpu': CPU,
     'libc': Libc,
     'libc-version': LibcVersion,
@@ -121,7 +123,7 @@ def pypinfo(
     """Valid fields are:\n
     project | version | file | pyversion | percent3 | percent2 | impl | impl-version |\n
     openssl | date | month | year | country | installer | installer-version |\n
-    setuptools-version | system | system-release | distro | distro-version | cpu |\n
+    setuptools-version | system | system-release | distro | distro-version | ci | cpu |\n
     libc | libc-version
     """
     if auth:
