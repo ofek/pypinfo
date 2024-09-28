@@ -2,7 +2,8 @@ import calendar
 import json
 import os
 from datetime import date, datetime
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Optional
+from collections.abc import Iterable
 
 from google.cloud.bigquery import Client
 from google.cloud.bigquery.job import QueryJobConfig
@@ -22,7 +23,7 @@ START_DATE = '-31'
 END_DATE = '-1'
 DEFAULT_LIMIT = 10
 
-Rows = List[List[str]]
+Rows = list[list[str]]
 
 
 def create_config() -> QueryJobConfig:
@@ -31,7 +32,7 @@ def create_config() -> QueryJobConfig:
     return config
 
 
-def normalize_dates(start_date: str, end_date: str) -> Tuple[str, str]:
+def normalize_dates(start_date: str, end_date: str) -> tuple[str, str]:
     """If a date is yyyy-mm, normalize as first or last yyyy-mm-dd of the month.
     Otherwise, return unchanged.
     """
@@ -85,7 +86,7 @@ def format_date(date: str, timestamp_format: str) -> str:
     return date
 
 
-def month_ends(yyyy_mm: str) -> Tuple[str, str]:
+def month_ends(yyyy_mm: str) -> tuple[str, str]:
     """Helper to return start_date and end_date of a month as yyyy-mm-dd"""
     year, month = map(int, yyyy_mm.split("-"))
     first = date(year, month, 1)
@@ -94,7 +95,7 @@ def month_ends(yyyy_mm: str) -> Tuple[str, str]:
     return str(first), str(last)
 
 
-def strip_trailing_zero(release: Tuple[int, ...]) -> Tuple[int, ...]:
+def strip_trailing_zero(release: tuple[int, ...]) -> tuple[int, ...]:
     """Helper to strip trailing 0 in a tuple of integers"""
     new_len = len(release)
     while new_len > 1 and release[new_len - 1] == 0:
@@ -271,7 +272,7 @@ def add_percentages(rows: Rows, include_sign: bool = True) -> Rows:
     return rows
 
 
-def get_download_total(rows: Rows) -> Tuple[int, int]:
+def get_download_total(rows: Rows) -> tuple[int, int]:
     """Return the total downloads, and the downloads column"""
     headers = rows.pop(0)
     index = headers.index('download_count')
@@ -341,13 +342,13 @@ def tabulate(rows: Rows, markdown: bool = False) -> str:
     return tabulated
 
 
-def format_json(rows: Rows, query_info: Dict[str, Any], indent: Optional[int]) -> str:
+def format_json(rows: Rows, query_info: dict[str, Any], indent: Optional[int]) -> str:
     headers, *_data = rows
-    data: List[Any] = _data
-    items: List[Dict[str, Any]] = []
+    data: list[Any] = _data
+    items: list[dict[str, Any]] = []
 
     for d in data:
-        item: Dict[str, Any] = {}
+        item: dict[str, Any] = {}
         for i in range(len(headers)):
             if d[i].isdigit():
                 d[i] = int(d[i])

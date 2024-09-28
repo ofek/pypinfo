@@ -1,5 +1,4 @@
 from decimal import ROUND_UP, Decimal
-from typing import List
 
 import click
 from binary import TEBIBYTE, convert_units
@@ -102,7 +101,7 @@ TO_CENTS = Decimal('0.00')
 def pypinfo(
     ctx: click.Context,
     project: str,
-    fields: List[str],
+    fields: list[str],
     auth: str,
     run: bool,
     json: bool,

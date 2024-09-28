@@ -2,8 +2,12 @@ name: Test
 
 on: [push, pull_request, workflow_dispatch]
 
+permissions:
+  contents: read
+
 env:
   FORCE_COLOR: 1
+  PIP_DISABLE_PIP_VERSION_CHECK: 1
 
 jobs:
   test:
@@ -11,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     steps:
@@ -22,6 +26,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         cache: pip
+        allow-prereleases: true
 
     - name: Install dependencies
       run: |
