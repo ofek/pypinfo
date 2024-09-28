@@ -1,6 +1,7 @@
 import contextlib
 import os
-from typing import Iterator, Optional
+from typing import Optional
+from collections.abc import Iterator
 
 from platformdirs import user_data_dir
 from tinydb import TinyDB, Query, where

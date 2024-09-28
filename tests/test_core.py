@@ -1,5 +1,6 @@
 from freezegun import freeze_time
-from typing import Any, Iterator, List, Tuple
+from typing import Any
+from collections.abc import Iterator
 import copy
 import pytest
 import re
@@ -172,7 +173,7 @@ LIMIT 100
 def test_build_query_specifier() -> None:
     # pypinfo -sd -2 -ed -1 -l 20  --test 'foo==1'
     project = "foo==1"
-    all_fields: List[Field] = []
+    all_fields: list[Field] = []
     start_date = "-2"
     end_date = "-1"
     days = None
@@ -273,7 +274,7 @@ LIMIT 10
 def test_build_query_no_project() -> None:
     # pypinfo -sd -2 -ed -1 -l 20 --all --test ''
     project = ""
-    all_fields: List[Field] = []
+    all_fields: list[Field] = []
     start_date = "-2"
     end_date = "-1"
     days = None
@@ -508,7 +509,7 @@ def test_format_json() -> None:
 
 
 def test_parse_query_result() -> None:
-    data: List[Tuple[Any, ...]] = [
+    data: list[tuple[Any, ...]] = [
         ("name", "other"),
         ("name1", 1),
         ("name2", 2),
@@ -523,7 +524,7 @@ def test_parse_query_result() -> None:
         def __init__(self) -> None:
             super().__init__(None, None, None, schema)
 
-        def __iter__(self) -> Iterator[Tuple[Any, ...]]:
+        def __iter__(self) -> Iterator[tuple[Any, ...]]:
             return iter(data[1:])
 
     actual = core.parse_query_result(MockRowIterator())
