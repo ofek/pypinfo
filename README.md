@@ -23,36 +23,37 @@ pypinfo is a simple CLI to access [PyPI](https://pypi.org/) download statistics 
 ```console
 $ pypinfo
 Usage: pypinfo [OPTIONS] [PROJECT] [FIELDS]... COMMAND [ARGS]...
-        
-    Valid fields are:
 
-    project | version | file | pyversion | percent3 | percent2 | impl | impl-version |
-  
-    openssl | date | month | year | country | installer | installer-version |
-  
-    setuptools-version | system | system-release | distro | distro-version | cpu |
+  Valid fields are:
 
-    libc | libc-version
-    
+  project | version | file | pyversion | percent3 | percent2 | impl | impl-version |
+
+  openssl | date | month | year | country | installer | installer-version |
+
+  setuptools-version | system | system-release | distro | distro-version | ci | cpu |
+
+  libc | libc-version
+
 Options:
-    -a, --auth TEXT         Path to Google credentials JSON file.
-    --run / --test          --test simply prints the query.
-    -j, --json              Print data as JSON, with keys `rows` and `query`.
-    -i, --indent INTEGER    JSON indentation level.
-    -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
-    -l, --limit INTEGER        Maximum number of query results. Default: 10
-    -d, --days INTEGER         Number of days in the past to include. Default: 30
-    -sd, --start-date TEXT  Must be negative or YYYY-MM[-DD]. Default: -31
-    -ed, --end-date TEXT    Must be negative or YYYY-MM[-DD]. Default: -1
-    -m, --month TEXT        Shortcut for -sd & -ed for a single YYYY-MM month.
-    -w, --where TEXT        WHERE conditional. Default: file.project = "project"
-    -o, --order TEXT        Field to order by. Default: download_count
-    --all                   Show downloads by all installers, not only pip.
-    -pc, --percent          Print percentages.
-    -md, --markdown         Output as Markdown.
-    -v, --verbose           Print debug messages to stderr.
-    --version               Show the version and exit.
-    -h, --help              Show this message and exit.
+  -a, --auth TEXT         Path to Google credentials JSON file.
+  --run / --test          --test simply prints the query.
+  -n, --dry-run           Don't run query but display how much data would be processed.
+  -j, --json              Print data as JSON, with keys `rows` and `query`.
+  -i, --indent INTEGER    JSON indentation level.
+  -t, --timeout INTEGER   Milliseconds. Default: 120000 (2 minutes)
+  -l, --limit INTEGER     Maximum number of query results. Default: 10
+  -d, --days INTEGER      Number of days in the past to include. Default: 30
+  -sd, --start-date TEXT  Must be negative or YYYY-MM[-DD]. Default: -31
+  -ed, --end-date TEXT    Must be negative or YYYY-MM[-DD]. Default: -1
+  -m, --month TEXT        Shortcut for -sd & -ed for a single YYYY-MM month.
+  -w, --where TEXT        WHERE conditional. Default: file.project = "project"
+  -o, --order TEXT        Field to order by. Default: download_count
+  --all                   Show downloads by all installers, not only pip.
+  -pc, --percent          Print percentages.
+  -md, --markdown         Output as Markdown.
+  -v, --verbose           Print debug messages to stderr.
+  --version               Show the version and exit.
+  -h, --help              Show this message and exit.
 ```
 
 pypinfo accepts 0 or more options, followed by exactly 1 project, followed by

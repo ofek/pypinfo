@@ -26,9 +26,12 @@ DEFAULT_LIMIT = 10
 Rows = list[list[str]]
 
 
-def create_config() -> QueryJobConfig:
+def create_config(dry_run: bool = False) -> QueryJobConfig:
     config = QueryJobConfig()
     config.use_legacy_sql = False
+    if dry_run:
+        config.dry_run = True
+        config.use_query_cache = False
     return config
 
 
