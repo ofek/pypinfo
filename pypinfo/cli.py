@@ -82,6 +82,7 @@ TO_CENTS = Decimal('0.00')
 @click.argument('fields', nargs=-1, required=False)
 @click.option('--auth', '-a', help='Path to Google credentials JSON file.')
 @click.option('--run/--test', default=True, help='--test simply prints the query.')
+@click.option('--dry-run', '-n', is_flag=True, help="Don't run query but display how much data would be processed.")
 @click.option('--json', '-j', is_flag=True, help='Print data as JSON, with keys `rows` and `query`.')
 @click.option('--indent', '-i', type=int, help='JSON indentation level.')
 @click.option('--timeout', '-t', type=int, default=120000, help='Milliseconds. Default: 120000 (2 minutes)')
@@ -104,6 +105,7 @@ def pypinfo(
     fields: list[str],
     auth: str,
     run: bool,
+    dry_run: bool,
     json: bool,
     indent: int,
     timeout: int,
@@ -167,7 +169,7 @@ def pypinfo(
 
     if run:
         with create_client(get_credentials()) as client:
-            query_job = client.query(built_query, job_config=create_config())
+            query_job = client.query(built_query, job_config=create_config(dry_run))
             query_rows = query_job.result(timeout=timeout // 1000)
             rows = parse_query_result(query_rows)
 
@@ -187,12 +189,12 @@ def pypinfo(
         estimated_cost = Decimal(TIER_COST * billing_tier) / TB * Decimal(bytes_billed)
         estimated_cost_str = str(estimated_cost.quantize(TO_CENTS, rounding=ROUND_UP))
 
-        if len(rows) == 1 and not json:
+        if len(rows) == 1 and not json and not dry_run:
             # Only headers returned
             click.echo("No data returned, check project name")
             return
 
-        if percent:
+        if percent and not dry_run:
             rows = add_percentages(rows, include_sign=not json)
 
         # Only for tables, and if more than the header row + a single data row
@@ -205,8 +207,9 @@ def pypinfo(
             click.echo(f'Data billed: {billed_amount:.2f} {billed_unit}')
             click.echo(f'Estimated cost: ${estimated_cost_str}')
 
-            click.echo()
-            click.echo(tabulate(rows, markdown))
+            if not dry_run:
+                click.echo()
+                click.echo(tabulate(rows, markdown))
         else:
             query_info = {
                 'cached': from_cache,

@@ -33,7 +33,17 @@ def test_create_config() -> None:
     config = core.create_config()
 
     # Assert
+    assert not config.dry_run
     assert not config.use_legacy_sql
+
+
+def test_create_config_dry_run() -> None:
+    # Act
+    config = core.create_config(dry_run=True)
+
+    # Assert
+    assert config.dry_run
+    assert not config.use_query_cache
 
 
 def test_normalize_dates_yyy_mm() -> None:
